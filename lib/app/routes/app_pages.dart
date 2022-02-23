@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import '../modules/applied/bindings/applied_binding.dart';
+import '../modules/applied/views/applied_view.dart';
 import '../modules/applyforrent/bindings/applyforrent_binding.dart';
 import '../modules/applyforrent/views/applyforrent_view.dart';
 import '../modules/bookmarks/bindings/bookmarks_binding.dart';
@@ -78,6 +80,11 @@ class AppPages {
       name: _Paths.CHAT,
       page: () => ChatView(),
       binding: ChatBinding(),
+    ),
+    GetPage(
+      name: _Paths.APPLIED,
+      page: () => AppliedView(),
+      binding: AppliedBinding(),
     ),
   ];
 }

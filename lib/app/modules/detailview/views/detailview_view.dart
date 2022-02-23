@@ -3,7 +3,7 @@ import 'package:findhome/app/theme/theme.dart';
 import 'package:findhome/app/widgets/custom_primary_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
+import 'package:url_launcher/url_launcher.dart';
 import 'package:get/get.dart';
 
 import '../controllers/detailview_controller.dart';
@@ -11,19 +11,6 @@ import '../controllers/detailview_controller.dart';
 class DetailviewView extends GetView<DetailviewController> {
   final DetailviewController _detailViewController =
       Get.put(DetailviewController());
-
-  static const item = {
-    "title": "Vishwanand House", //22
-    "city": "Bhopal",
-    "no_of_bedrooms": 2,
-    "no_of_bathrooms": 2,
-    "rate": 1200,
-    "address":
-        "The 3 level house that has a modern design, has affff large pool and at fits uur cars... ",
-    "owner_name": "Albert Einstein",
-    "description":
-        "The 3 level house that has a modern design, has affff large pool and at fits uur cars"
-  };
 
   @override
   Widget build(BuildContext context) {
@@ -46,16 +33,12 @@ class DetailviewView extends GetView<DetailviewController> {
                       borderRadius: BorderRadius.circular(20),
                       image: DecorationImage(
                           image: CachedNetworkImageProvider(
-                                  "http://192.168.105.69:8000" +
-                                      _detailViewController
-                                              .data["main_image"]
-                                  ),
+                              "http://192.168.105.69:8000" +
+                                  _detailViewController.data["main_image"]),
                           fit: BoxFit.cover,
                           colorFilter: ColorFilter.mode(
                               Colors.black.withOpacity(0.4),
-                              BlendMode.dstATop)
-                            )
-                  ),
+                              BlendMode.dstATop))),
                   // child: ClipRRect(borderRadius: BorderRadius.circular(20),child:)
                 ),
                 Positioned(
@@ -66,15 +49,14 @@ class DetailviewView extends GetView<DetailviewController> {
                       child: Row(
                         children: [
                           GestureDetector(
-                            onTap:()=>Get.back(),
+                            onTap: () => Get.back(),
                             child: Container(
                                 padding: EdgeInsets.all(7),
                                 decoration: BoxDecoration(
                                     color: Colors.white.withOpacity(0.2),
                                     borderRadius: BorderRadius.circular(25)),
                                 child: Icon(Icons.arrow_back_ios_new_outlined,
-                                    color: primary)
-                            ),
+                                    color: primary)),
                           ),
                           Expanded(
                             child: Align(
@@ -99,7 +81,8 @@ class DetailviewView extends GetView<DetailviewController> {
                     children: [
                       SizedBox(
                         width: 150,
-                        child: Text(_detailViewController.data["title"] as String,
+                        child: Text(
+                            _detailViewController.data["title"] as String,
                             style: regular18pt.copyWith(
                                 fontWeight: FontWeight.w800)),
                       ),
@@ -112,7 +95,9 @@ class DetailviewView extends GetView<DetailviewController> {
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(20),
                                 color: Color(0xFF2D6DF6)),
-                            child: Text("Rs " + _detailViewController.data["price"].toString() + "/M"),
+                            child: Text("Rs " +
+                                _detailViewController.data["price"].toString() +
+                                "/M"),
                           ),
                         ),
                       )
@@ -134,7 +119,8 @@ class DetailviewView extends GetView<DetailviewController> {
                         ),
                         SizedBox(
                           width: 200,
-                          child: Text(_detailViewController.data["city"] as String,
+                          child: Text(
+                              _detailViewController.data["city"] as String,
                               style: regular14pt.copyWith(
                                   color: primary.withOpacity(0.6))),
                         ),
@@ -162,7 +148,10 @@ class DetailviewView extends GetView<DetailviewController> {
                                   height: 20,
                                 )),
                             SizedBox(width: 11.76),
-                            Text(_detailViewController.data["number_of_bedrooms"].toString() + " Bedroom",
+                            Text(
+                                _detailViewController.data["number_of_bedrooms"]
+                                        .toString() +
+                                    " Bedroom",
                                 style: regular12pt),
                           ],
                         ),
@@ -183,7 +172,9 @@ class DetailviewView extends GetView<DetailviewController> {
                                   )),
                               SizedBox(width: 11.76),
                               Text(
-                                  _detailViewController.data["number_of_bathrooms"].toString() +
+                                  _detailViewController
+                                          .data["number_of_bathrooms"]
+                                          .toString() +
                                       " Bathroom",
                                   style: regular12pt),
                             ],
@@ -224,7 +215,9 @@ class DetailviewView extends GetView<DetailviewController> {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(_detailViewController.data["owner_name"] as String,
+                            Text(
+                                _detailViewController.data["owner_name"]
+                                    as String,
                                 style: regular16pt.copyWith(
                                   fontWeight: FontWeight.w800,
                                 )),
@@ -238,12 +231,20 @@ class DetailviewView extends GetView<DetailviewController> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
-                              Container(
-                                  padding: EdgeInsets.all(7),
-                                  decoration: BoxDecoration(
-                                      color: accent,
-                                      borderRadius: BorderRadius.circular(25)),
-                                  child: Icon(Icons.call, color: primary)),
+                              GestureDetector(
+                                onTap: () {
+                                  launch("tel:+91" +
+                                      _detailViewController.data["phone_number"]
+                                          .toString());
+                                },
+                                child: Container(
+                                    padding: EdgeInsets.all(7),
+                                    decoration: BoxDecoration(
+                                        color: accent,
+                                        borderRadius:
+                                            BorderRadius.circular(25)),
+                                    child: Icon(Icons.call, color: primary)),
+                              ),
                               SizedBox(width: 17),
                               Container(
                                   padding: EdgeInsets.all(7),
@@ -300,25 +301,32 @@ class DetailviewView extends GetView<DetailviewController> {
                               fit: BoxFit.cover,
                             )),
                         SizedBox(width: 16),
-                        Container(
-                          width: 75,
-                          height: 75,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(12),
-                              image: DecorationImage(
-                                  image: AssetImage("assets/images/house1.png"),
-                                  fit: BoxFit.cover,
-                                  colorFilter: ColorFilter.mode(
-                                      Colors.black.withOpacity(0.4),
-                                      BlendMode.dstATop))),
-                          child: Align(
-                              alignment: Alignment.center,
-                              child: Text(
-                                "+5",
-                                style: regular18pt.copyWith(
-                                    fontWeight: FontWeight.w400),
-                              )),
-                        ),
+                        _detailViewController.data["images"].length > 1?
+                          GestureDetector(
+                            onTap: () {
+                              print(_detailViewController.data["images"]);
+                            },
+                            child: Container(
+                              width: 75,
+                              height: 75,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(12),
+                                  image: DecorationImage(
+                                      image:
+                                          AssetImage("assets/images/house1.png"),
+                                      fit: BoxFit.cover,
+                                      colorFilter: ColorFilter.mode(
+                                          Colors.black.withOpacity(0.4),
+                                          BlendMode.dstATop))),
+                              child: Align(
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    "See All",
+                                    style: regular14pt.copyWith(
+                                        fontWeight: FontWeight.w400),
+                                  )),
+                            ),
+                          ):SizedBox()
                       ],
                     ),
                     SizedBox(

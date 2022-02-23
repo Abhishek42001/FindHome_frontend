@@ -106,13 +106,12 @@ class ApplyforrentView extends GetView<ApplyforrentController> {
                                   alignment: Alignment.center))
                         ],
                       ),
-                       SizedBox(height: 23),
+                       SizedBox(height: 27),
                       // Padding(
                       //   padding: const EdgeInsets.only(left:11.0),
                       //   child: Text("Please Fill These Details To Apply",
                       //       style: regular16pt),
                       // ),
-                      SizedBox(height: 23),
                       Padding(
                         padding: const EdgeInsets.only(left:11.0),
                         child: Text("Owner Name*"),

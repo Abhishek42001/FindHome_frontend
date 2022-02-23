@@ -13,6 +13,7 @@ abstract class Routes {
   static const APPLYFORRENT = _Paths.APPLYFORRENT;
   static const CHAT = _Paths.CHAT;
   static const NEWUSERDETAIILS = _Paths.NEWUSERDETAIILS;
+  static const APPLIED = _Paths.APPLIED;
 }
 
 abstract class _Paths {
@@ -27,4 +28,5 @@ abstract class _Paths {
   static const APPLYFORRENT = '/applyforrent';
   static const CHAT = '/chat';
   static const NEWUSERDETAIILS = '/newuserdetaiils';
+  static const APPLIED = '/applied';
 }

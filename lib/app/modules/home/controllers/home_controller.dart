@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
@@ -46,9 +45,7 @@ class HomeController extends GetxController {
     try {
       var url = 'http://192.168.105.69:8000/applied';
       var response = await dio.get(url);
-      // print('Response status: ${response.statusCode}');
-      // print('Response body: ${response.data}');
-      //print(response.data['data']);
+
       data.value = response.data['data'];
       isLoading.value = false;
       print(data);

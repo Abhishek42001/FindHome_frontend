@@ -92,6 +92,10 @@ ListView drawer(value) {
         title: Text("Messages", style: regular18pt),
       ),
       ListTile(
+        onTap:(){
+          Get.back();
+          Get.toNamed("/applied");
+        },
         selected: drawerSelection == DrawerSelection.applied,
         leading: SvgPicture.asset("assets/images/applied.svg",
             color: primary, fit: BoxFit.scaleDown),

@@ -250,7 +250,8 @@ class HomeView extends GetView<HomeController> {
                           _homeController.data[index]['main_image']),
                   fit: BoxFit.cover,
                   colorFilter: ColorFilter.mode(
-                      Colors.black.withOpacity(0.4), BlendMode.dstATop))),
+                      Colors.black.withOpacity(0.4), BlendMode.dstATop))
+          ),
           // child: ClipRRect(borderRadius: BorderRadius.circular(20),child:)
         ),
         Positioned(
@@ -261,7 +262,7 @@ class HomeView extends GetView<HomeController> {
             children: [
               SizedBox(
                 width: 150,
-                child: Text(_homeController.data[index]["title"] as String,
+                child: Text(_homeController.data[index]["title"],
                     style: regular18pt.copyWith(fontWeight: FontWeight.w800)),
               ),
               Expanded(
