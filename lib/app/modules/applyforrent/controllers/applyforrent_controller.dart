@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:dio/dio.dart' as dio;
+import 'package:findhome/app/modules/home/controllers/home_controller.dart';
 import 'package:findhome/app/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -89,6 +90,8 @@ class ApplyforrentController extends GetxController {
       cityController.clear();
       imagefile.value = "";
       images.value = [];
+      final indexCtrl= Get.find<HomeController>();
+      indexCtrl.getAllApplied();
       Get.back();
 
       Get.toNamed("/home");

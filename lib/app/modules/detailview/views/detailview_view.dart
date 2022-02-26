@@ -15,7 +15,7 @@ class DetailviewView extends GetView<DetailviewController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: SafeArea(
+      body: SafeArea(
       child: Container(
         decoration: BoxDecoration(color: backgroundcolor),
         child: Padding(
@@ -281,54 +281,7 @@ class DetailviewView extends GetView<DetailviewController> {
                     SizedBox(
                       height: 10,
                     ),
-                    Row(
-                      children: [
-                        ClipRRect(
-                            borderRadius: BorderRadius.circular(12),
-                            child: Image.asset(
-                              "assets/images/house1.png",
-                              width: 75,
-                              height: 75,
-                              fit: BoxFit.cover,
-                            )),
-                        SizedBox(width: 16),
-                        ClipRRect(
-                            borderRadius: BorderRadius.circular(12),
-                            child: Image.asset(
-                              "assets/images/house1.png",
-                              width: 75,
-                              height: 75,
-                              fit: BoxFit.cover,
-                            )),
-                        SizedBox(width: 16),
-                        _detailViewController.data["images"].length > 1?
-                          GestureDetector(
-                            onTap: () {
-                              print(_detailViewController.data["images"]);
-                            },
-                            child: Container(
-                              width: 75,
-                              height: 75,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(12),
-                                  image: DecorationImage(
-                                      image:
-                                          AssetImage("assets/images/house1.png"),
-                                      fit: BoxFit.cover,
-                                      colorFilter: ColorFilter.mode(
-                                          Colors.black.withOpacity(0.4),
-                                          BlendMode.dstATop))),
-                              child: Align(
-                                  alignment: Alignment.center,
-                                  child: Text(
-                                    "See All",
-                                    style: regular14pt.copyWith(
-                                        fontWeight: FontWeight.w400),
-                                  )),
-                            ),
-                          ):SizedBox()
-                      ],
-                    ),
+                    gallery(),
                     SizedBox(
                       height: 23,
                     ),
@@ -343,5 +296,94 @@ class DetailviewView extends GetView<DetailviewController> {
         ),
       ),
     ));
+  }
+
+  Row gallery() {
+    if(_detailViewController.data["images"].length == 1){
+      return Row(
+        children:[ 
+            Container(
+             width: 75,
+             height: 75,
+             decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12),
+                image: DecorationImage(
+                      image: CachedNetworkImageProvider(
+                        "http://192.168.105.69:8000" +
+                            _detailViewController.data['images'][0]['images']
+                      ),
+                     fit: BoxFit.cover,
+                )),
+        ), ]
+      );
+    }
+    else if(_detailViewController.data["images"].length >1) {
+
+      return Row(
+        // onTap: () {
+        //   Get.toNamed("/galleryview",
+        //       arguments: _detailViewController.data
+        //   );
+        // },
+        children: [
+            GestureDetector(
+              onTap: () {
+                //print(_detailViewController.data['images'][0]['images']);
+                Get.toNamed("/photogallery",arguments: [{"images":_detailViewController.data['images'][0]['images']}]);
+              },
+              child: Container(
+                 width: 75,
+                 height: 75,
+                 decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12),
+                    image: DecorationImage(
+                          image: CachedNetworkImageProvider(
+                            "http://192.168.105.69:8000" +
+                                _detailViewController.data['images'][0]['images']
+                          ),
+                         fit: BoxFit.cover,
+                        )),
+                      ),
+            ),
+          SizedBox(width:16),
+          GestureDetector(
+            onTap: () {
+              Get.toNamed("/galleryview",
+                    arguments: _detailViewController.data
+                );
+              },
+            child: Container(
+            width: 75,
+            height: 75,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12),
+                image: DecorationImage(
+                    image: CachedNetworkImageProvider(
+                            "http://192.168.105.69:8000" +
+                          _detailViewController.data['images'][1]['images']
+                    ),
+                    fit: BoxFit.cover,
+                    colorFilter: ColorFilter.mode(
+                        Colors.black.withOpacity(0.8),
+                        BlendMode.dstATop))),
+            child: Align(
+                alignment: Alignment.center,
+                child: Text(
+                  "See All",
+                  style: regular14pt.copyWith(
+                      fontWeight: FontWeight.w400),
+                )),
+                  ),
+          )
+        ],
+      );
+    }
+    else{
+      return Row(
+        children:[
+
+        ]
+      );
+    }
   }
 }

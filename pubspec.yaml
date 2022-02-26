@@ -25,6 +25,10 @@ dependencies:
   geocoding: ^2.0.2
   permission_handler: ^9.1.0
   url_launcher: ^6.0.20
+  photo_view:
+    git:
+      url: https://github.com/bluefireteam/photo_view
+      ref: 8156907eecfa812b181a5a729d790f6d399f311b
 
 dev_dependencies: 
   flutter_lints: ^1.0.0

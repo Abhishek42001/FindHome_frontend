@@ -12,6 +12,8 @@ import '../modules/chooselocation/bindings/chooselocation_binding.dart';
 import '../modules/chooselocation/views/chooselocation_view.dart';
 import '../modules/detailview/bindings/detailview_binding.dart';
 import '../modules/detailview/views/detailview_view.dart';
+import '../modules/galleryview/bindings/galleryview_binding.dart';
+import '../modules/galleryview/views/galleryview_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/login/bindings/login_binding.dart';
@@ -20,6 +22,8 @@ import '../modules/newuserdetail/bindings/newuserdetail_binding.dart';
 import '../modules/newuserdetail/views/newuserdetail_view.dart';
 import '../modules/otp/bindings/otp_binding.dart';
 import '../modules/otp/views/otp_view.dart';
+import '../modules/photogallery/bindings/photogallery_binding.dart';
+import '../modules/photogallery/views/photogallery_view.dart';
 
 part 'app_routes.dart';
 
@@ -85,6 +89,16 @@ class AppPages {
       name: _Paths.APPLIED,
       page: () => AppliedView(),
       binding: AppliedBinding(),
+    ),
+    GetPage(
+      name: _Paths.GALLERYVIEW,
+      page: () => GalleryviewView(),
+      binding: GalleryviewBinding(),
+    ),
+    GetPage(
+      name: _Paths.PHOTOGALLERY,
+      page: () => PhotogalleryView(),
+      binding: PhotogalleryBinding(),
     ),
   ];
 }

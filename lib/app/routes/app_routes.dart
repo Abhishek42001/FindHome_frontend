@@ -14,6 +14,8 @@ abstract class Routes {
   static const CHAT = _Paths.CHAT;
   static const NEWUSERDETAIILS = _Paths.NEWUSERDETAIILS;
   static const APPLIED = _Paths.APPLIED;
+  static const GALLERYVIEW = _Paths.GALLERYVIEW;
+  static const PHOTOGALLERY = _Paths.PHOTOGALLERY;
 }
 
 abstract class _Paths {
@@ -29,4 +31,6 @@ abstract class _Paths {
   static const CHAT = '/chat';
   static const NEWUSERDETAIILS = '/newuserdetaiils';
   static const APPLIED = '/applied';
+  static const GALLERYVIEW = '/galleryview';
+  static const PHOTOGALLERY = '/photogallery';
 }

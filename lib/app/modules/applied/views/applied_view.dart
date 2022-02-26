@@ -4,6 +4,7 @@ import 'package:findhome/app/widgets/custom_searchbar.dart';
 import 'package:findhome/app/widgets/drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:findhome/app/theme/theme.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:get/get.dart';
@@ -13,9 +14,26 @@ import '../controllers/applied_controller.dart';
 class AppliedView extends GetView<AppliedController> {
   AppliedController appliedController = Get.put(AppliedController());
   
+  
+
 
   @override
   Widget build(BuildContext context) {
+    Widget cancelButton = TextButton(
+      child: Text("Cancel"),
+      onPressed:  () {
+        Navigator.of(context).pop(); 
+      },
+    );
+  
+    Widget deleteButton (index)=> TextButton(
+      child: Text("Delete"),
+      onPressed:  () {
+        appliedController.delete(index);
+        Navigator.of(context).pop(); 
+      },
+    );
+
     double height = MediaQuery.of(context).size.height;
     var padding = MediaQuery.of(context).padding;
     double newheight = height - padding.top - padding.bottom;
@@ -157,7 +175,25 @@ class AppliedView extends GetView<AppliedController> {
                                                             children:[
                                                               Text("Edit",style:regular14pt.copyWith(color:accent)),
                                                               SizedBox(width:37),
-                                                              Text("Delete",style:regular14pt.copyWith(color:accent))
+                                                              GestureDetector(
+                                                                onTap: (){
+                                                                  showDialog(
+                                                                    context: context,
+                                                                    builder: (BuildContext context) {
+                                                                      return AlertDialog(
+                                                                        backgroundColor:primary,
+                                                                        title: Text("Confirmation",style:regular16pt),
+                                                                        content: Text("Are You Sure?",style:regular14pt),
+                                                                        actions: [
+                                                                          cancelButton,
+                                                                          deleteButton(appliedController.data[index]['id']),
+                                                                        ],
+                                                                      );
+                                                                    },
+                                                                  );
+                                                                },
+                                                                child: Text("Delete",style:regular14pt.copyWith(color:accent))
+                                                              )
                                                             ]
                                                           )
                                                         ]
