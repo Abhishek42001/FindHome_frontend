@@ -19,14 +19,28 @@ class OtpController extends GetxController {
       await getStorage.write(
           'isnew', authCredential.additionalUserInfo!.isNewUser);
       pinPutController.clear();
+      Get.showSnackbar(
+        GetSnackBar(
+          duration: Duration(seconds: 2),
+          message:"Verified...",
+          isDismissible: true,
+        ),
+      );
       if (authCredential.additionalUserInfo!.isNewUser) {
-        Get.offAndToNamed("/newuserdetail");
+        Get.offAllNamed("/newuserdetail");
       } else {
-        Get.offAndToNamed("/chooselocation");
+        Get.offAllNamed("/chooselocation");
       }
     }
     // ignore: empty_catches
     catch (e) {
+      Get.showSnackbar(
+        GetSnackBar(
+          duration: Duration(seconds: 2),
+          message: e.toString(),
+          isDismissible: true,
+        ),
+      );
       print(e);
     }
   }

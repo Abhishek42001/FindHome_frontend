@@ -39,7 +39,7 @@ class AppliedView extends GetView<AppliedController> {
     double newheight = height - padding.top - padding.bottom;
     return Scaffold(
         drawer: SizedBox(
-          width: 210,
+          width: 220,
           child: Drawer(
             backgroundColor: drawerColor,
             child: drawer("applied"),
@@ -132,6 +132,7 @@ class AppliedView extends GetView<AppliedController> {
                                                   ),
                                                   child:DecoratedBox(
                                                     decoration: BoxDecoration(
+                                                      border:Border.all(width:1,color:primary.withOpacity(0.6)),
                                                       borderRadius: BorderRadius.circular(12),
                                                       image: DecorationImage(
                                                           image: CachedNetworkImageProvider(

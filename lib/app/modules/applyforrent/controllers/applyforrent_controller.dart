@@ -90,8 +90,10 @@ class ApplyforrentController extends GetxController {
       cityController.clear();
       imagefile.value = "";
       images.value = [];
-      final indexCtrl= Get.find<HomeController>();
-      indexCtrl.getAllApplied();
+      if(Get.isRegistered<HomeController>()){
+        final indexCtrl= Get.find<HomeController>();
+        indexCtrl.getAllApplied();
+      }
       Get.back();
 
       Get.toNamed("/home");

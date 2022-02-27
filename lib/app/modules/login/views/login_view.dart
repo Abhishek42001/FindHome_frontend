@@ -44,14 +44,14 @@ class LoginView extends GetView<LoginController> {
                 children: [
                   Expanded(
                       child: Divider(
-                          color: primary.withOpacity(0.5), endIndent: 11)),
+                          color: primary.withOpacity(0.7), endIndent: 11)),
                   Text(
                     "Login Or Signup",
                     style: semibold16.copyWith(color: primary),
                   ),
                   Expanded(
                       child:
-                          Divider(color: primary.withOpacity(0.5), indent: 11))
+                          Divider(color: primary.withOpacity(0.7), indent: 11))
                 ],
               ),
               SizedBox(
@@ -92,7 +92,7 @@ class LoginView extends GetView<LoginController> {
                           ],
                         )
                     );
-                    logincontroller.authenticate();
+                    logincontroller.phoneauthentication();
                   }),
               SizedBox(
                 height: 23,
@@ -101,14 +101,14 @@ class LoginView extends GetView<LoginController> {
                 children: [
                   Expanded(
                       child: Divider(
-                          color: primary.withOpacity(0.5), endIndent: 11)),
+                          color: primary.withOpacity(0.7), endIndent: 11)),
                   Text(
                     "OR",
                     style: semibold16.copyWith(color: primary),
                   ),
                   Expanded(
                       child:
-                          Divider(color: primary.withOpacity(0.5), indent: 11))
+                          Divider(color: primary.withOpacity(0.7), indent: 11))
                 ],
               ),
               SizedBox(height: 23),
@@ -117,9 +117,32 @@ class LoginView extends GetView<LoginController> {
                 child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      SvgPicture.asset("assets/images/google.svg"),
-                      SvgPicture.asset("assets/images/facebook.svg"),
-                      SvgPicture.asset("assets/images/mail.svg")
+                      GestureDetector(
+                        onTap: (){
+                          logincontroller.signInWithGoogle();
+                        },
+                        child: Column(
+                          children: [
+                            SvgPicture.asset("assets/images/google.svg"),
+                            SizedBox(height:10),
+                            Text("Google",style:regular12pt)
+                          ],
+                        )
+                      ),
+                      Column(
+                        children: [
+                          SvgPicture.asset("assets/images/facebook.svg"),
+                          SizedBox(height:10),
+                          Text("facebook",style:regular12pt)
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          SvgPicture.asset("assets/images/mail.svg"),
+                          SizedBox(height:10),
+                          Text("Other",style:regular12pt)
+                        ],
+                      )
                     ]),
               )
             ],

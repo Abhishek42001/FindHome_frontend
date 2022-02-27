@@ -66,8 +66,10 @@ class AppliedController extends GetxController {
         ),
       );
       getApplied();
-      final indexCtrl= Get.find<HomeController>();
-      indexCtrl.getAllApplied();
+      if(Get.isRegistered<HomeController>()){
+        final indexCtrl= Get.find<HomeController>();
+        indexCtrl.getAllApplied();
+      }
     } catch (e) {
       Get.showSnackbar(
         GetSnackBar(

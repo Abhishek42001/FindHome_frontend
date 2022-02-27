@@ -25,7 +25,7 @@ class HomeView extends GetView<HomeController> {
           borderRadius: BorderRadius.circular(12),
           border: Border.all(
               color: primary,
-              width: _homeController.type.value != name ? 0.5 : 0)),
+              width: _homeController.type.value != name ? 1 : 0)),
       child: Text(
         name,
         textAlign: TextAlign.center,
@@ -38,7 +38,7 @@ class HomeView extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return Scaffold(
         drawer: SizedBox(
-          width: 210,
+          width: 220,
           child: Drawer(
             backgroundColor: drawerColor,
             child: drawer("home"),
@@ -236,54 +236,56 @@ class HomeView extends GetView<HomeController> {
         ));
   }
 
-  Stack allItems(int index, BuildContext context) {
-    return Stack(
-      children: [
-        Container(
-          width: double.infinity,
-          height: 240,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              image: DecorationImage(
-                  image: CachedNetworkImageProvider(
-                      "http://192.168.105.69:8000" +
-                          _homeController.data[index]['main_image']),
-                  fit: BoxFit.cover,
-                  colorFilter: ColorFilter.mode(
-                      Colors.black.withOpacity(0.4), BlendMode.dstATop))
-          ),
-          // child: ClipRRect(borderRadius: BorderRadius.circular(20),child:)
-        ),
-        Positioned(
-          width: MediaQuery.of(context).size.width - 102,
-          left: 21,
-          bottom: 85,
-          child: Row(
-            children: [
-              SizedBox(
-                width: 150,
-                child: Text(_homeController.data[index]["title"],
-                    style: regular18pt.copyWith(fontWeight: FontWeight.w800)),
-              ),
-              Expanded(
-                child: Align(
-                  alignment: Alignment.centerRight,
-                  child: Container(
-                    padding: EdgeInsets.only(
-                        left: 14, right: 14, top: 10, bottom: 10),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: Color(0xFF2D6DF6)),
-                    child: Text("Rs " +
-                        _homeController.data[index]["price"].toString() +
-                        "/M"),
-                  ),
+  Container allItems(int index, BuildContext context) {
+    return Container(
+      width: double.infinity,
+      height: 240,
+      decoration: BoxDecoration(
+          border:Border.all(width:1,color:primary.withOpacity(0.6)),
+          borderRadius: BorderRadius.circular(20),
+          image: DecorationImage(
+              image: CachedNetworkImageProvider(
+                  "http://192.168.105.69:8000" +
+                      _homeController.data[index]['main_image']),
+              fit: BoxFit.cover,
+              colorFilter: ColorFilter.mode(
+                  Colors.black.withOpacity(0.4), BlendMode.dstATop))
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children:[
+          Container(
+            width: MediaQuery.of(context).size.width - 115,
+            // left: 21,
+            // bottom: 85,
+            child: Row(
+              children: [
+                Container(
+                  width: 140,
+                  child: Text(_homeController.data[index]["title"],
+                      style: regular18pt.copyWith(fontWeight: FontWeight.w800)),
                 ),
-              )
-            ],
+                Expanded(
+                  child: Align(
+                    alignment: Alignment.centerRight,
+                    child: Container(
+                      padding: EdgeInsets.only(
+                          left: 14, right: 14, top: 10, bottom: 10),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: Color(0xFF2D6DF6)),
+                      child: Text("Rs " +
+                          _homeController.data[index]["price"].toString()+
+                          "/M"),
+                    ),
+                  ),
+                )
+              ],
+            ),
           ),
-        ),
-        Positioned(
+          SizedBox(height:5),
+          Container(
+            width: MediaQuery.of(context).size.width - 102,
             child: Row(
               children: [
                 Icon(
@@ -295,12 +297,14 @@ class HomeView extends GetView<HomeController> {
                         regular14pt.copyWith(color: primary.withOpacity(0.6))),
               ],
             ),
-            left: 21,
-            bottom: 60),
-        Positioned(
+                //left: 21,
+                //bottom: 60
+          ),
+          SizedBox(height:13),
+          Container(
             width: MediaQuery.of(context).size.width - 102,
-            left: 21,
-            bottom: 15,
+            // left: 21,
+            // bottom: 15,
             child: Row(
               children: [
                 Row(
@@ -347,8 +351,11 @@ class HomeView extends GetView<HomeController> {
                   ),
                 )
               ],
-            ))
-      ],
+            )
+          ),
+          SizedBox(height:21)
+        ]
+      )
     );
   }
 }

@@ -67,7 +67,7 @@ class ApplyforrentView extends GetView<ApplyforrentController> {
   Widget build(BuildContext context) {
     return Scaffold(
         drawer: SizedBox(
-          width: 210,
+          width: 220,
           child: Drawer(
             backgroundColor: drawerColor,
             child: drawer("apply"),
@@ -121,6 +121,7 @@ class ApplyforrentView extends GetView<ApplyforrentController> {
                           validator: (s) {
                             return applyController.checkOwnerName(s);
                           },
+                          maxlength:25,
                           controller: applyController.ownerController,
                           textValue: "Owner Name*",
                           leftpadding: 23,
@@ -137,6 +138,7 @@ class ApplyforrentView extends GetView<ApplyforrentController> {
                           validator: (s) {
                             return applyController.checkTitle(s);
                           },
+                          maxlength:25,
                           controller: applyController.titleController,
                           textValue: "Title*",
                           leftpadding: 23,
@@ -150,6 +152,7 @@ class ApplyforrentView extends GetView<ApplyforrentController> {
                       ),
                       SizedBox(height:13),
                       CustomFormField(
+                          maxlength:10,
                           validator: (s) => applyController.checkPhoneNumber(s),
                           keyboardtype: TextInputType.number,
                           controller: applyController.phoneNumberController,
@@ -165,6 +168,7 @@ class ApplyforrentView extends GetView<ApplyforrentController> {
                       ),
                       SizedBox(height:13),
                       CustomFormField(
+                          maxlength:25,
                           controller: applyController.cityController,
                           validator: (s) => applyController.checkCity(s),
                           textValue: "City*",
@@ -179,6 +183,7 @@ class ApplyforrentView extends GetView<ApplyforrentController> {
                       ),
                       SizedBox(height:13),
                       TextFormField(
+                          maxLength:35,
                           validator: (s) {
                             if (s!.isEmpty) {
                               return "Please Enter Address";
@@ -212,6 +217,7 @@ class ApplyforrentView extends GetView<ApplyforrentController> {
                       ),
                       SizedBox(height:13),
                       TextFormField(
+                          maxLength:35,
                           validator: (s) {
                             if (s!.isEmpty) {
                               return "Please Enter Description";
@@ -301,59 +307,65 @@ class ApplyforrentView extends GetView<ApplyforrentController> {
                          ),
                       ),
                       SizedBox(height: 23),
-                      Row(
-                        children: [
-                          Text(
-                            "Bedroom",
-                            style: regular14pt,
-                          ),
-                          SizedBox(width: 9),
-                          GestureDetector(
-                            onTap: () => applyController.noOfBedrooms += 1,
-                            child: iconbutton(Icon(
-                              Icons.add,
-                              color: accent,
-                            )),
-                          ),
-                          SizedBox(width: 9),
-                          Obx(() => Text(
-                              applyController.noOfBedrooms.value.toString())),
-                          SizedBox(width: 9),
-                          GestureDetector(
-                              onTap: () {
-                                if (applyController.noOfBedrooms >= 2) {
-                                  applyController.noOfBedrooms -= 1;
-                                }
-                              },
-                              child: iconbutton(
-                                  Icon(Icons.remove, color: accent))),
-                        ],
-                      ),
-                      SizedBox(height: 23),
-                      Row(
-                        children: [
-                          Text("Bathroom", style: regular14pt),
-                          SizedBox(width: 9),
-                          GestureDetector(
-                            onTap: () => applyController.noOfBathrooms += 1,
-                            child: iconbutton(Icon(
-                              Icons.add,
-                              color: accent,
-                            )),
-                          ),
-                          SizedBox(width: 9),
-                          Obx(() => Text(
-                              applyController.noOfBathrooms.value.toString())),
-                          SizedBox(width: 9),
-                          GestureDetector(
-                              onTap: () {
-                                if (applyController.noOfBathrooms >= 2) {
-                                  applyController.noOfBathrooms -= 1;
-                                }
-                              },
-                              child: iconbutton(
-                                  Icon(Icons.remove, color: accent))),
-                        ],
+                      Obx(
+                        ()=>!(applyController.dropdownvalue.value =="Single")?Column(
+                          children:[
+                            Row(
+                              children: [
+                                Text(
+                                  "Bedroom",
+                                  style: regular14pt,
+                                ),
+                                SizedBox(width: 9),
+                                GestureDetector(
+                                  onTap: () => applyController.noOfBedrooms += 1,
+                                  child: iconbutton(Icon(
+                                    Icons.add,
+                                    color: accent,
+                                  )),
+                                ),
+                                SizedBox(width: 9),
+                                Obx(() => Text(
+                                    applyController.noOfBedrooms.value.toString())),
+                                SizedBox(width: 9),
+                                GestureDetector(
+                                    onTap: () {
+                                      if (applyController.noOfBedrooms >= 2) {
+                                        applyController.noOfBedrooms -= 1;
+                                      }
+                                    },
+                                    child: iconbutton(
+                                        Icon(Icons.remove, color: accent))),
+                              ],
+                            ),
+                            SizedBox(height: 23),
+                            Row(
+                              children: [
+                                Text("Bathroom", style: regular14pt),
+                                SizedBox(width: 9),
+                                GestureDetector(
+                                  onTap: () => applyController.noOfBathrooms += 1,
+                                  child: iconbutton(Icon(
+                                    Icons.add,
+                                    color: accent,
+                                  )),
+                                ),
+                                SizedBox(width: 9),
+                                Obx(() => Text(
+                                    applyController.noOfBathrooms.value.toString())),
+                                SizedBox(width: 9),
+                                GestureDetector(
+                                    onTap: () {
+                                      if (applyController.noOfBathrooms >= 2) {
+                                        applyController.noOfBathrooms -= 1;
+                                      }
+                                    },
+                                    child: iconbutton(
+                                        Icon(Icons.remove, color: accent))),
+                              ],
+                            ),  
+                          ]
+                        ):Text("Number of Bedroom and Number of Bathrooms are 1 for Single Type",style:regular14pt.copyWith(color:accent)),
                       ),
                       SizedBox(
                         height: 23,

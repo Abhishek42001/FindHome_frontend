@@ -30,6 +30,7 @@ class DetailviewView extends GetView<DetailviewController> {
                   width: double.infinity,
                   height: 240,
                   decoration: BoxDecoration(
+                      border:Border.all(width:1,color:primary.withOpacity(0.6)),
                       borderRadius: BorderRadius.circular(20),
                       image: DecorationImage(
                           image: CachedNetworkImageProvider(
@@ -61,13 +62,26 @@ class DetailviewView extends GetView<DetailviewController> {
                           Expanded(
                             child: Align(
                               alignment: Alignment.centerRight,
-                              child: Container(
-                                  padding: EdgeInsets.all(7),
-                                  decoration: BoxDecoration(
-                                      color: Colors.white.withOpacity(0.2),
-                                      borderRadius: BorderRadius.circular(25)),
-                                  child: Icon(Icons.bookmark_border,
-                                      color: primary)),
+                              child: GestureDetector(
+                                onTap: (){
+                                  if(_detailViewController.isBookmarked.value==false){
+                                    _detailViewController.applyBookmark(_detailViewController.data["id"]);
+                                  }
+                                  else{
+                                    _detailViewController.deleteBookmark(_detailViewController.data["id"]);
+                                  }
+                                },
+                                child: Obx(
+                                  ()=> Container(
+                                      padding: EdgeInsets.all(7),
+                                      decoration: BoxDecoration(
+                                          color: Colors.white.withOpacity(0.2),
+                                          borderRadius: BorderRadius.circular(25)),
+                                       child:!( _detailViewController.isBookmarked.value)?Icon(Icons.bookmark_border,color:primary):Icon(Icons.bookmark,
+                                            color: primary),
+                                      ),
+                                )
+                              ),
                             ),
                           )
                         ],
@@ -204,61 +218,78 @@ class DetailviewView extends GetView<DetailviewController> {
                     SizedBox(
                       height: 23,
                     ),
-                    Row(
-                      children: [
-                        CircleAvatar(
-                          radius: 21,
-                          backgroundImage:
-                              AssetImage("assets/images/house1.png"),
-                        ),
-                        SizedBox(width: 17),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                                _detailViewController.data["owner_name"]
-                                    as String,
-                                style: regular16pt.copyWith(
-                                  fontWeight: FontWeight.w800,
-                                )),
-                            Text(
-                              "Owner",
-                              style: regular12pt,
-                            )
-                          ],
-                        ),
-                        Expanded(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              GestureDetector(
-                                onTap: () {
-                                  launch("tel:+91" +
-                                      _detailViewController.data["phone_number"]
-                                          .toString());
-                                },
-                                child: Container(
-                                    padding: EdgeInsets.all(7),
-                                    decoration: BoxDecoration(
-                                        color: accent,
-                                        borderRadius:
-                                            BorderRadius.circular(25)),
-                                    child: Icon(Icons.call, color: primary)),
-                              ),
-                              SizedBox(width: 17),
-                              Container(
-                                  padding: EdgeInsets.all(7),
-                                  decoration: BoxDecoration(
-                                      color: accent,
-                                      borderRadius: BorderRadius.circular(25)),
-                                  child: Icon(
-                                    Icons.message,
-                                    color: primary,
-                                  ))
-                            ],
+                    Container(
+                      width:MediaQuery.of(context).size.width-60,
+                      constraints: BoxConstraints(
+                        minHeight:60
+                        
+                      ),
+                      child: Row(
+                        children: [
+                          CircleAvatar(
+                            radius: 21,
+                            backgroundImage:
+                                AssetImage("assets/images/house1.png"),
                           ),
-                        ),
-                      ],
+                          SizedBox(width: 17),
+                          Container(
+                            width:MediaQuery.of(context).size.width -225,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                    _detailViewController.data["owner_name"]
+                                        as String,
+                                    style: regular16pt.copyWith(
+                                      fontWeight: FontWeight.w800,
+                                    )),
+                                SizedBox(height:3),
+                                Text(
+                                  "Owner",
+                                  style: regular12pt,
+                                )
+                              ],
+                            ),
+                          ),
+                          Expanded(
+                            child: Align(
+                              alignment:Alignment.centerRight,
+                              child: Container(
+                                width:100,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    GestureDetector(
+                                      onTap: () {
+                                        launch("tel:+91" +
+                                            _detailViewController.data["phone_number"]
+                                                .toString());
+                                      },
+                                      child: Container(
+                                          padding: EdgeInsets.all(7),
+                                          decoration: BoxDecoration(
+                                              color: accent,
+                                              borderRadius:
+                                                  BorderRadius.circular(25)),
+                                          child: Icon(Icons.call, color: primary)),
+                                    ),
+                                    SizedBox(width: 17),
+                                    Container(
+                                        padding: EdgeInsets.all(7),
+                                        decoration: BoxDecoration(
+                                            color: accent,
+                                            borderRadius: BorderRadius.circular(25)),
+                                        child: Icon(
+                                          Icons.message,
+                                          color: primary,
+                                        ))
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                     SizedBox(
                       height: 23,
@@ -306,6 +337,7 @@ class DetailviewView extends GetView<DetailviewController> {
              width: 75,
              height: 75,
              decoration: BoxDecoration(
+                border:Border.all(width:1,color:primary.withOpacity(0.6)),
                 borderRadius: BorderRadius.circular(12),
                 image: DecorationImage(
                       image: CachedNetworkImageProvider(
@@ -335,6 +367,7 @@ class DetailviewView extends GetView<DetailviewController> {
                  width: 75,
                  height: 75,
                  decoration: BoxDecoration(
+                    border:Border.all(width:1,color:primary.withOpacity(0.6)),
                     borderRadius: BorderRadius.circular(12),
                     image: DecorationImage(
                           image: CachedNetworkImageProvider(
@@ -356,6 +389,7 @@ class DetailviewView extends GetView<DetailviewController> {
             width: 75,
             height: 75,
             decoration: BoxDecoration(
+                border:Border.all(width:1,color:primary.withOpacity(0.6)),
                 borderRadius: BorderRadius.circular(12),
                 image: DecorationImage(
                     image: CachedNetworkImageProvider(

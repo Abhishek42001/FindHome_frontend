@@ -48,6 +48,7 @@ class GalleryviewView extends GetView<GalleryviewController> {
                           width: double.infinity,
                           height: 216,
                           decoration: BoxDecoration(
+                              border:Border.all(width:1,color:primary.withOpacity(0.6)),
                               borderRadius: BorderRadius.circular(20),
                               image: DecorationImage(
                                   image: CachedNetworkImageProvider(
@@ -79,6 +80,7 @@ class GalleryviewView extends GetView<GalleryviewController> {
                                   height: 135,
                                   width:135,
                                   decoration: BoxDecoration(
+                                      border:Border.all(width:1,color:primary.withOpacity(0.6)),
                                       borderRadius: BorderRadius.circular(20),
                                       image: DecorationImage(
                                           image: CachedNetworkImageProvider(

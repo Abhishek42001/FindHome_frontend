@@ -66,6 +66,8 @@ class OtpView extends GetView<OtpController> {
                         SizedBox(
                             height: 48,
                             child: PinPut(
+                              eachFieldHeight: 48,
+                              eachFieldWidth:48,
                               onChanged: (value) {
                                 if (value.length != 6) {
                                   showButton.value = false;

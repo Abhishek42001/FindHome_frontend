@@ -74,7 +74,7 @@ class ChooselocationView extends GetView<ChooselocationController> {
                             child:
                                 SvgPicture.asset("assets/images/location.svg"),
                           ),
-                          SizedBox(height: 23),
+                          SizedBox(height: 35),
                           Text("Choose Your Location", style: regular16pt),
                           SizedBox(height: 23),
                           CustomPrimaryButton(

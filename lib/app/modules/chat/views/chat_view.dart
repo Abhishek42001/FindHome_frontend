@@ -12,7 +12,7 @@ class ChatView extends GetView<ChatController> {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: SizedBox(
-          width: 210,
+          width: 220,
           child: Drawer(
             backgroundColor: drawerColor,
             child: drawer("messages"),
