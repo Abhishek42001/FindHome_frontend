@@ -16,6 +16,7 @@ abstract class Routes {
   static const APPLIED = _Paths.APPLIED;
   static const GALLERYVIEW = _Paths.GALLERYVIEW;
   static const PHOTOGALLERY = _Paths.PHOTOGALLERY;
+  static const CHATSCREEN = _Paths.CHATSCREEN;
 }
 
 abstract class _Paths {
@@ -33,4 +34,5 @@ abstract class _Paths {
   static const APPLIED = '/applied';
   static const GALLERYVIEW = '/galleryview';
   static const PHOTOGALLERY = '/photogallery';
+  static const CHATSCREEN = '/chatscreen';
 }

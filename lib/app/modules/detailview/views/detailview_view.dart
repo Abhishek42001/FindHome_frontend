@@ -199,7 +199,7 @@ class DetailviewView extends GetView<DetailviewController> {
               ],
             )),
             SizedBox(
-              height: 23,
+              height: 30,
             ),
             Expanded(
               child: SingleChildScrollView(
@@ -274,15 +274,20 @@ class DetailviewView extends GetView<DetailviewController> {
                                           child: Icon(Icons.call, color: primary)),
                                     ),
                                     SizedBox(width: 17),
-                                    Container(
-                                        padding: EdgeInsets.all(7),
-                                        decoration: BoxDecoration(
-                                            color: accent,
-                                            borderRadius: BorderRadius.circular(25)),
-                                        child: Icon(
-                                          Icons.message,
-                                          color: primary,
-                                        ))
+                                    GestureDetector(
+                                      onTap: () {
+                                        Get.toNamed("/chatscreen");
+                                      },
+                                      child: Container(
+                                          padding: EdgeInsets.all(7),
+                                          decoration: BoxDecoration(
+                                              color: accent,
+                                              borderRadius: BorderRadius.circular(25)),
+                                          child: Icon(
+                                            Icons.message,
+                                            color: primary,
+                                          )),
+                                    )
                                   ],
                                 ),
                               ),
@@ -333,20 +338,27 @@ class DetailviewView extends GetView<DetailviewController> {
     if(_detailViewController.data["images"].length == 1){
       return Row(
         children:[ 
-            Container(
-             width: 75,
-             height: 75,
-             decoration: BoxDecoration(
-                border:Border.all(width:1,color:primary.withOpacity(0.6)),
-                borderRadius: BorderRadius.circular(12),
-                image: DecorationImage(
-                      image: CachedNetworkImageProvider(
-                        "http://192.168.105.69:8000" +
-                            _detailViewController.data['images'][0]['images']
-                      ),
-                     fit: BoxFit.cover,
-                )),
-        ), ]
+            GestureDetector(
+              onTap: () {
+                Get.toNamed("/galleryview",
+                    arguments: _detailViewController.data
+                );
+              },
+              child: Container(
+               width: 75,
+               height: 75,
+               decoration: BoxDecoration(
+                  border:Border.all(width:1,color:primary.withOpacity(0.6)),
+                  borderRadius: BorderRadius.circular(12),
+                  image: DecorationImage(
+                        image: CachedNetworkImageProvider(
+                          "http://192.168.105.69:8000" +
+                              _detailViewController.data['images'][0]['images']
+                        ),
+                       fit: BoxFit.cover,
+                  )),
+                    ),
+            ), ]
       );
     }
     else if(_detailViewController.data["images"].length >1) {
