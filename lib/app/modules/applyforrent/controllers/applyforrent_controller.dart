@@ -79,7 +79,7 @@ class ApplyforrentController extends GetxController {
       print('Response status: ${response.statusCode}');
       print('Response body: ${response.data}');
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text("Successfully Submitted"),
+        content: Text("Submitted Successfully"),
       ));
       ownerController.clear();
       titleController.clear();
@@ -122,12 +122,14 @@ class ApplyforrentController extends GetxController {
     if (s.isEmpty) {
       return "Please Enter Title";
     }
+    return null;
   }
 
   String? checkOwnerName(String s) {
     if (s.isEmpty) {
       return "Please Enter Owner Name";
     }
+    return null;
   }
 
   String? checkPhoneNumber(String s) {
@@ -143,24 +145,28 @@ class ApplyforrentController extends GetxController {
     if (s.isEmpty) {
       return "Please Enter City Name";
     }
+    return null;
   }
 
   String? checkAddress(String s) {
     if (s.isEmpty) {
       return "Please Enter Address";
     }
+    return null;
   }
 
   String? description(String s) {
     if (s.isEmpty) {
       return "Please Enter Description";
     }
+    return null;
   }
 
   String? checkRate(String s) {
     if (s.isEmpty) {
       return "Please Enter Rate";
     }
+    return null;
   }
 
   @override

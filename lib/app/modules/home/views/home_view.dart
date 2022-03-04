@@ -79,15 +79,20 @@ class HomeView extends GetView<HomeController> {
                             Text("Location",
                                 style: regular14pt.copyWith(
                                     color: primary.withOpacity(0.6))),
-                            Row(
-                              children: [
-                                Text(
-                                  _homeController.city!,
-                                  style: regular16pt,
-                                ),
-                                Icon(Icons.arrow_drop_down_outlined,
-                                    color: primary)
-                              ],
+                            GestureDetector(
+                              onTap: (){
+                                Get.toNamed("/chooselocation");
+                              },
+                              child: Row(
+                                children: [
+                                  Text(
+                                    _homeController.city!,
+                                    style: regular16pt,
+                                  ),
+                                  Icon(Icons.arrow_drop_down_outlined,
+                                      color: primary)
+                                ],
+                              ),
                             )
                           ],
                         ),
@@ -209,7 +214,7 @@ class HomeView extends GetView<HomeController> {
                                 ),
                               ),
                             )
-                          : Expanded(
+                          :_homeController.data.isNotEmpty?Expanded(
                               child: ListView.separated(
                                   separatorBuilder: (context, index) =>
                                       SizedBox(
@@ -223,7 +228,8 @@ class HomeView extends GetView<HomeController> {
                                                 arguments: _homeController
                                                     .data[index]);
                                           },
-                                          child: allItems(index, context)))),
+                                          child: allItems(index, context)))
+                          ):Expanded(child: Center(child:Text("Sorry we could not find any rooms for you...",style:regular14pt.copyWith(color:primary.withOpacity(0.6))))),
                     ),
                     SizedBox(
                       height: 23,

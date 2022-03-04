@@ -25,6 +25,7 @@ class ChooselocationController extends GetxController {
       );
       await getStorage.write("city", placemarks[0].locality);
       print(placemarks[0].locality);
+      Get.back();
       Get.offAndToNamed("/home");
     } catch (e) {
       print(e);

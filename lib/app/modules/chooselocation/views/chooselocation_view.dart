@@ -1,6 +1,7 @@
 import 'package:findhome/app/theme/theme.dart';
 import 'package:findhome/app/widgets/custom_primary_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:get/get.dart';
@@ -80,6 +81,25 @@ class ChooselocationView extends GetView<ChooselocationController> {
                           CustomPrimaryButton(
                               textValue: "Use My Current Location",
                               onTap: () {
+                                showDialog(
+                                    barrierDismissible: false,
+                                    context: context,
+                                    builder: (context) => Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        SpinKitWave(
+                                              color: primary,
+                                              size: 50,
+                                            ),
+                                        SizedBox(height: 23),
+                                        Text(
+                                          "Taking You to Home...",
+                                          style: regular14pt.copyWith(
+                                              color: primary, decoration: TextDecoration.none
+                                            ))
+                                      ],
+                                    )
+                                );
                                 _locationController.getLocation();
                               }),
                           SizedBox(height: 23),

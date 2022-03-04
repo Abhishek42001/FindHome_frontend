@@ -108,7 +108,7 @@ class AppliedView extends GetView<AppliedController> {
                                             decoration: TextDecoration.none))
                                   ],
                                 ),
-                              ):
+                              ):appliedController.data.isNotEmpty?
                                 Expanded(
                                   child:ListView.separated(
                                     separatorBuilder:(context,index)=>
@@ -207,7 +207,7 @@ class AppliedView extends GetView<AppliedController> {
                                           )
                                       ),
                                   )
-                                ),
+                                ):Expanded(child: Center(child:Text("Nothing Found...",style:regular14pt.copyWith(color:primary.withOpacity(0.6))))),
                           )
                         ]),
                       ),
