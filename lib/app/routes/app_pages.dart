@@ -8,6 +8,8 @@ import '../modules/bookmarks/bindings/bookmarks_binding.dart';
 import '../modules/bookmarks/views/bookmarks_view.dart';
 import '../modules/chat/bindings/chat_binding.dart';
 import '../modules/chat/views/chat_view.dart';
+import '../modules/chatprofile/bindings/chatprofile_binding.dart';
+import '../modules/chatprofile/views/chatprofile_view.dart';
 import '../modules/chatscreen/bindings/chatscreen_binding.dart';
 import '../modules/chatscreen/views/chatscreen_view.dart';
 import '../modules/chooselocation/bindings/chooselocation_binding.dart';
@@ -106,6 +108,11 @@ class AppPages {
       name: _Paths.CHATSCREEN,
       page: () => ChatscreenView(),
       binding: ChatscreenBinding(),
+    ),
+    GetPage(
+      name: _Paths.CHATPROFILE,
+      page: () => ChatprofileView(),
+      binding: ChatprofileBinding(),
     ),
   ];
 }

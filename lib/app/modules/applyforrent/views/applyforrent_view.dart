@@ -215,7 +215,8 @@ class ApplyforrentView extends GetView<ApplyforrentController> {
                                         borderRadius: BorderRadius.circular(12.0)),
                                   ),
                                   style: regular14pt.copyWith(
-                                      color: primary, decoration: TextDecoration.none)),
+                                      color: primary, decoration: TextDecoration.none)
+                              ),
                               SizedBox(
                                 height: 23,
                               ),
@@ -250,7 +251,8 @@ class ApplyforrentView extends GetView<ApplyforrentController> {
                                         borderRadius: BorderRadius.circular(12.0)),
                                   ),
                                   style: regular14pt.copyWith(
-                                      color: primary, decoration: TextDecoration.none)),
+                                      color: primary, decoration: TextDecoration.none)
+                              ),
                               SizedBox(height: 23),
                               Padding(
                                 padding: const EdgeInsets.only(left:11.0),
@@ -294,24 +296,25 @@ class ApplyforrentView extends GetView<ApplyforrentController> {
                                       value: applyController.dropdownvalue.value.isEmpty?null:applyController.dropdownvalue.value,
                                       items: applyController.dropdownitems.map((String item) {
                                         return (
-                                        DropdownMenuItem(
-                                          value: item,
-                                          child: 
-                                          Padding(
-                                            padding: const EdgeInsets.only(left:23.0),
-                                            child: Text(
-                                              item,
-                                              style: regular14pt.copyWith(
-                                                  color: primary)
+                                          DropdownMenuItem(
+                                            value: item,
+                                            child: 
+                                            Padding(
+                                              padding: const EdgeInsets.only(left:23.0),
+                                              child: Text(
+                                                item,
+                                                style: regular14pt.copyWith(
+                                                    color: primary)
+                                              ),
                                             ),
-                                          ),
-                                        ));
+                                          )
+                                        );
                                       }).toList(),
                                       icon: const Icon(Icons.keyboard_arrow_down),
                                       onChanged: (temp) {
                                         applyController.dropdownvalue.value = temp as String;
                                       },
-                                                           ),
+                                    ),
                                    ),
                                  ),
                               ),

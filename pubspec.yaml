@@ -31,7 +31,8 @@ dependencies:
       ref: 8156907eecfa812b181a5a729d790f6d399f311b
   google_sign_in: ^5.2.4
   google_sign_in_web: ^0.10.0+5
-  flutter_chat_bubble: ^2.0.0
+  bubble: ^1.2.1
+  fluttertoast: ^8.0.9
 
 dev_dependencies: 
   flutter_lints: ^1.0.0

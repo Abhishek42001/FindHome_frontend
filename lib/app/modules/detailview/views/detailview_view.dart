@@ -15,7 +15,7 @@ class DetailviewView extends GetView<DetailviewController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
+        body: SafeArea(
       child: Container(
         decoration: BoxDecoration(color: backgroundcolor),
         child: Padding(
@@ -30,7 +30,8 @@ class DetailviewView extends GetView<DetailviewController> {
                   width: double.infinity,
                   height: 240,
                   decoration: BoxDecoration(
-                      border:Border.all(width:1,color:primary.withOpacity(0.6)),
+                      border:
+                          Border.all(width: 1, color: primary.withOpacity(0.6)),
                       borderRadius: BorderRadius.circular(20),
                       image: DecorationImage(
                           image: CachedNetworkImageProvider(
@@ -63,25 +64,32 @@ class DetailviewView extends GetView<DetailviewController> {
                             child: Align(
                               alignment: Alignment.centerRight,
                               child: GestureDetector(
-                                onTap: (){
-                                  if(_detailViewController.isBookmarked.value==false){
-                                    _detailViewController.applyBookmark(_detailViewController.data["id"]);
-                                  }
-                                  else{
-                                    _detailViewController.deleteBookmark(_detailViewController.data["id"]);
-                                  }
-                                },
-                                child: Obx(
-                                  ()=> Container(
+                                  onTap: () {
+                                    if (_detailViewController
+                                            .isBookmarked.value ==
+                                        false) {
+                                      _detailViewController.applyBookmark(
+                                          _detailViewController.data["id"]);
+                                    } else {
+                                      _detailViewController.deleteBookmark(
+                                          _detailViewController.data["id"]);
+                                    }
+                                  },
+                                  child: Obx(
+                                    () => Container(
                                       padding: EdgeInsets.all(7),
                                       decoration: BoxDecoration(
                                           color: Colors.white.withOpacity(0.2),
-                                          borderRadius: BorderRadius.circular(25)),
-                                       child:!( _detailViewController.isBookmarked.value)?Icon(Icons.bookmark_border,color:primary):Icon(Icons.bookmark,
-                                            color: primary),
-                                      ),
-                                )
-                              ),
+                                          borderRadius:
+                                              BorderRadius.circular(25)),
+                                      child: !(_detailViewController
+                                              .isBookmarked.value)
+                                          ? Icon(Icons.bookmark_border,
+                                              color: primary)
+                                          : Icon(Icons.bookmark,
+                                              color: primary),
+                                    ),
+                                  )),
                             ),
                           )
                         ],
@@ -219,11 +227,8 @@ class DetailviewView extends GetView<DetailviewController> {
                       height: 23,
                     ),
                     Container(
-                      width:MediaQuery.of(context).size.width-60,
-                      constraints: BoxConstraints(
-                        minHeight:60
-                        
-                      ),
+                      width: MediaQuery.of(context).size.width - 60,
+                      constraints: BoxConstraints(minHeight: 60),
                       child: Row(
                         children: [
                           CircleAvatar(
@@ -233,7 +238,7 @@ class DetailviewView extends GetView<DetailviewController> {
                           ),
                           SizedBox(width: 17),
                           Container(
-                            width:MediaQuery.of(context).size.width -225,
+                            width: MediaQuery.of(context).size.width - 225,
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -243,7 +248,7 @@ class DetailviewView extends GetView<DetailviewController> {
                                     style: regular16pt.copyWith(
                                       fontWeight: FontWeight.w800,
                                     )),
-                                SizedBox(height:3),
+                                SizedBox(height: 3),
                                 Text(
                                   "Owner",
                                   style: regular12pt,
@@ -253,40 +258,59 @@ class DetailviewView extends GetView<DetailviewController> {
                           ),
                           Expanded(
                             child: Align(
-                              alignment:Alignment.centerRight,
+                              alignment: Alignment.centerRight,
                               child: Container(
-                                width:100,
+                                width: 100,
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
-                                    GestureDetector(
-                                      onTap: () {
-                                        launch("tel:+91" +
-                                            _detailViewController.data["phone_number"]
-                                                .toString());
-                                      },
-                                      child: Container(
-                                          padding: EdgeInsets.all(7),
-                                          decoration: BoxDecoration(
-                                              color: accent,
-                                              borderRadius:
-                                                  BorderRadius.circular(25)),
-                                          child: Icon(Icons.call, color: primary)),
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        color: accent,
+                                        borderRadius: BorderRadius.circular(25),
+                                      ),
+                                      child: Material(
+                                        color: Colors.transparent,
+                                        child: InkWell(
+                                          splashColor: primary.withOpacity(0.2),
+                                          borderRadius:
+                                              BorderRadius.circular(50),
+                                          onTap: () {
+                                            launch("tel:+91" +
+                                                _detailViewController
+                                                    .data["phone_number"]
+                                                    .toString());
+                                          },
+                                          child: Container(
+                                              padding: EdgeInsets.all(7),
+                                              child: Icon(Icons.call,
+                                                  color: primary)),
+                                        ),
+                                      ),
                                     ),
                                     SizedBox(width: 17),
-                                    GestureDetector(
-                                      onTap: () {
-                                        Get.toNamed("/chatscreen");
-                                      },
-                                      child: Container(
-                                          padding: EdgeInsets.all(7),
-                                          decoration: BoxDecoration(
-                                              color: accent,
-                                              borderRadius: BorderRadius.circular(25)),
-                                          child: Icon(
-                                            Icons.message,
-                                            color: primary,
-                                          )),
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        color: accent,
+                                        borderRadius: BorderRadius.circular(25),
+                                      ),
+                                      child: Material(
+                                        color: Colors.transparent,
+                                        child: InkWell(
+                                          splashColor: primary.withOpacity(0.2),
+                                          borderRadius:
+                                              BorderRadius.circular(50),
+                                          onTap: () {
+                                            Get.toNamed("/chatscreen");
+                                          },
+                                          child: Container(
+                                              padding: EdgeInsets.all(7),
+                                              child: Icon(
+                                                Icons.message,
+                                                color: primary,
+                                              )),
+                                        ),
+                                      ),
                                     )
                                   ],
                                 ),
@@ -335,34 +359,28 @@ class DetailviewView extends GetView<DetailviewController> {
   }
 
   Row gallery() {
-    if(_detailViewController.data["images"].length == 1){
-      return Row(
-        children:[ 
-            GestureDetector(
-              onTap: () {
-                Get.toNamed("/galleryview",
-                    arguments: _detailViewController.data
-                );
-              },
-              child: Container(
-               width: 75,
-               height: 75,
-               decoration: BoxDecoration(
-                  border:Border.all(width:1,color:primary.withOpacity(0.6)),
-                  borderRadius: BorderRadius.circular(12),
-                  image: DecorationImage(
-                        image: CachedNetworkImageProvider(
-                          "http://192.168.105.69:8000" +
-                              _detailViewController.data['images'][0]['images']
-                        ),
-                       fit: BoxFit.cover,
-                  )),
-                    ),
-            ), ]
-      );
-    }
-    else if(_detailViewController.data["images"].length >1) {
-
+    if (_detailViewController.data["images"].length == 1) {
+      return Row(children: [
+        GestureDetector(
+          onTap: () {
+            Get.toNamed("/galleryview", arguments: _detailViewController.data);
+          },
+          child: Container(
+            width: 75,
+            height: 75,
+            decoration: BoxDecoration(
+                border: Border.all(width: 1, color: primary.withOpacity(0.6)),
+                borderRadius: BorderRadius.circular(12),
+                image: DecorationImage(
+                  image: CachedNetworkImageProvider(
+                      "http://192.168.105.69:8000" +
+                          _detailViewController.data['images'][0]['images']),
+                  fit: BoxFit.cover,
+                )),
+          ),
+        ),
+      ]);
+    } else if (_detailViewController.data["images"].length > 1) {
       return Row(
         // onTap: () {
         //   Get.toNamed("/galleryview",
@@ -370,66 +388,59 @@ class DetailviewView extends GetView<DetailviewController> {
         //   );
         // },
         children: [
-            GestureDetector(
-              onTap: () {
-                //print(_detailViewController.data['images'][0]['images']);
-                Get.toNamed("/photogallery",arguments: [{"images":_detailViewController.data['images'][0]['images']}]);
-              },
-              child: Container(
-                 width: 75,
-                 height: 75,
-                 decoration: BoxDecoration(
-                    border:Border.all(width:1,color:primary.withOpacity(0.6)),
-                    borderRadius: BorderRadius.circular(12),
-                    image: DecorationImage(
-                          image: CachedNetworkImageProvider(
-                            "http://192.168.105.69:8000" +
-                                _detailViewController.data['images'][0]['images']
-                          ),
-                         fit: BoxFit.cover,
-                        )),
-                      ),
+          GestureDetector(
+            onTap: () {
+              //print(_detailViewController.data['images'][0]['images']);
+              Get.toNamed("/photogallery", arguments: [
+                {"images": _detailViewController.data['images'][0]['images']}
+              ]);
+            },
+            child: Container(
+              width: 75,
+              height: 75,
+              decoration: BoxDecoration(
+                  border: Border.all(width: 1, color: primary.withOpacity(0.6)),
+                  borderRadius: BorderRadius.circular(12),
+                  image: DecorationImage(
+                    image: CachedNetworkImageProvider(
+                        "http://192.168.105.69:8000" +
+                            _detailViewController.data['images'][0]['images']),
+                    fit: BoxFit.cover,
+                  )),
             ),
-          SizedBox(width:16),
+          ),
+          SizedBox(width: 16),
           GestureDetector(
             onTap: () {
               Get.toNamed("/galleryview",
-                    arguments: _detailViewController.data
-                );
-              },
+                  arguments: _detailViewController.data);
+            },
             child: Container(
-            width: 75,
-            height: 75,
-            decoration: BoxDecoration(
-                border:Border.all(width:1,color:primary.withOpacity(0.6)),
-                borderRadius: BorderRadius.circular(12),
-                image: DecorationImage(
-                    image: CachedNetworkImageProvider(
-                            "http://192.168.105.69:8000" +
-                          _detailViewController.data['images'][1]['images']
-                    ),
-                    fit: BoxFit.cover,
-                    colorFilter: ColorFilter.mode(
-                        Colors.black.withOpacity(0.8),
-                        BlendMode.dstATop))),
-            child: Align(
-                alignment: Alignment.center,
-                child: Text(
-                  "See All",
-                  style: regular14pt.copyWith(
-                      fontWeight: FontWeight.w400),
-                )),
-                  ),
+              width: 75,
+              height: 75,
+              decoration: BoxDecoration(
+                  border: Border.all(width: 1, color: primary.withOpacity(0.6)),
+                  borderRadius: BorderRadius.circular(12),
+                  image: DecorationImage(
+                      image: CachedNetworkImageProvider(
+                          "http://192.168.105.69:8000" +
+                              _detailViewController.data['images'][1]
+                                  ['images']),
+                      fit: BoxFit.cover,
+                      colorFilter: ColorFilter.mode(
+                          Colors.black.withOpacity(0.8), BlendMode.dstATop))),
+              child: Align(
+                  alignment: Alignment.center,
+                  child: Text(
+                    "See All",
+                    style: regular14pt.copyWith(fontWeight: FontWeight.w400),
+                  )),
+            ),
           )
         ],
       );
-    }
-    else{
-      return Row(
-        children:[
-
-        ]
-      );
+    } else {
+      return Row(children: []);
     }
   }
 }

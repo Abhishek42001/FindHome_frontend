@@ -17,6 +17,9 @@ void main() async {
       title: "Application",
       defaultTransition: Transition.downToUp,
       theme: ThemeData(
+        scaffoldBackgroundColor: backgroundcolor,
+        canvasColor: backgroundcolor,
+        backgroundColor: backgroundcolor,
           fontFamily: "Poppins",
           primaryColor: primary,
           textButtonTheme: TextButtonThemeData(
@@ -28,12 +31,13 @@ void main() async {
           splashColor: primary.withOpacity(0.1),
           textTheme: TextTheme(
               bodyText2: TextStyle(color: primary),
-              bodyText1: TextStyle(color: primary)
+              bodyText1: TextStyle(color: primary),
           )
       ),
       debugShowCheckedModeBanner: false,
       initialRoute: AppPages.INITIAL,
       getPages: AppPages.routes,
+      
     ),
   );
 }

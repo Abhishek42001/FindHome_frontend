@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import '../controllers/home_controller.dart';
 
@@ -46,6 +47,15 @@ class HomeView extends GetView<HomeController> {
         ),
         body: RefreshIndicator(
           onRefresh: () {
+            Fluttertoast.showToast(
+              msg: "Refreshing...",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIosWeb: 1,
+              backgroundColor: Colors.grey.withOpacity(0.6),
+              textColor: primary,
+              fontSize: 16.0,
+            );
             return _homeController.findDatawithTag(_homeController.type.value);
           },
           child: SafeArea(
