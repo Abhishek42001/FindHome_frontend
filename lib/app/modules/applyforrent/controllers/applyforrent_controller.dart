@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:dio/dio.dart' as dio;
 import 'package:findhome/app/modules/home/controllers/home_controller.dart';
 import 'package:findhome/app/theme/theme.dart';
+import 'package:findhome/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -77,7 +78,7 @@ class ApplyforrentController extends GetxController {
         }).toList())
       });
       print(formdata);
-      var url = 'http://192.168.105.69:8000/apply';
+      var url = fetchingUrl + '/apply';
       var response = await di.post(
         url,
         data: formdata,

@@ -1,4 +1,6 @@
 import 'package:dio/dio.dart';
+import 'package:findhome/constants.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
@@ -10,11 +12,22 @@ class HomeController extends GetxController {
   String? city;
   var type = "All".obs;
   var isLoading = false.obs;
+  ScrollController? scrollController = ScrollController();
+  var showHeader = true.obs;
+
+  void onScroll() {
+    if (scrollController!.position.pixels == 0.0) {
+      showHeader.value = true;
+    } else {
+      showHeader.value = false;
+    }
+    print(scrollController!.position.pixels);
+  }
 
   Future<void> findDatawithTag(String tag) async {
     try {
       isLoading.value = true;
-      var url = 'http://192.168.105.69:8000/applied';
+      var url = fetchingUrl + '/applied';
       var response = await dio.get(url);
       if (tag == "All") {
         data.value = response.data['data'];
@@ -25,14 +38,14 @@ class HomeController extends GetxController {
       data.value = response.data['data'].where((item) {
         return item['type'] == tag;
       }).toList();
-      
+
       //data.value = data2;
       //print(data);
     } catch (e) {
       Get.showSnackbar(
         GetSnackBar(
-            duration: Duration(seconds:2),
-            message:e.toString(),
+          duration: Duration(seconds: 2),
+          message: e.toString(),
         ),
       );
       print(e);
@@ -43,7 +56,7 @@ class HomeController extends GetxController {
   Future<void> getAllApplied() async {
     isLoading.value = true;
     try {
-      var url = 'http://192.168.105.69:8000/applied';
+      var url = fetchingUrl + '/applied';
       var response = await dio.get(url);
 
       data.value = response.data['data'];
@@ -52,9 +65,9 @@ class HomeController extends GetxController {
     } catch (e) {
       Get.showSnackbar(
         GetSnackBar(
-            duration: Duration(seconds:2),
-            message: e.toString(),
-            isDismissible: true,
+          duration: Duration(seconds: 2),
+          message: e.toString(),
+          isDismissible: true,
         ),
       );
       print(e);
@@ -67,6 +80,7 @@ class HomeController extends GetxController {
     super.onInit();
     uid = getStorage.read('user');
     city = getStorage.read('city');
+    scrollController!.addListener(onScroll);
     getAllApplied();
     //findDatawithTag("Single");
   }
@@ -77,5 +91,8 @@ class HomeController extends GetxController {
   }
 
   @override
-  void onClose() {}
+  void onClose() {
+    scrollController!.removeListener(onScroll);
+    scrollController!.dispose();
+  }
 }

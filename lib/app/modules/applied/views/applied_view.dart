@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:findhome/app/theme/theme.dart';
 import 'package:findhome/app/widgets/custom_searchbar.dart';
 import 'package:findhome/app/widgets/drawer.dart';
+import 'package:findhome/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:findhome/app/theme/theme.dart';
@@ -149,7 +150,7 @@ class AppliedView extends GetView<AppliedController> {
                                                       image: DecorationImage(
                                                           image:
                                                               CachedNetworkImageProvider(
-                                                            "http://192.168.105.69:8000" +
+                                                            fetchingUrl +
                                                                 appliedController
                                                                             .data[
                                                                         index][

@@ -1,3 +1,4 @@
+import 'package:findhome/constants.dart';
 import 'package:get/get.dart';
 import 'package:dio/dio.dart' as dio;
 import 'package:get_storage/get_storage.dart';
@@ -16,7 +17,7 @@ class DetailviewController extends GetxController {
 
       try {
         dio.FormData formData = dio.FormData.fromMap({"user_id": userid,"item_id":data['id']});
-        var url = 'http://192.168.105.69:8000/checkbookmarkbyid';
+        var url = fetchingUrl+'/checkbookmarkbyid';
         var response = await di.post(url, data: formData);
         // print('Response status: ${response.statusCode}');
         print('Response body: ${response.data}');
@@ -40,7 +41,7 @@ class DetailviewController extends GetxController {
 
       try {
         dio.FormData formData = dio.FormData.fromMap({"user_id": userid,"item_id":id});
-        var url = 'http://192.168.105.69:8000/applybookmark';
+        var url = fetchingUrl+'/applybookmark';
         var response = await di.post(url, data: formData);
         // print('Response status: ${response.statusCode}');
         print('Response body: ${response.data}');
@@ -73,7 +74,7 @@ class DetailviewController extends GetxController {
 
       try {
         dio.FormData formData = dio.FormData.fromMap({"user_id": userid,"item_id":id});
-        var url = 'http://192.168.105.69:8000/deletebookmarkbyid';
+        var url = fetchingUrl+'/deletebookmarkbyid';
         var response = await di.post(url, data: formData);
         // print('Response status: ${response.statusCode}');
         print('Response body: ${response.data}');

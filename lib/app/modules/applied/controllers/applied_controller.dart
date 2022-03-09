@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart' as dio;
+import 'package:findhome/constants.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
@@ -17,7 +18,7 @@ class AppliedController extends GetxController {
 
     try {
       dio.FormData formData = dio.FormData.fromMap({"user_id": userid});
-      var url = 'http://192.168.105.69:8000/getappliedbyid';
+      var url = fetchingUrl + '/getappliedbyid';
       var response = await di.post(url, data: formData);
       // print('Response status: ${response.statusCode}');
       // print('Response body: ${response.data}');
@@ -51,8 +52,8 @@ class AppliedController extends GetxController {
     var di = dio.Dio();
 
     try {
-      dio.FormData formData = dio.FormData.fromMap({"id":id});
-      var url = 'http://192.168.105.69:8000/deleteappliedbyid';
+      dio.FormData formData = dio.FormData.fromMap({"id": id});
+      var url = fetchingUrl + '/deleteappliedbyid';
       var response = await di.post(url, data: formData);
       // print('Response status: ${response.statusCode}');
       // print('Response body: ${response.data}');
@@ -66,8 +67,8 @@ class AppliedController extends GetxController {
         ),
       );
       getApplied();
-      if(Get.isRegistered<HomeController>()){
-        final indexCtrl= Get.find<HomeController>();
+      if (Get.isRegistered<HomeController>()) {
+        final indexCtrl = Get.find<HomeController>();
         indexCtrl.getAllApplied();
       }
     } catch (e) {
@@ -81,8 +82,6 @@ class AppliedController extends GetxController {
       print(e);
     }
   }
-
-  
 
   @override
   void onInit() {

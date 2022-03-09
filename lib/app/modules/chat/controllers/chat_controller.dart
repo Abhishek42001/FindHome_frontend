@@ -1,3 +1,4 @@
+import 'package:findhome/constants.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:dio/dio.dart' as dio;
@@ -18,7 +19,7 @@ class ChatController extends GetxController {
     try {
       print(uid);
       dio.FormData formData = dio.FormData.fromMap({"sender_userid": uid});
-      var url = 'http://192.168.105.69:8000/getallchatsbyid';
+      var url = fetchingUrl+'/getallchatsbyid';
       var response = await di.post(url, data: formData);
       // print('Response status: ${response.statusCode}');
       // print('Response body: ${response.data}');

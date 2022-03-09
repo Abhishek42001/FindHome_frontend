@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:findhome/app/theme/theme.dart';
 import 'package:findhome/app/widgets/custom_primary_button.dart';
+import 'package:findhome/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -35,7 +36,7 @@ class DetailviewView extends GetView<DetailviewController> {
                       borderRadius: BorderRadius.circular(20),
                       image: DecorationImage(
                           image: CachedNetworkImageProvider(
-                            "http://192.168.105.69:8000" +
+                            fetchingUrl +
                                 _detailViewController.data["main_image"],
                           ),
                           fit: BoxFit.cover,
@@ -381,9 +382,8 @@ class DetailviewView extends GetView<DetailviewController> {
                 border: Border.all(width: 1, color: primary.withOpacity(0.6)),
                 borderRadius: BorderRadius.circular(12),
                 image: DecorationImage(
-                  image: CachedNetworkImageProvider(
-                      "http://192.168.105.69:8000" +
-                          _detailViewController.data['images'][0]['images']),
+                  image: CachedNetworkImageProvider(fetchingUrl +
+                      _detailViewController.data['images'][0]['images']),
                   fit: BoxFit.cover,
                 )),
           ),
@@ -411,9 +411,8 @@ class DetailviewView extends GetView<DetailviewController> {
                   border: Border.all(width: 1, color: primary.withOpacity(0.6)),
                   borderRadius: BorderRadius.circular(12),
                   image: DecorationImage(
-                    image: CachedNetworkImageProvider(
-                        "http://192.168.105.69:8000" +
-                            _detailViewController.data['images'][0]['images']),
+                    image: CachedNetworkImageProvider(fetchingUrl +
+                        _detailViewController.data['images'][0]['images']),
                     fit: BoxFit.cover,
                   )),
             ),
@@ -431,10 +430,8 @@ class DetailviewView extends GetView<DetailviewController> {
                   border: Border.all(width: 1, color: primary.withOpacity(0.6)),
                   borderRadius: BorderRadius.circular(12),
                   image: DecorationImage(
-                      image: CachedNetworkImageProvider(
-                          "http://192.168.105.69:8000" +
-                              _detailViewController.data['images'][1]
-                                  ['images']),
+                      image: CachedNetworkImageProvider(fetchingUrl +
+                          _detailViewController.data['images'][1]['images']),
                       fit: BoxFit.cover,
                       colorFilter: ColorFilter.mode(
                           Colors.black.withOpacity(0.8), BlendMode.dstATop))),

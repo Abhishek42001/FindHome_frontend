@@ -1,34 +1,33 @@
+import 'package:findhome/constants.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:dio/dio.dart' as dio;
 
 class BookmarksController extends GetxController {
-
   String? userid;
 
   final getStorage = GetStorage();
   var isLoading = false.obs;
   var data = [].obs;
 
+  Future<void> deleteBookmark(id) async {
+    var di = dio.Dio();
 
-    Future<void> deleteBookmark(id) async {
-      var di = dio.Dio();
-
-      try {
-        dio.FormData formData = dio.FormData.fromMap({"user_id": userid,"item_id":id});
-        var url = 'http://192.168.105.69:8000/deletebookmarkbyid';
-        var response = await di.post(url, data: formData);
-        // print('Response status: ${response.statusCode}');
-        print('Response body: ${response.data}');
-        Get.showSnackbar(
-         GetSnackBar(
-          duration: Duration(seconds: 1),
-          message:"Bookmarked Removed",
-          isDismissible: true,
-        ));
-        getBookmarks();
-        //print(response.data['data']);
-      } catch (e) {
+    try {
+      dio.FormData formData =
+          dio.FormData.fromMap({"user_id": userid, "item_id": id});
+      var url = fetchingUrl + '/deletebookmarkbyid';
+      var response = await di.post(url, data: formData);
+      // print('Response status: ${response.statusCode}');
+      print('Response body: ${response.data}');
+      Get.showSnackbar(GetSnackBar(
+        duration: Duration(seconds: 1),
+        message: "Bookmarked Removed",
+        isDismissible: true,
+      ));
+      getBookmarks();
+      //print(response.data['data']);
+    } catch (e) {
       Get.showSnackbar(
         GetSnackBar(
           duration: Duration(seconds: 2),
@@ -46,7 +45,7 @@ class BookmarksController extends GetxController {
 
     try {
       dio.FormData formData = dio.FormData.fromMap({"user_id": userid});
-      var url = 'http://192.168.105.69:8000/getbookmarksbyid';
+      var url = fetchingUrl + '/getbookmarksbyid';
       var response = await di.post(url, data: formData);
       // print('Response status: ${response.statusCode}');
       // print('Response body: ${response.data}');
@@ -82,5 +81,4 @@ class BookmarksController extends GetxController {
 
   @override
   void onClose() {}
-
 }

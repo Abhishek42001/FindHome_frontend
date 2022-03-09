@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:findhome/app/modules/chat/controllers/chat_controller.dart';
 import 'package:findhome/app/theme/theme.dart';
+import 'package:findhome/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
@@ -31,7 +32,7 @@ class ChatscreenController extends GetxController {
             ? data['receiver']['receiver_userid']
             : data['sender']['sender_userid']
       });
-      var url = 'http://192.168.105.69:8000/getallchatsbetweentwoid';
+      var url = fetchingUrl + '/getallchatsbetweentwoid';
       var response = await di.post(url, data: formData);
       // print('Response status: ${response.statusCode}');
       //print('Response body: ${response.data}');
@@ -74,7 +75,7 @@ class ChatscreenController extends GetxController {
         "receiver_city": data['receiver']['receiver_city'],
         'message': messageController.text
       });
-      var url = 'http://192.168.105.69:8000/sendmessage';
+      var url = fetchingUrl + '/sendmessage';
       var response = await di.post(url, data: formData);
       messageController.clear();
       // print('Response status: ${response.statusCode}');
