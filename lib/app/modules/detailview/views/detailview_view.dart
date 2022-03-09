@@ -35,8 +35,9 @@ class DetailviewView extends GetView<DetailviewController> {
                       borderRadius: BorderRadius.circular(20),
                       image: DecorationImage(
                           image: CachedNetworkImageProvider(
-                              "http://192.168.105.69:8000" +
-                                  _detailViewController.data["main_image"]),
+                            "http://192.168.105.69:8000" +
+                                _detailViewController.data["main_image"],
+                          ),
                           fit: BoxFit.cover,
                           colorFilter: ColorFilter.mode(
                               Colors.black.withOpacity(0.4),
@@ -231,11 +232,19 @@ class DetailviewView extends GetView<DetailviewController> {
                       constraints: BoxConstraints(minHeight: 60),
                       child: Row(
                         children: [
-                          CircleAvatar(
-                            radius: 21,
-                            backgroundImage:
-                                AssetImage("assets/images/house1.png"),
-                          ),
+                          _detailViewController
+                                  .data["profile_pic_url"].isNotEmpty
+                              ? ClipOval(
+                                  child: CachedNetworkImage(
+                                    imageUrl: _detailViewController
+                                        .data["profile_pic_url"],
+                                    fit: BoxFit.cover,
+                                    width: 50,
+                                    height: 50,
+                                  ),
+                                )
+                              : Icon(Icons.supervised_user_circle,
+                                  color: primary, size: 50),
                           SizedBox(width: 17),
                           Container(
                             width: MediaQuery.of(context).size.width - 225,

@@ -18,6 +18,7 @@ abstract class Routes {
   static const PHOTOGALLERY = _Paths.PHOTOGALLERY;
   static const CHATSCREEN = _Paths.CHATSCREEN;
   static const CHATPROFILE = _Paths.CHATPROFILE;
+  static const DRAWER = _Paths.DRAWER;
 }
 
 abstract class _Paths {
@@ -37,4 +38,5 @@ abstract class _Paths {
   static const PHOTOGALLERY = '/photogallery';
   static const CHATSCREEN = '/chatscreen';
   static const CHATPROFILE = '/chatprofile';
+  static const DRAWER = '/drawer';
 }

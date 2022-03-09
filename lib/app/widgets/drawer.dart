@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:findhome/app/theme/theme.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -32,32 +33,44 @@ ListView drawer(value) {
     default:
       drawerSelection = DrawerSelection.home;
   }
+  User? user = FirebaseAuth.instance.currentUser;
 
+  var imgUrl = "".obs;
+  imgUrl.value = user!.photoURL!;
+  String? userName = user.displayName;
+  String? email = user.email;
   return ListView(
     children: [
       Column(
         children: [
           SizedBox(height: 40),
-          CircleAvatar(
-            radius: 50,
-            child: ClipOval(
-                child: Image.asset(
-              "assets/images/avatar_photo.jpg",
-              fit: BoxFit.cover,
-            )),
+          Obx(
+            () => imgUrl.isNotEmpty
+                ? ClipOval(
+                    child: CachedNetworkImage(
+                      imageUrl: imgUrl.value,
+                      fit: BoxFit.cover,
+                      width: 100,
+                      height: 100,
+                    ),
+                  )
+                : Icon(Icons.supervised_user_circle, color: primary, size: 50),
           ),
           SizedBox(height: 25),
-          Text("Rahul Kumar", style: regular16pt),
-          Text("random@gmail.com",
-              style: regular12pt.copyWith(
-                color: primary.withOpacity(0.6),
-              )),
-          SizedBox(height: 18),
+          Text(userName!, style: regular16pt),
+          SizedBox(height: 3),
+          Text(
+            email!,
+            style: regular12pt.copyWith(
+              color: primary.withOpacity(0.6),
+            ),
+          ),
+          SizedBox(height: 16),
           Divider(color: primary.withOpacity(0.5), endIndent: 36),
         ],
       ),
       Padding(
-        padding: const EdgeInsets.only(left:5.0),
+        padding: const EdgeInsets.only(left: 5.0),
         child: Column(
           children: [
             ListTile(
@@ -98,7 +111,7 @@ ListView drawer(value) {
               title: Text("Messages", style: regular18pt),
             ),
             ListTile(
-              onTap:(){
+              onTap: () {
                 Get.back();
                 Get.toNamed("/applied");
               },
@@ -122,17 +135,15 @@ ListView drawer(value) {
             Divider(color: primary.withOpacity(0.5), endIndent: 36),
             ListTile(
               onTap: () async {
-                try{
+                try {
                   await getStorage.write('user', null);
                   final googleCurrentUser = GoogleSignIn().currentUser;
                   if (googleCurrentUser != null) {
-                    await GoogleSignIn().disconnect().catchError((e, stack) {
-                    });
+                    await GoogleSignIn().disconnect().catchError((e, stack) {});
                   }
                   await FirebaseAuth.instance.signOut();
                   Get.offAllNamed("/login");
-                } 
-                catch(e){
+                } catch (e) {
                   print(e);
                 }
               },

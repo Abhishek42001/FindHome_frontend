@@ -60,7 +60,8 @@ class LoginController extends GetxController {
             isDismissible: true,
           ),
         );
-        Get.offAllNamed("/chooselocation");
+        print(data);
+        //Get.offAllNamed("/chooselocation");
       }
     }
     catch(e){

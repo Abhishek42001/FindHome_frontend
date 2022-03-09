@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:dio/dio.dart' as dio;
 import 'package:findhome/app/modules/home/controllers/home_controller.dart';
 import 'package:findhome/app/theme/theme.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -23,10 +24,13 @@ class ApplyforrentController extends GetxController {
   String uid = "";
   var dropdownvalue = "".obs;
 
-  var dropdownitems = ['Flat', 'Single','Apartment'];
+  var dropdownitems = ['Flat', 'Single', 'Apartment'];
   final getStorage = GetStorage();
 
   var images = [].obs;
+
+  String imgUrl = "";
+  User? user;
 
   void submitdata(context) async {
     if (imagefile.isEmpty) {
@@ -55,9 +59,10 @@ class ApplyforrentController extends GetxController {
         "description": descriptionController.text,
         "price": priceController.text,
         "city": cityController.text,
-        "type":dropdownvalue.value,
+        "type": dropdownvalue.value,
         "number_of_bathrooms": noOfBathrooms.value.toString(),
         "number_of_bedrooms": noOfBedrooms.value.toString(),
+        "profile_pic_url": imgUrl,
         "main_image": await dio.MultipartFile.fromFile(
           File(imagefile.value).path,
           filename: DateTime.now().toIso8601String() + ".jpg",
@@ -71,11 +76,15 @@ class ApplyforrentController extends GetxController {
           );
         }).toList())
       });
+      print(formdata);
       var url = 'http://192.168.105.69:8000/apply';
-      var response = await di.post(url,
-          data: formdata,
-          options:
-              dio.Options(headers: {"Content-Type": "multipart/form-data"}));
+      var response = await di.post(
+        url,
+        data: formdata,
+        options: dio.Options(
+          headers: {"Content-Type": "multipart/form-data"},
+        ),
+      );
       print('Response status: ${response.statusCode}');
       print('Response body: ${response.data}');
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -90,13 +99,13 @@ class ApplyforrentController extends GetxController {
       cityController.clear();
       imagefile.value = "";
       images.value = [];
-      if(Get.isRegistered<HomeController>()){
-        final indexCtrl= Get.find<HomeController>();
+      if (Get.isRegistered<HomeController>()) {
+        final indexCtrl = Get.find<HomeController>();
         indexCtrl.getAllApplied();
       }
       Get.back();
 
-      Get.toNamed("/home");
+      Get.offAndToNamed("/home");
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(e.toString()),
@@ -109,8 +118,11 @@ class ApplyforrentController extends GetxController {
 
   @override
   void onInit() async {
-    uid = await getStorage.read('user');
     super.onInit();
+    uid = await getStorage.read('user');
+    user = FirebaseAuth.instance.currentUser;
+    imgUrl = user!.photoURL!;
+    print(imgUrl);
   }
 
   @override
