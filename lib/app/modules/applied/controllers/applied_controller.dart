@@ -83,6 +83,52 @@ class AppliedController extends GetxController {
     }
   }
 
+
+  Future<void> search(query) async {
+    var di = dio.Dio();
+    isLoading.value = true;
+    try {
+      dio.FormData formData = dio.FormData.fromMap({"user_id": userid});
+      var url = fetchingUrl + '/getappliedbyid';
+      var response = await di.post(url, data: formData);
+      data.value = response.data['data'];{
+        data.value = data.where((element) {
+          if (
+            (element["owner_name"]
+                      .toLowerCase()
+                      .contains(query.toLowerCase())) ||
+              (element["title"].toLowerCase().contains(query.toLowerCase())) ||
+              (element["address"].toLowerCase().contains(
+                        query.toLowerCase(),
+                      )) ||
+              (element['description']
+                      .toLowerCase()
+                      .contains(query.toLowerCase())) ||
+              (element['city'].toLowerCase().contains(
+                        query.toLowerCase(),
+                      )
+              )
+          ) {
+            return true;
+          }
+          return false;
+        }).toList();
+      }
+      isLoading.value = false;
+      print(data);
+    } catch (e) {
+      Get.showSnackbar(
+        GetSnackBar(
+          duration: Duration(seconds: 2),
+          message: e.toString(),
+          isDismissible: true,
+        ),
+      );
+      print(e);
+      isLoading.value = false;
+    }
+  }
+
   @override
   void onInit() {
     super.onInit();

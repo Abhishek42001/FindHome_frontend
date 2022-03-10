@@ -93,10 +93,14 @@ class AppliedView extends GetView<AppliedController> {
                           ),
                           SizedBox(height: 27),
                           CustomSearchBar(
-                              textValue: "Search",
-                              leftpadding: 23,
-                              toppadding: 17,
-                              bottompadding: 17),
+                            onChanged: (value) {
+                              appliedController.search(value);
+                            },
+                            textValue: "Search",
+                            leftpadding: 23,
+                            toppadding: 17,
+                            bottompadding: 17,
+                          ),
                           SizedBox(height: 23),
                           Obx(
                             () => appliedController.isLoading.value

@@ -289,12 +289,13 @@ class DetailviewView extends GetView<DetailviewController> {
                                             launch("tel:+91" +
                                                 _detailViewController
                                                     .data["phone_number"]
-                                                    .toString());
+                                                    .toString(),);
                                           },
                                           child: Container(
-                                              padding: EdgeInsets.all(7),
-                                              child: Icon(Icons.call,
-                                                  color: primary)),
+                                            padding: EdgeInsets.all(7),
+                                            child: Icon(Icons.call,
+                                                color: primary),
+                                          ),
                                         ),
                                       ),
                                     ),

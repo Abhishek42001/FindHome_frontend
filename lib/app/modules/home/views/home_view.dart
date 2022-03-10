@@ -12,6 +12,7 @@ import '../controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
   final HomeController _homeController = Get.put(HomeController());
+  ScrollController? scrollController = ScrollController();
 
   Container ListItem(name) {
     return (Container(
@@ -38,269 +39,425 @@ class HomeView extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
+    scrollController!
+        .addListener(() => _homeController.onScroll(scrollController));
+
     return Scaffold(
-        drawer: SizedBox(
-          width: 220,
-          child: Drawer(
-            backgroundColor: drawerColor,
-            child: drawer("home"),
-          ),
+      drawer: SizedBox(
+        width: 220,
+        child: Drawer(
+          backgroundColor: drawerColor,
+          child: drawer("home"),
         ),
-        body: RefreshIndicator(
-          onRefresh: () {
-            Fluttertoast.showToast(
-              msg: "Refreshing...",
-              toastLength: Toast.LENGTH_SHORT,
-              gravity: ToastGravity.BOTTOM,
-              timeInSecForIosWeb: 1,
-              backgroundColor: Colors.grey.withOpacity(0.6),
-              textColor: primary,
-              fontSize: 16.0,
-            );
-            return _homeController.findDatawithTag(_homeController.type.value);
-          },
-          child: SafeArea(
-            child: Builder(
-              builder: (context) => Container(
-                decoration: BoxDecoration(color: backgroundcolor),
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 30.0, right: 30),
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        height: 23,
-                      ),
-                      Obx(() => Row(
-                            children: [
-                              GestureDetector(
-                                onTap: () {
-                                  Scaffold.of(context).openDrawer();
-                                },
-                                child: AnimatedContainer(
+      ),
+      body: RefreshIndicator(
+        onRefresh: () {
+          Fluttertoast.showToast(
+            msg: "Refreshing...",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.grey.withOpacity(0.6),
+            textColor: primary,
+            fontSize: 16.0,
+          );
+          return _homeController.findDatawithTag(_homeController.type.value);
+        },
+        child: SafeArea(
+          child: Builder(
+            builder: (context) => Container(
+              decoration: BoxDecoration(color: backgroundcolor),
+              child: Padding(
+                padding: const EdgeInsets.only(left: 30.0, right: 30),
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: 23,
+                    ),
+                    Obx(() => Row(
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                Scaffold.of(context).openDrawer();
+                              },
+                              child: AnimatedContainer(
+                                height:
+                                    _homeController.showHeader.value ? 30 : 0,
+                                duration: Duration(milliseconds: 200),
+                                child: SvgPicture.asset(
+                                  "assets/images/menu-bar.svg",
+                                  color: primary.withOpacity(0.7),
+                                  fit: BoxFit.scaleDown,
+                                  width: 30,
+                                ),
+                              ),
+                            ),
+                            SizedBox(width: 17),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                AnimatedContainer(
                                   height:
-                                      _homeController.showHeader.value ? 30 : 0,
+                                      _homeController.showHeader.value ? 25 : 0,
                                   duration: Duration(milliseconds: 200),
+                                  child: Text("Location",
+                                      style: regular14pt.copyWith(
+                                          color: primary.withOpacity(0.6))),
+                                ),
+                                GestureDetector(
+                                  onTap: () {
+                                    Get.toNamed("/chooselocation");
+                                  },
+                                  child: Row(
+                                    children: [
+                                      AnimatedContainer(
+                                        height: _homeController.showHeader.value
+                                            ? 20
+                                            : 0,
+                                        duration: Duration(milliseconds: 200),
+                                        child: Text(
+                                          _homeController.city!,
+                                          style: regular16pt,
+                                        ),
+                                      ),
+                                      _homeController.showHeader.value
+                                          ? Icon(
+                                              Icons.arrow_drop_down_outlined,
+                                              color: primary,
+                                            )
+                                          : SizedBox()
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Expanded(
+                              child: Align(
+                                  child: Icon(
+                                    Icons.notifications_none,
+                                    color: primary,
+                                    size: _homeController.showHeader.value
+                                        ? 27
+                                        : 0,
+                                  ),
+                                  alignment: Alignment.centerRight),
+                            )
+                          ],
+                        )),
+                    SizedBox(height: 27),
+                    Row(
+                      children: [
+                        Expanded(
+                          flex: 5,
+                          child: CustomSearchBar(
+                            onChanged: (value) {
+                              _homeController.search(value);
+                            },
+                            textValue: "Search address, or near you",
+                            leftpadding: 23,
+                            toppadding: 17,
+                            bottompadding: 17,
+                          ),
+                        ),
+                        SizedBox(
+                          width: 13,
+                        ),
+                        Expanded(
+                          flex: 1,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(12),
+                              gradient: LinearGradient(
+                                colors: [
+                                  Color.fromRGBO(160, 218, 251, 1),
+                                  Color.fromRGBO(10, 142, 217, 1)
+                                ],
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                              ),
+                            ),
+                            child: Material(
+                              color: Colors.transparent,
+                              child: InkWell(
+                                borderRadius: BorderRadius.circular(12),
+                                onTap: () {
+                                  showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        //Here we will build the content of the dialog
+                                        return AlertDialog(
+                                          backgroundColor: primary,
+                                          title: Align(
+                                            alignment: Alignment.center,
+                                            child: Text(
+                                              "Search Filters",
+                                              style: regular18pt.copyWith(
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                            ),
+                                          ),
+                                          content: Container(
+                                            child: SingleChildScrollView(
+                                              child: Obx(
+                                                () => Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      "Default Tag is All if none is selected",
+                                                      style:
+                                                          regular12pt.copyWith(
+                                                        color: Colors.black
+                                                            .withOpacity(0.4),
+                                                      ),
+                                                    ),
+                                                    Wrap(
+                                                      children: [
+                                                        customChoiceChip(
+                                                            "Owner Name"),
+                                                        SizedBox(width: 5),
+                                                        customChoiceChip(
+                                                          "Title",
+                                                        ),
+                                                        SizedBox(width: 5),
+                                                        customChoiceChip(
+                                                          "Address",
+                                                        ),
+                                                        SizedBox(width: 5),
+                                                        customChoiceChip(
+                                                          "Description",
+                                                        ),
+                                                        SizedBox(width: 5),
+                                                        customChoiceChip(
+                                                          "City",
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    SizedBox(height: 20),
+                                                    Text(
+                                                      "Select Price Range",
+                                                      style:
+                                                          regular14pt.copyWith(
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                      ),
+                                                    ),
+                                                    Obx(
+                                                      () => RangeSlider(
+                                                        onChanged: (value) {
+                                                          _homeController
+                                                              .currentRangeValues
+                                                              .value = value;
+                                                          // _homeController
+                                                          //     .search("");
+                                                        },
+                                                        divisions: 19,
+                                                        labels: RangeLabels(
+                                                          "Rs-" +
+                                                              _homeController
+                                                                  .currentRangeValues
+                                                                  .value
+                                                                  .start
+                                                                  .round()
+                                                                  .toString(),
+                                                          "Rs-" +
+                                                              _homeController
+                                                                  .currentRangeValues
+                                                                  .value
+                                                                  .end
+                                                                  .round()
+                                                                  .toString(),
+                                                        ),
+                                                        values: _homeController
+                                                            .currentRangeValues
+                                                            .value,
+                                                        min: 1000,
+                                                        max: 20000,
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          actions: <Widget>[
+                                            TextButton(
+                                              child: Text("Done"),
+                                              onPressed: () =>
+                                                  Navigator.of(context).pop(),
+                                            )
+                                          ],
+                                        );
+                                      });
+                                },
+                                splashColor: primary.withOpacity(0.5),
+                                child: Container(
+                                  height: 48,
                                   child: SvgPicture.asset(
-                                    "assets/images/menu-bar.svg",
+                                    "assets/images/filter.svg",
                                     color: primary.withOpacity(0.7),
                                     fit: BoxFit.scaleDown,
-                                    width: 30,
                                   ),
                                 ),
                               ),
-                              SizedBox(width: 17),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  AnimatedContainer(
-                                    height: _homeController.showHeader.value
-                                        ? 25
-                                        : 0,
-                                    duration: Duration(milliseconds: 200),
-                                    child: Text("Location",
-                                        style: regular14pt.copyWith(
-                                            color: primary.withOpacity(0.6))),
-                                  ),
-                                  GestureDetector(
-                                    onTap: () {
-                                      Get.toNamed("/chooselocation");
-                                    },
-                                    child: Row(
-                                      children: [
-                                        AnimatedContainer(
-                                          height:
-                                              _homeController.showHeader.value
-                                                  ? 20
-                                                  : 0,
-                                          duration: Duration(milliseconds: 200),
-                                          child: Text(
-                                            _homeController.city!,
-                                            style: regular16pt,
-                                          ),
-                                        ),
-                                        _homeController.showHeader.value
-                                            ? Icon(
-                                                Icons.arrow_drop_down_outlined,
-                                                color: primary,
-                                              )
-                                            : SizedBox()
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Expanded(
-                                child: Align(
-                                    child: Icon(
-                                      Icons.notifications_none,
-                                      color: primary,
-                                      size: _homeController.showHeader.value
-                                          ? 27
-                                          : 0,
-                                    ),
-                                    alignment: Alignment.centerRight),
-                              )
-                            ],
-                          )),
-                      SizedBox(height: 27),
-                      Row(
-                        children: [
-                          Expanded(
-                              flex: 5,
-                              child: CustomSearchBar(
-                                  textValue: "Search address, or near you",
-                                  leftpadding: 23,
-                                  toppadding: 17,
-                                  bottompadding: 17)),
-                          SizedBox(
-                            width: 13,
+                            ),
                           ),
-                          Expanded(
-                            flex: 1,
-                            child: Container(
-                              height: 48,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(12),
-                                gradient: LinearGradient(
-                                    colors: [
-                                      Color.fromRGBO(160, 218, 251, 1),
-                                      Color.fromRGBO(10, 142, 217, 1)
-                                    ],
-                                    begin: Alignment.topCenter,
-                                    end: Alignment.bottomCenter),
+                        )
+                      ],
+                    ),
+                    SizedBox(height: 23),
+                    Obx(
+                      () => Container(
+                        height: 36,
+                        child: ListView(
+                            scrollDirection: Axis.horizontal,
+                            children: [
+                              GestureDetector(
+                                  onTap: () {
+                                    _homeController.type.value = "All";
+                                    _homeController.findDatawithTag("All");
+                                  },
+                                  child: ListItem("All")),
+                              SizedBox(width: 23),
+                              GestureDetector(
+                                  onTap: () {
+                                    _homeController.type.value = "Flat";
+                                    _homeController.findDatawithTag("Flat");
+                                  },
+                                  child: ListItem("Flat")),
+                              SizedBox(
+                                width: 23,
                               ),
-                              child: SvgPicture.asset(
-                                "assets/images/filter.svg",
-                                color: primary.withOpacity(0.7),
-                                fit: BoxFit.scaleDown,
-                              ),
+                              GestureDetector(
+                                  onTap: () {
+                                    _homeController.type.value = "Single Room";
+                                    _homeController.findDatawithTag("Single");
+                                  },
+                                  child: ListItem("Single Room")),
+                              SizedBox(width: 23),
+                              GestureDetector(
+                                  onTap: () {
+                                    _homeController.type.value = "Apartment";
+                                    _homeController
+                                        .findDatawithTag("Apartment");
+                                  },
+                                  child: ListItem("Apartment")),
+                              SizedBox(width: 23)
+                            ]),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 23,
+                    ),
+                    Obx(() => AnimatedContainer(
+                          height: _homeController.showHeader.value ? 20 : 0,
+                          duration: Duration(milliseconds: 200),
+                          child: SizedBox(
+                            width: double.infinity,
+                            child: Text(
+                              "Recommandations",
+                              style: regular16pt,
+                              textAlign: TextAlign.left,
                             ),
-                          )
-                        ],
-                      ),
-                      SizedBox(height: 23),
-                      Obx(
-                        () => Container(
-                          height: 36,
-                          child: ListView(
-                              scrollDirection: Axis.horizontal,
-                              children: [
-                                GestureDetector(
-                                    onTap: () {
-                                      _homeController.type.value = "All";
-                                      _homeController.findDatawithTag("All");
-                                    },
-                                    child: ListItem("All")),
-                                SizedBox(width: 23),
-                                GestureDetector(
-                                    onTap: () {
-                                      _homeController.type.value = "Flat";
-                                      _homeController.findDatawithTag("Flat");
-                                    },
-                                    child: ListItem("Flat")),
-                                SizedBox(
-                                  width: 23,
-                                ),
-                                GestureDetector(
-                                    onTap: () {
-                                      _homeController.type.value =
-                                          "Single Room";
-                                      _homeController.findDatawithTag("Single");
-                                    },
-                                    child: ListItem("Single Room")),
-                                SizedBox(width: 23),
-                                GestureDetector(
-                                    onTap: () {
-                                      _homeController.type.value = "Apartment";
-                                      _homeController
-                                          .findDatawithTag("Apartment");
-                                    },
-                                    child: ListItem("Apartment")),
-                                SizedBox(width: 23)
-                              ]),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 23,
-                      ),
-                      Obx(() => AnimatedContainer(
-                            height: _homeController.showHeader.value ? 20 : 0,
-                            duration: Duration(milliseconds: 200),
-                            child: SizedBox(
-                              width: double.infinity,
-                              child: Text(
-                                "Recommandations",
-                                style: regular16pt,
-                                textAlign: TextAlign.left,
-                              ),
-                            ),
-                          )),
-                      SizedBox(height: 20),
-                      Obx(
-                        () => _homeController.isLoading.value
-                            ? Expanded(
-                                child: Container(
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      SpinKitWave(
+                          ),
+                        )),
+                    SizedBox(height: 20),
+                    Obx(
+                      () => _homeController.isLoading.value
+                          ? Expanded(
+                              child: Container(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    SpinKitWave(
+                                      color: primary,
+                                      size: 50,
+                                    ),
+                                    SizedBox(height: 23),
+                                    Text(
+                                      "Fetching Data...",
+                                      style: regular14pt.copyWith(
                                         color: primary,
-                                        size: 50,
+                                        decoration: TextDecoration.none,
                                       ),
-                                      SizedBox(height: 23),
-                                      Text(
-                                        "Fetching Data...",
-                                        style: regular14pt.copyWith(
-                                          color: primary,
-                                          decoration: TextDecoration.none,
-                                        ),
-                                      )
-                                    ],
+                                    )
+                                  ],
+                                ),
+                              ),
+                            )
+                          : _homeController.data.isNotEmpty
+                              ? Expanded(
+                                  child: ListView.separated(
+                                    controller: scrollController,
+                                    separatorBuilder: (context, index) =>
+                                        SizedBox(
+                                      height: 23,
+                                    ),
+                                    itemCount: _homeController.data.length + 1,
+                                    itemBuilder: (context, index) =>
+                                        GestureDetector(
+                                      onTap: () {
+                                        Get.toNamed(
+                                          "/detailview",
+                                          arguments:
+                                              _homeController.data[index],
+                                        );
+                                      },
+                                      child: allItems(index, context),
+                                    ),
+                                  ),
+                                )
+                              : Expanded(
+                                  child: Center(
+                                    child: Text(
+                                      "Sorry we could not find any rooms for you...",
+                                      style: regular14pt.copyWith(
+                                        color: primary.withOpacity(0.6),
+                                      ),
+                                    ),
                                   ),
                                 ),
-                              )
-                            : _homeController.data.isNotEmpty
-                                ? Expanded(
-                                    child: ListView.separated(
-                                      controller:
-                                          _homeController.scrollController,
-                                      separatorBuilder: (context, index) =>
-                                          SizedBox(
-                                        height: 23,
-                                      ),
-                                      itemCount:
-                                          _homeController.data.length + 1,
-                                      itemBuilder: (context, index) =>
-                                          GestureDetector(
-                                        onTap: () {
-                                          Get.toNamed(
-                                            "/detailview",
-                                            arguments:
-                                                _homeController.data[index],
-                                          );
-                                        },
-                                        child: allItems(index, context),
-                                      ),
-                                    ),
-                                  )
-                                : Expanded(
-                                    child: Center(
-                                      child: Text(
-                                        "Sorry we could not find any rooms for you...",
-                                        style: regular14pt.copyWith(
-                                          color: primary.withOpacity(0.6),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ),
           ),
-        ));
+        ),
+      ),
+    );
+  }
+
+  ChoiceChip customChoiceChip(text) {
+    return ChoiceChip(
+      backgroundColor: Color.fromARGB(
+        255,
+        187,
+        183,
+        183,
+      ),
+      selectedColor: accent.withOpacity(0.6),
+      onSelected: (value) {
+        print(value);
+        if (_homeController.filterSet.contains(text)) {
+          _homeController.filterSet.remove(text);
+          if (_homeController.filterSet.isEmpty &&
+              _homeController.currentRangeValues.value.start != 1000) {
+            _homeController.getAllApplied();
+          }
+        } else {
+          _homeController.filterSet.add(text);
+        }
+      },
+      label: Text(
+        text,
+        style: regular14pt.copyWith(
+          color:
+              _homeController.filterSet.contains(text) ? primary : Colors.black,
+        ),
+      ),
+      selected: _homeController.filterSet.contains(text),
+    );
   }
 
   Container allItems(int index, BuildContext context) {
@@ -313,7 +470,8 @@ class HomeView extends GetView<HomeController> {
           borderRadius: BorderRadius.circular(20),
           image: DecorationImage(
             image: CachedNetworkImageProvider(
-                fetchingUrl + _homeController.data[index]['main_image']),
+              fetchingUrl + _homeController.data[index]['main_image'],
+            ),
             fit: BoxFit.cover,
             colorFilter: ColorFilter.mode(
                 Colors.black.withOpacity(0.4), BlendMode.dstATop),

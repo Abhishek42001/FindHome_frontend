@@ -1,1 +1,1 @@
-String fetchingUrl = 'https://desolate-badlands-03028.herokuapp.com';
+String fetchingUrl = 'http://192.168.105.69:8000';

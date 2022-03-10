@@ -12,16 +12,21 @@ class HomeController extends GetxController {
   String? city;
   var type = "All".obs;
   var isLoading = false.obs;
-  ScrollController? scrollController = ScrollController();
-  var showHeader = true.obs;
 
-  void onScroll() {
+  var showHeader = true.obs;
+  RxSet<String> filterSet = <String>{}.obs;
+  Rx<RangeValues> currentRangeValues = RangeValues(
+    1000,
+    20000,
+  ).obs;
+
+  void onScroll(scrollController) {
     if (scrollController!.position.pixels == 0.0) {
       showHeader.value = true;
     } else {
       showHeader.value = false;
     }
-    print(scrollController!.position.pixels);
+    // print(scrollController!.position.pixels);
   }
 
   Future<void> findDatawithTag(String tag) async {
@@ -66,7 +71,96 @@ class HomeController extends GetxController {
       Get.showSnackbar(
         GetSnackBar(
           duration: Duration(seconds: 2),
-          message: e.toString(),
+          message: "Some Error Occured...",
+          isDismissible: true,
+        ),
+      );
+      print(e);
+      isLoading.value = false;
+    }
+  }
+
+  Future<void> search(query) async {
+    isLoading.value = true;
+    try {
+      var url = fetchingUrl + '/applied';
+      var response = await dio.get(url);
+      data.value = response.data['data'];
+      if (filterSet.isNotEmpty) {
+        data.value = data.where((element) {
+          for (var ele in filterSet) {
+            if (ele == "Owner Name" &&
+                element["owner_name"]
+                    .toLowerCase()
+                    .contains(query.toLowerCase()) &&
+                element['price'] >= currentRangeValues.value.start &&
+                element['price'] <= currentRangeValues.value.end) {
+              return true;
+            } else if (ele == "Title" &&
+                element["title"].toLowerCase().contains(query.toLowerCase()) &&
+                element['price'] >= currentRangeValues.value.start &&
+                element['price'] <= currentRangeValues.value.end) {
+              return true;
+            } else if (ele == "Address" &&
+                element["address"]
+                    .toLowerCase()
+                    .contains(query.toLowerCase()) &&
+                element['price'] >= currentRangeValues.value.start &&
+                element['price'] <= currentRangeValues.value.end) {
+              return true;
+            } else if (ele == "Description" &&
+                element['description']
+                    .toLowerCase()
+                    .contains(query.toLowerCase()) &&
+                element['price'] >= currentRangeValues.value.start &&
+                element['price'] <= currentRangeValues.value.end) {
+              return true;
+            } else if (ele == "City" &&
+                element['city'].toLowerCase().contains(query.toLowerCase()) &&
+                element['price'] >= currentRangeValues.value.start &&
+                element['price'] <= currentRangeValues.value.end) {
+              return true;
+            }
+          }
+          return false;
+        }).toList();
+      } else {
+        data.value = data.where((element) {
+          if ((element["owner_name"]
+                      .toLowerCase()
+                      .contains(query.toLowerCase()) &&
+                  element['price'] >= currentRangeValues.value.start &&
+                  element['price'] <= currentRangeValues.value.end) ||
+              (element["title"].toLowerCase().contains(query.toLowerCase()) &&
+                  element['price'] >= currentRangeValues.value.start &&
+                  element['price'] <= currentRangeValues.value.end) ||
+              (element["address"].toLowerCase().contains(
+                        query.toLowerCase(),
+                      ) &&
+                  element['price'] >= currentRangeValues.value.start &&
+                  element['price'] <= currentRangeValues.value.end) ||
+              (element['description']
+                      .toLowerCase()
+                      .contains(query.toLowerCase()) &&
+                  element['price'] >= currentRangeValues.value.start &&
+                  element['price'] <= currentRangeValues.value.end) ||
+              (element['city'].toLowerCase().contains(
+                        query.toLowerCase(),
+                      )) &&
+                  element['price'] >= currentRangeValues.value.start &&
+                  element['price'] <= currentRangeValues.value.end) {
+            return true;
+          }
+          return false;
+        }).toList();
+      }
+      isLoading.value = false;
+      print(data);
+    } catch (e) {
+      Get.showSnackbar(
+        GetSnackBar(
+          duration: Duration(seconds: 2),
+          message: "Some Error Occured...",
           isDismissible: true,
         ),
       );
@@ -80,7 +174,6 @@ class HomeController extends GetxController {
     super.onInit();
     uid = getStorage.read('user');
     city = getStorage.read('city');
-    scrollController!.addListener(onScroll);
     getAllApplied();
     //findDatawithTag("Single");
   }
@@ -91,8 +184,5 @@ class HomeController extends GetxController {
   }
 
   @override
-  void onClose() {
-    scrollController!.removeListener(onScroll);
-    scrollController!.dispose();
-  }
+  void onClose() {}
 }
