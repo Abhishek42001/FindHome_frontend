@@ -1,4 +1,4 @@
-import 'package:dio/dio.dart';
+import 'package:dio/dio.dart' as dio;
 import 'package:findhome/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -7,7 +7,6 @@ import 'package:get_storage/get_storage.dart';
 class HomeController extends GetxController {
   String? uid;
   final getStorage = GetStorage();
-  var dio = Dio();
   var data = [].obs;
   String? city;
   var type = "All".obs;
@@ -30,10 +29,12 @@ class HomeController extends GetxController {
   }
 
   Future<void> findDatawithTag(String tag) async {
+    var di = dio.Dio();
     try {
       isLoading.value = true;
-      var url = fetchingUrl + '/applied';
-      var response = await dio.get(url);
+      dio.FormData formData = dio.FormData.fromMap({"city": city});
+      var url = fetchingUrl + '/getallappliedbycity';
+      var response = await di.post(url, data: formData);
       if (tag == "All") {
         data.value = response.data['data'];
         isLoading.value = false;
@@ -50,7 +51,7 @@ class HomeController extends GetxController {
       Get.showSnackbar(
         GetSnackBar(
           duration: Duration(seconds: 2),
-          message: e.toString(),
+          message: "Some Error Occured...",
         ),
       );
       print(e);
@@ -59,10 +60,12 @@ class HomeController extends GetxController {
   }
 
   Future<void> getAllApplied() async {
+    var di = dio.Dio();
     isLoading.value = true;
     try {
-      var url = fetchingUrl + '/applied';
-      var response = await dio.get(url);
+      dio.FormData formData = dio.FormData.fromMap({"city": city});
+      var url = fetchingUrl + '/getallappliedbycity';
+      var response = await di.post(url, data: formData);
 
       data.value = response.data['data'];
       isLoading.value = false;
@@ -82,9 +85,11 @@ class HomeController extends GetxController {
 
   Future<void> search(query) async {
     isLoading.value = true;
+    var di = dio.Dio();
     try {
-      var url = fetchingUrl + '/applied';
-      var response = await dio.get(url);
+      dio.FormData formData = dio.FormData.fromMap({"city": city});
+      var url = fetchingUrl + '/getallappliedbycity';
+      var response = await di.post(url, data: formData);
       data.value = response.data['data'];
       if (filterSet.isNotEmpty) {
         data.value = data.where((element) {

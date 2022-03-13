@@ -8,19 +8,37 @@ class LoginController extends GetxController {
   final getStorage = GetStorage();
   var phoneController = TextEditingController();
 
-  void check() async {
+  Future<void> signInWithGoogle() async {
     try {
-      var user = await getStorage.read("user");
-      var isNew = await getStorage.read('isnew');
-      var city = await getStorage.read('city');
-      if (user != null && isNew == false) {
-        if (city == null) {
-          Get.offAndToNamed("/chooselocation");
-        } else {
-          Get.offAndToNamed("/home");
-        }
+      // Trigger the authentication flow
+      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+      // Obtain the auth details from the request
+      if (googleUser != null) {
+        final GoogleSignInAuthentication? googleAuth =
+            await googleUser.authentication;
+
+        // Create a new credential
+        final credential = GoogleAuthProvider.credential(
+          accessToken: googleAuth?.accessToken,
+          idToken: googleAuth?.idToken,
+        );
+
+        // Once signed in, return the UserCredential
+        UserCredential data =
+            await FirebaseAuth.instance.signInWithCredential(credential);
+        await getStorage.write('user', data.user!.uid.toString());
+        await getStorage.write('isnew', data.additionalUserInfo!.isNewUser);
+        Get.showSnackbar(
+          GetSnackBar(
+            duration: Duration(seconds: 2),
+            message: "Verified...",
+            isDismissible: true,
+          ),
+        );
+        print(data);
+        //Get.offAllNamed("/chooselocation");
       }
-      
     } catch (e) {
       Get.showSnackbar(
         GetSnackBar(
@@ -32,51 +50,6 @@ class LoginController extends GetxController {
       print(e);
     }
   }
-
-  Future<void> signInWithGoogle() async {
-    try{
-      // Trigger the authentication flow
-      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-
-      // Obtain the auth details from the request
-      if(googleUser!=null){
-        final GoogleSignInAuthentication? googleAuth = await googleUser.authentication;
-
-        // Create a new credential
-        final credential = GoogleAuthProvider.credential(
-          accessToken: googleAuth?.accessToken,
-          idToken: googleAuth?.idToken,
-        );
-
-        // Once signed in, return the UserCredential
-        UserCredential data= await FirebaseAuth.instance.signInWithCredential(credential);
-        await getStorage.write('user', data.user!.uid.toString());
-        await getStorage.write(
-          'isnew', data.additionalUserInfo!.isNewUser);
-        Get.showSnackbar(
-          GetSnackBar(
-            duration: Duration(seconds: 2),
-            message: "Verified...",
-            isDismissible: true,
-          ),
-        );
-        print(data);
-        //Get.offAllNamed("/chooselocation");
-      }
-    }
-    catch(e){
-      Get.showSnackbar(
-        GetSnackBar(
-          duration: Duration(seconds: 2),
-          message: e.toString(),
-          isDismissible: true,
-        ),
-      );
-      print(e);
-    }
-    
-  }
-
 
   void phoneauthentication() async {
     try {
@@ -120,7 +93,6 @@ class LoginController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
-    check();
   }
 
   @override

@@ -108,8 +108,9 @@ class ApplyforrentController extends GetxController {
 
       Get.offAndToNamed("/home");
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text(e.toString()),
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(e.toString()),
       ));
       Get.back();
       print("error");

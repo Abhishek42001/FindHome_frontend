@@ -22,7 +22,7 @@ class OtpController extends GetxController {
       Get.showSnackbar(
         GetSnackBar(
           duration: Duration(seconds: 2),
-          message:"Verified...",
+          message: "Verified...",
           isDismissible: true,
         ),
       );
@@ -33,7 +33,18 @@ class OtpController extends GetxController {
       }
     }
     // ignore: empty_catches
-    catch (e) {
+    on FirebaseAuthException catch (e) {
+      Get.back();
+      if (e.code == "invalid-verification-code") {
+        Get.showSnackbar(
+          GetSnackBar(
+            duration: Duration(seconds: 2),
+            message: "You have entered wrong OTP",
+            isDismissible: true,
+          ),
+        );
+        return;
+      }
       Get.showSnackbar(
         GetSnackBar(
           duration: Duration(seconds: 2),

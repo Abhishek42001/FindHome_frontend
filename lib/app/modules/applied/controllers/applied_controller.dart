@@ -2,6 +2,7 @@ import 'package:dio/dio.dart' as dio;
 import 'package:findhome/constants.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:intl/intl.dart';
 
 import '../../home/controllers/home_controller.dart';
 
@@ -24,9 +25,14 @@ class AppliedController extends GetxController {
       // print('Response body: ${response.data}');
       //print(response.data['data']);
       data.value = response.data['data'];
-      print(data);
+      final dateTime = DateTime.parse(data[0]['created_date']);
+      final format = DateFormat('dd-MM-yyyy');
+      final clockString = format.format(dateTime);
+      print(clockString);
+      print(format);
+      //print(data);
       isLoading.value = false;
-      print(data);
+      //print(data);
     } catch (e) {
       Get.showSnackbar(
         GetSnackBar(
@@ -83,7 +89,6 @@ class AppliedController extends GetxController {
     }
   }
 
-
   Future<void> search(query) async {
     var di = dio.Dio();
     isLoading.value = true;
@@ -91,24 +96,22 @@ class AppliedController extends GetxController {
       dio.FormData formData = dio.FormData.fromMap({"user_id": userid});
       var url = fetchingUrl + '/getappliedbyid';
       var response = await di.post(url, data: formData);
-      data.value = response.data['data'];{
+      data.value = response.data['data'];
+      {
         data.value = data.where((element) {
-          if (
-            (element["owner_name"]
-                      .toLowerCase()
-                      .contains(query.toLowerCase())) ||
+          if ((element["owner_name"]
+                  .toLowerCase()
+                  .contains(query.toLowerCase())) ||
               (element["title"].toLowerCase().contains(query.toLowerCase())) ||
               (element["address"].toLowerCase().contains(
-                        query.toLowerCase(),
-                      )) ||
+                    query.toLowerCase(),
+                  )) ||
               (element['description']
-                      .toLowerCase()
-                      .contains(query.toLowerCase())) ||
+                  .toLowerCase()
+                  .contains(query.toLowerCase())) ||
               (element['city'].toLowerCase().contains(
-                        query.toLowerCase(),
-                      )
-              )
-          ) {
+                    query.toLowerCase(),
+                  ))) {
             return true;
           }
           return false;

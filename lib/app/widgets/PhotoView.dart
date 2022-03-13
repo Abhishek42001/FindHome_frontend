@@ -21,7 +21,8 @@ class _PhotoView2State extends State<PhotoView2> {
       builder: (BuildContext context, int index) {
         return PhotoViewGalleryPageOptions(
           imageProvider: CachedNetworkImageProvider(
-            fetchingUrl + widget.ldata![index]['images'],
+            "https://res.cloudinary.com/dmmodq1b9/" +
+                widget.ldata![index]['images'],
           ),
           initialScale: PhotoViewComputedScale.contained * 1,
           minScale: PhotoViewComputedScale.contained * 0.8,

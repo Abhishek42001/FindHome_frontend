@@ -55,17 +55,20 @@ class GalleryviewView extends GetView<GalleryviewController> {
                                   width: 1, color: primary.withOpacity(0.6)),
                               borderRadius: BorderRadius.circular(20),
                               image: DecorationImage(
-                                image: CachedNetworkImageProvider(fetchingUrl +
-                                    galleryController.data['main_image']),
+                                image: CachedNetworkImageProvider(
+                                    "https://res.cloudinary.com/dmmodq1b9/" +
+                                        galleryController.data['main_image']),
                                 fit: BoxFit.cover,
                               )),
                           // child: ClipRRect(borderRadius: BorderRadius.circular(20),child:)
                         ),
                       ),
                       SizedBox(height: 27),
-                      Text("Other Images",
-                          style: regular14pt.copyWith(
-                              fontWeight: FontWeight.w800)),
+                      Text(
+                        "Other Images",
+                        style:
+                            regular14pt.copyWith(fontWeight: FontWeight.w800),
+                      ),
                       SizedBox(height: 23),
                       Padding(
                         padding: const EdgeInsets.only(left: 10.0, right: 10),
@@ -93,7 +96,7 @@ class GalleryviewView extends GetView<GalleryviewController> {
                                       borderRadius: BorderRadius.circular(20),
                                       image: DecorationImage(
                                         image: CachedNetworkImageProvider(
-                                            fetchingUrl +
+                                            "https://res.cloudinary.com/dmmodq1b9/" +
                                                 galleryController.data['images']
                                                     [index]['images']),
                                         fit: BoxFit.cover,

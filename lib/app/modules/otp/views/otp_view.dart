@@ -11,8 +11,11 @@ import '../controllers/otp_controller.dart';
 class OtpView extends GetView<OtpController> {
   BoxDecoration get _pinPutDecoration {
     return BoxDecoration(
-        border: Border.all(color: primary),
-        borderRadius: BorderRadius.circular(12.0));
+      border: Border.all(color: primary),
+      borderRadius: BorderRadius.circular(
+        12.0,
+      ),
+    );
   }
 
   OtpController otpController = Get.put(OtpController());
@@ -39,13 +42,20 @@ class OtpView extends GetView<OtpController> {
                     width: double.infinity,
                     child: Row(
                       children: [
-                        Icon(Icons.arrow_back_ios_new_outlined, color: primary),
+                        GestureDetector(
+                          onTap: () => Get.back(),
+                          child: Icon(
+                            Icons.arrow_back_ios_new_outlined,
+                            color: primary,
+                          ),
+                        ),
                         Expanded(
-                            child: Text(
-                          "Verification",
-                          style: regular18pt.copyWith(color: primary),
-                          textAlign: TextAlign.center,
-                        ))
+                          child: Text(
+                            "Verification",
+                            style: regular18pt.copyWith(color: primary),
+                            textAlign: TextAlign.center,
+                          ),
+                        )
                       ],
                     ),
                   ),
@@ -67,7 +77,7 @@ class OtpView extends GetView<OtpController> {
                             height: 48,
                             child: PinPut(
                               eachFieldHeight: 48,
-                              eachFieldWidth:48,
+                              eachFieldWidth: 48,
                               onChanged: (value) {
                                 if (value.length != 6) {
                                   showButton.value = false;
@@ -117,21 +127,22 @@ class OtpView extends GetView<OtpController> {
                                         barrierDismissible: false,
                                         context: context,
                                         builder: (context) => Column(
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          children: [
-                                            SpinKitWave(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                SpinKitWave(
                                                   color: primary,
                                                   size: 50,
                                                 ),
-                                            SizedBox(height: 23),
-                                            Text(
-                                              "Verifing...",
-                                              style: regular14pt.copyWith(
-                                                  color: primary, decoration: TextDecoration.none
-                                                ))
-                                          ],
-                                        )
-                                    );
+                                                SizedBox(height: 23),
+                                                Text("Verifing...",
+                                                    style: regular14pt.copyWith(
+                                                        color: primary,
+                                                        decoration:
+                                                            TextDecoration
+                                                                .none))
+                                              ],
+                                            ));
                                     otpController.verifyOtp();
                                     //Get.toNamed("/newuserdetail");
                                   })

@@ -26,9 +26,11 @@ class LoginView extends GetView<LoginController> {
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
-          image: DecorationImage(
-              image: AssetImage("assets/images/Loginbackground.png"),
-              fit: BoxFit.cover)),
+        image: DecorationImage(
+          image: AssetImage("assets/images/Loginbackground.png"),
+          fit: BoxFit.cover,
+        ),
+      ),
       child: Container(
         decoration: BoxDecoration(color: Colors.black.withOpacity(0.4)),
         child: Padding(
@@ -43,15 +45,21 @@ class LoginView extends GetView<LoginController> {
               Row(
                 children: [
                   Expanded(
-                      child: Divider(
-                          color: primary.withOpacity(0.7), endIndent: 11)),
+                    child: Divider(
+                      color: primary.withOpacity(0.7),
+                      endIndent: 11,
+                    ),
+                  ),
                   Text(
                     "Login Or Signup",
                     style: semibold16.copyWith(color: primary),
                   ),
                   Expanded(
-                      child:
-                          Divider(color: primary.withOpacity(0.7), indent: 11))
+                    child: Divider(
+                      color: primary.withOpacity(0.7),
+                      indent: 11,
+                    ),
+                  )
                 ],
               ),
               SizedBox(
@@ -77,23 +85,21 @@ class LoginView extends GetView<LoginController> {
                         barrierDismissible: false,
                         context: context,
                         builder: (context) => Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            SpinKitWave(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                SpinKitWave(
                                   color: primary,
                                   size: 50,
                                 ),
-                            SizedBox(height: 23),
-                            Text(
-                              "Sending OTP...",
-                              style: regular14pt.copyWith(
-                                  color: primary, decoration: TextDecoration.none
-                                ))
-                          ],
-                        )
-                    );
+                                SizedBox(height: 23),
+                                Text("Sending OTP...",
+                                    style: regular14pt.copyWith(
+                                        color: primary,
+                                        decoration: TextDecoration.none))
+                              ],
+                            ));
                     logincontroller.phoneauthentication();
-                  }),
+                  },),
               SizedBox(
                 height: 23,
               ),
@@ -118,29 +124,28 @@ class LoginView extends GetView<LoginController> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       GestureDetector(
-                        onTap: (){
-                          logincontroller.signInWithGoogle();
-                        },
-                        child: Column(
-                          children: [
-                            SvgPicture.asset("assets/images/google.svg"),
-                            SizedBox(height:10),
-                            Text("Google",style:regular12pt)
-                          ],
-                        )
-                      ),
+                          onTap: () {
+                            logincontroller.signInWithGoogle();
+                          },
+                          child: Column(
+                            children: [
+                              SvgPicture.asset("assets/images/google.svg"),
+                              SizedBox(height: 10),
+                              Text("Google", style: regular12pt)
+                            ],
+                          )),
                       Column(
                         children: [
                           SvgPicture.asset("assets/images/facebook.svg"),
-                          SizedBox(height:10),
-                          Text("facebook",style:regular12pt)
+                          SizedBox(height: 10),
+                          Text("facebook", style: regular12pt)
                         ],
                       ),
                       Column(
                         children: [
                           SvgPicture.asset("assets/images/mail.svg"),
-                          SizedBox(height:10),
-                          Text("Other",style:regular12pt)
+                          SizedBox(height: 10),
+                          Text("Other", style: regular12pt)
                         ],
                       )
                     ]),

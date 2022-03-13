@@ -36,7 +36,7 @@ class DetailviewView extends GetView<DetailviewController> {
                       borderRadius: BorderRadius.circular(20),
                       image: DecorationImage(
                           image: CachedNetworkImageProvider(
-                            fetchingUrl +
+                            "https://res.cloudinary.com/dmmodq1b9/" +
                                 _detailViewController.data["main_image"],
                           ),
                           fit: BoxFit.cover,
@@ -286,10 +286,12 @@ class DetailviewView extends GetView<DetailviewController> {
                                           borderRadius:
                                               BorderRadius.circular(50),
                                           onTap: () {
-                                            launch("tel:+91" +
-                                                _detailViewController
-                                                    .data["phone_number"]
-                                                    .toString(),);
+                                            launch(
+                                              "tel:+91" +
+                                                  _detailViewController
+                                                      .data["phone_number"]
+                                                      .toString(),
+                                            );
                                           },
                                           child: Container(
                                             padding: EdgeInsets.all(7),
@@ -383,8 +385,9 @@ class DetailviewView extends GetView<DetailviewController> {
                 border: Border.all(width: 1, color: primary.withOpacity(0.6)),
                 borderRadius: BorderRadius.circular(12),
                 image: DecorationImage(
-                  image: CachedNetworkImageProvider(fetchingUrl +
-                      _detailViewController.data['images'][0]['images']),
+                  image: CachedNetworkImageProvider(
+                      "https://res.cloudinary.com/dmmodq1b9/" +
+                          _detailViewController.data['images'][0]['images']),
                   fit: BoxFit.cover,
                 )),
           ),
@@ -412,8 +415,9 @@ class DetailviewView extends GetView<DetailviewController> {
                   border: Border.all(width: 1, color: primary.withOpacity(0.6)),
                   borderRadius: BorderRadius.circular(12),
                   image: DecorationImage(
-                    image: CachedNetworkImageProvider(fetchingUrl +
-                        _detailViewController.data['images'][0]['images']),
+                    image: CachedNetworkImageProvider(
+                        "https://res.cloudinary.com/dmmodq1b9/" +
+                            _detailViewController.data['images'][0]['images']),
                     fit: BoxFit.cover,
                   )),
             ),
@@ -431,8 +435,10 @@ class DetailviewView extends GetView<DetailviewController> {
                   border: Border.all(width: 1, color: primary.withOpacity(0.6)),
                   borderRadius: BorderRadius.circular(12),
                   image: DecorationImage(
-                      image: CachedNetworkImageProvider(fetchingUrl +
-                          _detailViewController.data['images'][1]['images']),
+                      image: CachedNetworkImageProvider(
+                          "https://res.cloudinary.com/dmmodq1b9/" +
+                              _detailViewController.data['images'][1]
+                                  ['images']),
                       fit: BoxFit.cover,
                       colorFilter: ColorFilter.mode(
                           Colors.black.withOpacity(0.8), BlendMode.dstATop))),

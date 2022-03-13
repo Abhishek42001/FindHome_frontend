@@ -19,9 +19,11 @@ class ChooselocationView extends GetView<ChooselocationController> {
         child: Container(
           width: double.infinity,
           decoration: BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage("assets/images/Loginbackground.png"),
-                  fit: BoxFit.cover)),
+            image: DecorationImage(
+              image: AssetImage("assets/images/Loginbackground.png"),
+              fit: BoxFit.cover,
+            ),
+          ),
           child: Container(
             decoration: BoxDecoration(color: Colors.black.withOpacity(0.4)),
             child: Padding(
@@ -31,85 +33,74 @@ class ChooselocationView extends GetView<ChooselocationController> {
                   Container(
                     margin: EdgeInsets.only(top: 24),
                     width: double.infinity,
-                    child: Expanded(
-                        child: Text(
+                    child: Text(
                       "Choose Location",
                       style: regular18pt.copyWith(color: primary),
                       textAlign: TextAlign.center,
-                    )),
+                    ),
                   ),
-                  Expanded(
-                    child: SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          SizedBox(height: 60),
-                          RichText(
-                              text: TextSpan(
-                                  text: "Welcome to ",
-                                  style: heading2.copyWith(color: primary),
-                                  children: [
-                                TextSpan(
-                                    text: "FIND",
-                                    style: heading2.copyWith(
-                                        fontFamily: "AmstelvarAlpha",
-                                        color: primary)),
-                                TextSpan(
-                                    text: "HOME",
-                                    style: heading2.copyWith(
-                                        fontFamily: "AmstelvarAlpha",
-                                        color: accent))
-                              ])),
-                          Text("John", style: heading2),
-                          SizedBox(height: 87),
-                          ShaderMask(
-                            shaderCallback: (Rect bounds) {
-                              return LinearGradient(
-                                begin: Alignment.topCenter,
-                                end: Alignment.bottomCenter,
-                                colors: <Color>[
-                                  Color.fromRGBO(160, 218, 251, 1),
-                                  Color.fromRGBO(10, 142, 217, 1)
-                                ],
-                              ).createShader(bounds);
-                            },
-                            child:
-                                SvgPicture.asset("assets/images/location.svg"),
+                  SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        SizedBox(height: 60),
+                        Text(
+                          "Please Tell Us Your Location",
+                          style: heading2.copyWith(
+                            color: primary,
                           ),
-                          SizedBox(height: 35),
-                          Text("Choose Your Location", style: regular16pt),
-                          SizedBox(height: 23),
-                          CustomPrimaryButton(
-                              textValue: "Use My Current Location",
-                              onTap: () {
-                                showDialog(
-                                    barrierDismissible: false,
-                                    context: context,
-                                    builder: (context) => Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        SpinKitWave(
-                                              color: primary,
-                                              size: 50,
-                                            ),
-                                        SizedBox(height: 23),
-                                        Text(
-                                          "Taking You to Home...",
-                                          style: regular14pt.copyWith(
-                                              color: primary, decoration: TextDecoration.none
-                                            ))
-                                      ],
-                                    )
-                                );
-                                _locationController.getLocation();
-                              }),
-                          SizedBox(height: 23),
-                          Text("Select Manually",
-                              style: regular14pt.copyWith(
-                                  decoration: TextDecoration.underline,
-                                  fontWeight: FontWeight.w800)),
-                          SizedBox(height: 23),
-                        ],
-                      ),
+                        ),
+                        SizedBox(height: 87),
+                        ShaderMask(
+                          shaderCallback: (Rect bounds) {
+                            return LinearGradient(
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                              colors: <Color>[
+                                Color.fromRGBO(160, 218, 251, 1),
+                                Color.fromRGBO(10, 142, 217, 1)
+                              ],
+                            ).createShader(bounds);
+                          },
+                          child: SvgPicture.asset("assets/images/location.svg"),
+                        ),
+                        SizedBox(height: 60),
+                        CustomPrimaryButton(
+                          textValue: "Use My Current Location",
+                          onTap: () {
+                            showDialog(
+                              barrierDismissible: false,
+                              context: context,
+                              builder: (context) => Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  SpinKitWave(
+                                    color: primary,
+                                    size: 50,
+                                  ),
+                                  SizedBox(height: 23),
+                                  Text(
+                                    "Taking You to Home...",
+                                    style: regular14pt.copyWith(
+                                      color: primary,
+                                      decoration: TextDecoration.none,
+                                    ),
+                                  )
+                                ],
+                              ),
+                            );
+                            _locationController.getLocation();
+                          },
+                        ),
+                        SizedBox(height: 30),
+                        Text(
+                          "Select Manually",
+                          style: regular14pt.copyWith(
+                            decoration: TextDecoration.underline,
+                            fontWeight: FontWeight.w800,
+                          ),
+                        ),
+                        SizedBox(height: 23),
+                      ],
                     ),
                   ),
                 ],

@@ -74,76 +74,76 @@ class HomeView extends GetView<HomeController> {
                     SizedBox(
                       height: 23,
                     ),
-                    Obx(() => Row(
-                          children: [
-                            GestureDetector(
-                              onTap: () {
-                                Scaffold.of(context).openDrawer();
-                              },
-                              child: AnimatedContainer(
-                                height:
-                                    _homeController.showHeader.value ? 30 : 0,
-                                duration: Duration(milliseconds: 200),
-                                child: SvgPicture.asset(
-                                  "assets/images/menu-bar.svg",
-                                  color: primary.withOpacity(0.7),
-                                  fit: BoxFit.scaleDown,
-                                  width: 30,
-                                ),
+                    Obx(
+                      () => Row(
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              Scaffold.of(context).openDrawer();
+                            },
+                            child: AnimatedContainer(
+                              height: _homeController.showHeader.value ? 30 : 0,
+                              duration: Duration(milliseconds: 200),
+                              child: SvgPicture.asset(
+                                "assets/images/menu-bar.svg",
+                                color: primary.withOpacity(0.7),
+                                fit: BoxFit.scaleDown,
+                                width: 30,
                               ),
                             ),
-                            SizedBox(width: 17),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                AnimatedContainer(
-                                  height:
-                                      _homeController.showHeader.value ? 25 : 0,
-                                  duration: Duration(milliseconds: 200),
-                                  child: Text("Location",
-                                      style: regular14pt.copyWith(
-                                          color: primary.withOpacity(0.6))),
-                                ),
-                                GestureDetector(
-                                  onTap: () {
-                                    Get.toNamed("/chooselocation");
-                                  },
-                                  child: Row(
-                                    children: [
-                                      AnimatedContainer(
-                                        height: _homeController.showHeader.value
-                                            ? 20
-                                            : 0,
-                                        duration: Duration(milliseconds: 200),
-                                        child: Text(
-                                          _homeController.city!,
-                                          style: regular16pt,
-                                        ),
+                          ),
+                          SizedBox(width: 17),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              AnimatedContainer(
+                                height:
+                                    _homeController.showHeader.value ? 25 : 0,
+                                duration: Duration(milliseconds: 200),
+                                child: Text("Location",
+                                    style: regular14pt.copyWith(
+                                        color: primary.withOpacity(0.6))),
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  Get.toNamed("/chooselocation");
+                                },
+                                child: Row(
+                                  children: [
+                                    AnimatedContainer(
+                                      height: _homeController.showHeader.value
+                                          ? 20
+                                          : 0,
+                                      duration: Duration(milliseconds: 200),
+                                      child: Text(
+                                        _homeController.city!,
+                                        style: regular16pt,
                                       ),
-                                      _homeController.showHeader.value
-                                          ? Icon(
-                                              Icons.arrow_drop_down_outlined,
-                                              color: primary,
-                                            )
-                                          : SizedBox()
-                                    ],
-                                  ),
+                                    ),
+                                    _homeController.showHeader.value
+                                        ? Icon(
+                                            Icons.arrow_drop_down_outlined,
+                                            color: primary,
+                                          )
+                                        : SizedBox()
+                                  ],
                                 ),
-                              ],
-                            ),
-                            Expanded(
-                              child: Align(
-                                  child: Icon(
-                                    Icons.notifications_none,
-                                    color: primary,
-                                    size: _homeController.showHeader.value
-                                        ? 27
-                                        : 0,
-                                  ),
-                                  alignment: Alignment.centerRight),
-                            )
-                          ],
-                        )),
+                              ),
+                            ],
+                          ),
+                          Expanded(
+                            child: Align(
+                                child: Icon(
+                                  Icons.notifications_none,
+                                  color: primary,
+                                  size:
+                                      _homeController.showHeader.value ? 27 : 0,
+                                ),
+                                alignment: Alignment.centerRight),
+                          )
+                        ],
+                      ),
+                    ),
                     SizedBox(height: 27),
                     Row(
                       children: [
@@ -365,29 +365,28 @@ class HomeView extends GetView<HomeController> {
                     Obx(
                       () => _homeController.isLoading.value
                           ? Expanded(
-                              child: Container(
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    SpinKitWave(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  SpinKitWave(
+                                    color: primary,
+                                    size: 50,
+                                  ),
+                                  SizedBox(height: 23),
+                                  Text(
+                                    "Fetching Data...",
+                                    style: regular14pt.copyWith(
                                       color: primary,
-                                      size: 50,
+                                      decoration: TextDecoration.none,
                                     ),
-                                    SizedBox(height: 23),
-                                    Text(
-                                      "Fetching Data...",
-                                      style: regular14pt.copyWith(
-                                        color: primary,
-                                        decoration: TextDecoration.none,
-                                      ),
-                                    )
-                                  ],
-                                ),
+                                  )
+                                ],
                               ),
                             )
                           : _homeController.data.isNotEmpty
                               ? Expanded(
                                   child: ListView.separated(
+                                    physics: AlwaysScrollableScrollPhysics(),
                                     controller: scrollController,
                                     separatorBuilder: (context, index) =>
                                         SizedBox(
@@ -408,13 +407,26 @@ class HomeView extends GetView<HomeController> {
                                   ),
                                 )
                               : Expanded(
-                                  child: Center(
-                                    child: Text(
-                                      "Sorry we could not find any rooms for you...",
-                                      style: regular14pt.copyWith(
-                                        color: primary.withOpacity(0.6),
+                                  child: ListView(
+                                    physics: AlwaysScrollableScrollPhysics(),
+                                    children: [
+                                      Container(
+                                        constraints: BoxConstraints(
+                                          minHeight: MediaQuery.of(context)
+                                                  .size
+                                                  .height -
+                                              350,
+                                        ),
+                                        child: Center(
+                                          child: Text(
+                                            "Sorry we could not find any rooms for you...",
+                                            style: regular14pt.copyWith(
+                                              color: primary.withOpacity(0.6),
+                                            ),
+                                          ),
+                                        ),
                                       ),
-                                    ),
+                                    ],
                                   ),
                                 ),
                     ),
@@ -470,7 +482,8 @@ class HomeView extends GetView<HomeController> {
           borderRadius: BorderRadius.circular(20),
           image: DecorationImage(
             image: CachedNetworkImageProvider(
-              fetchingUrl + _homeController.data[index]['main_image'],
+              "https://res.cloudinary.com/dmmodq1b9/" +
+                  _homeController.data[index]['main_image'],
             ),
             fit: BoxFit.cover,
             colorFilter: ColorFilter.mode(
@@ -529,56 +542,60 @@ class HomeView extends GetView<HomeController> {
             ),
             SizedBox(height: 13),
             Container(
-                width: MediaQuery.of(context).size.width - 102,
-                // left: 21,
-                // bottom: 15,
-                child: Row(
-                  children: [
-                    Row(
+              width: MediaQuery.of(context).size.width - 102,
+              // left: 21,
+              // bottom: 15,
+              child: Row(
+                children: [
+                  Row(
+                    children: [
+                      Container(
+                        padding: EdgeInsets.all(6),
+                        decoration: BoxDecoration(
+                            color: Colors.white.withOpacity(0.2),
+                            borderRadius: BorderRadius.circular(5.34)),
+                        child: SvgPicture.asset(
+                          "assets/images/bedroom.svg",
+                          width: 16,
+                          height: 20,
+                        ),
+                      ),
+                      SizedBox(width: 11.76),
+                      Text(
+                        _homeController.data[index]["number_of_bedrooms"]
+                                .toString() +
+                            " Bedroom",
+                        style: regular12pt,
+                      ),
+                    ],
+                  ),
+                  Expanded(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         Container(
-                            padding: EdgeInsets.all(6),
-                            decoration: BoxDecoration(
-                                color: Colors.white.withOpacity(0.2),
-                                borderRadius: BorderRadius.circular(5.34)),
-                            child: SvgPicture.asset(
-                              "assets/images/bedroom.svg",
-                              width: 16,
-                              height: 20,
-                            )),
+                          padding: EdgeInsets.all(6),
+                          decoration: BoxDecoration(
+                              color: Colors.white.withOpacity(0.2),
+                              borderRadius: BorderRadius.circular(5.34)),
+                          child: SvgPicture.asset(
+                            "assets/images/bathroom.svg",
+                            width: 16,
+                            height: 20,
+                          ),
+                        ),
                         SizedBox(width: 11.76),
                         Text(
-                            _homeController.data[index]["number_of_bedrooms"]
+                            _homeController.data[index]["number_of_bathrooms"]
                                     .toString() +
-                                " Bedroom",
+                                " Bathroom",
                             style: regular12pt),
                       ],
                     ),
-                    Expanded(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Container(
-                              padding: EdgeInsets.all(6),
-                              decoration: BoxDecoration(
-                                  color: Colors.white.withOpacity(0.2),
-                                  borderRadius: BorderRadius.circular(5.34)),
-                              child: SvgPicture.asset(
-                                "assets/images/bathroom.svg",
-                                width: 16,
-                                height: 20,
-                              )),
-                          SizedBox(width: 11.76),
-                          Text(
-                              _homeController.data[index]["number_of_bathrooms"]
-                                      .toString() +
-                                  " Bathroom",
-                              style: regular12pt),
-                        ],
-                      ),
-                    )
-                  ],
-                )),
+                  )
+                ],
+              ),
+            ),
             SizedBox(height: 21)
           ],
         ),

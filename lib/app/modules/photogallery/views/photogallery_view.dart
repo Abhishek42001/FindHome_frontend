@@ -21,7 +21,8 @@ class PhotogalleryView extends GetView<PhotogalleryController> {
         builder: (BuildContext context, int index) {
           return PhotoViewGalleryPageOptions(
             imageProvider: CachedNetworkImageProvider(
-                fetchingUrl + _galleryController.data![index]['images']),
+                "https://res.cloudinary.com/dmmodq1b9/" +
+                    _galleryController.data![index]['images']),
             initialScale: PhotoViewComputedScale.contained * 1,
             minScale: PhotoViewComputedScale.contained * 0.8,
             maxScale: PhotoViewComputedScale.covered * 1.1,

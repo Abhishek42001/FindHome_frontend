@@ -6,8 +6,6 @@ import 'app/routes/app_pages.dart';
 import 'package:findhome/app/theme/theme.dart';
 import 'package:get_storage/get_storage.dart';
 
-
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -15,11 +13,11 @@ void main() async {
   runApp(
     GetMaterialApp(
       title: "Application",
-      defaultTransition: Transition.downToUp,
+      defaultTransition: Transition.fadeIn,
       theme: ThemeData(
-        scaffoldBackgroundColor: backgroundcolor,
-        canvasColor: backgroundcolor,
-        backgroundColor: backgroundcolor,
+          scaffoldBackgroundColor: backgroundcolor,
+          canvasColor: backgroundcolor,
+          backgroundColor: backgroundcolor,
           fontFamily: "Poppins",
           primaryColor: primary,
           textButtonTheme: TextButtonThemeData(
@@ -30,14 +28,12 @@ void main() async {
           ),
           splashColor: primary.withOpacity(0.1),
           textTheme: TextTheme(
-              bodyText2: TextStyle(color: primary),
-              bodyText1: TextStyle(color: primary),
-          )
-      ),
+            bodyText2: TextStyle(color: primary),
+            bodyText1: TextStyle(color: primary),
+          )),
       debugShowCheckedModeBanner: false,
       initialRoute: AppPages.INITIAL,
       getPages: AppPages.routes,
-      
     ),
   );
 }
