@@ -100,10 +100,16 @@ class HomeView extends GetView<HomeController> {
                                 height:
                                     _homeController.showHeader.value ? 25 : 0,
                                 duration: Duration(milliseconds: 200),
-                                child: Text("Location",
-                                    style: regular14pt.copyWith(
-                                        color: primary.withOpacity(0.6))),
+                                child: Text(
+                                  "Location",
+                                  style: regular14pt.copyWith(
+                                    color: primary.withOpacity(
+                                      0.6,
+                                    ),
+                                  ),
+                                ),
                               ),
+                              SizedBox(height: 3),
                               GestureDetector(
                                 onTap: () {
                                   Get.toNamed("/chooselocation");
@@ -115,16 +121,22 @@ class HomeView extends GetView<HomeController> {
                                           ? 20
                                           : 0,
                                       duration: Duration(milliseconds: 200),
-                                      child: Text(
-                                        _homeController.city!,
-                                        style: regular16pt,
+                                      child: Container(
+                                        constraints:
+                                            BoxConstraints(maxWidth: 150),
+                                        child: Text(
+                                          _homeController.city!,
+                                          style:
+                                              regular16pt.copyWith(height: 1.0),
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
                                       ),
                                     ),
                                     _homeController.showHeader.value
                                         ? Icon(
-                                            Icons.arrow_drop_down_outlined,
-                                            color: primary,
-                                          )
+                                          Icons.arrow_drop_down_outlined,
+                                          color: primary,
+                                        )
                                         : SizedBox()
                                   ],
                                 ),
@@ -144,7 +156,7 @@ class HomeView extends GetView<HomeController> {
                         ],
                       ),
                     ),
-                    SizedBox(height: 27),
+                    SizedBox(height: 15),
                     Row(
                       children: [
                         Expanded(

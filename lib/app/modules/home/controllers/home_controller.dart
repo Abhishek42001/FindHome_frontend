@@ -63,9 +63,8 @@ class HomeController extends GetxController {
     var di = dio.Dio();
     isLoading.value = true;
     try {
-      dio.FormData formData = dio.FormData.fromMap({"city": city});
-      var url = fetchingUrl + '/getallappliedbycity';
-      var response = await di.post(url, data: formData);
+      var url = fetchingUrl + '/getallappliedbycity?city=' + city!;
+      var response = await di.get(url);
 
       data.value = response.data['data'];
       isLoading.value = false;

@@ -10,7 +10,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:get/get.dart';
 import 'package:outline_gradient_button/outline_gradient_button.dart';
+import '../../../widgets/custom_searchbar.dart';
 import '../controllers/applyforrent_controller.dart';
+import 'dart:async';
 
 class ApplyforrentView extends GetView<ApplyforrentController> {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
@@ -178,17 +180,60 @@ class ApplyforrentView extends GetView<ApplyforrentController> {
                                     child: Text("City*"),
                                   ),
                                   SizedBox(height: 13),
-                                  CustomFormField(
-                                      maxlength: 25,
+                                  GestureDetector(
+                                    onTap: () {
+                                      customBottomSheet().then(
+                                        (value) {
+                                          applyController.check.value = "";
+                                          applyController.searchdata.value = [];
+                                        },
+                                      );
+                                    },
+                                    child: TextFormField(
+                                      validator: (s) =>
+                                          applyController.checkCity(s!),
                                       controller:
                                           applyController.cityController,
-                                      validator: (s) =>
-                                          applyController.checkCity(s),
-                                      textValue: "City*",
-                                      leftpadding: 23,
-                                      rightpadding: 23,
-                                      toppadding: 17,
-                                      bottompadding: 17),
+                                      enabled: false,
+                                      decoration: InputDecoration(
+                                        suffixIcon: Icon(
+                                          Icons
+                                              .keyboard_double_arrow_down_sharp,
+                                          color: primary.withOpacity(0.6),
+                                        ),
+                                        suffixIconColor: primary,
+                                        disabledBorder: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(12),
+                                          borderSide: BorderSide(
+                                            width: 1,
+                                            color: primary,
+                                          ),
+                                        ),
+                                        contentPadding: EdgeInsets.only(
+                                          left: 23,
+                                          top: 17,
+                                          bottom: 17,
+                                          right: 23,
+                                        ),
+                                        hintText: "Select City*",
+                                        hintStyle: regular14pt.copyWith(
+                                          color: primary.withOpacity(0.7),
+                                        ),
+                                        focusColor: primary,
+                                        border: OutlineInputBorder(
+                                          borderSide:
+                                              BorderSide(color: primary),
+                                          borderRadius:
+                                              BorderRadius.circular(12.0),
+                                        ),
+                                      ),
+                                      style: regular14pt.copyWith(
+                                        color: primary,
+                                        decoration: TextDecoration.none,
+                                      ),
+                                    ),
+                                  ),
                                   SizedBox(height: 23),
                                   Padding(
                                     padding: const EdgeInsets.only(left: 11.0),
@@ -196,41 +241,43 @@ class ApplyforrentView extends GetView<ApplyforrentController> {
                                   ),
                                   SizedBox(height: 13),
                                   TextFormField(
-                                      maxLength: 35,
-                                      validator: (s) {
-                                        if (s!.isEmpty) {
-                                          return "Please Enter Address";
-                                        }
-                                      },
-                                      controller:
-                                          applyController.addressController,
-                                      keyboardType: TextInputType.multiline,
-                                      maxLines: 3,
-                                      decoration: InputDecoration(
-                                        counterText: "",
-                                        contentPadding: EdgeInsets.only(
-                                            left: 23,
-                                            top: 17,
-                                            bottom: 17,
-                                            right: 23),
-                                        hintText: "Address*",
-                                        hintStyle: regular14pt.copyWith(
-                                            color: primary.withOpacity(0.7)),
-                                        enabledBorder: OutlineInputBorder(
-                                            borderSide:
-                                                BorderSide(color: primary),
-                                            borderRadius:
-                                                BorderRadius.circular(12.0)),
-                                        focusColor: primary,
-                                        border: OutlineInputBorder(
-                                            borderSide:
-                                                BorderSide(color: primary),
-                                            borderRadius:
-                                                BorderRadius.circular(12.0)),
-                                      ),
-                                      style: regular14pt.copyWith(
-                                          color: primary,
-                                          decoration: TextDecoration.none)),
+                                    maxLength: 35,
+                                    validator: (s) {
+                                      if (s!.isEmpty) {
+                                        return "Please Enter Address";
+                                      }
+                                    },
+                                    controller:
+                                        applyController.addressController,
+                                    keyboardType: TextInputType.multiline,
+                                    maxLines: 3,
+                                    decoration: InputDecoration(
+                                      counterText: "",
+                                      contentPadding: EdgeInsets.only(
+                                          left: 23,
+                                          top: 17,
+                                          bottom: 17,
+                                          right: 23),
+                                      hintText: "Address*",
+                                      hintStyle: regular14pt.copyWith(
+                                          color: primary.withOpacity(0.7)),
+                                      enabledBorder: OutlineInputBorder(
+                                          borderSide:
+                                              BorderSide(color: primary),
+                                          borderRadius:
+                                              BorderRadius.circular(12.0)),
+                                      focusColor: primary,
+                                      border: OutlineInputBorder(
+                                          borderSide:
+                                              BorderSide(color: primary),
+                                          borderRadius:
+                                              BorderRadius.circular(12.0)),
+                                    ),
+                                    style: regular14pt.copyWith(
+                                      color: primary,
+                                      decoration: TextDecoration.none,
+                                    ),
+                                  ),
                                   SizedBox(
                                     height: 23,
                                   ),
@@ -489,47 +536,50 @@ class ApplyforrentView extends GetView<ApplyforrentController> {
                                   Obx(
                                     () => Wrap(runSpacing: 20, children: [
                                       ...applyController.images
-                                          .map((item) => Wrap(
-                                                children: [
-                                                  Container(
-                                                    width: 100,
-                                                    height: 100,
-                                                    decoration: BoxDecoration(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(20),
-                                                        image: DecorationImage(
-                                                            image: FileImage(
-                                                              File(item),
-                                                            ),
-                                                            fit: BoxFit.cover,
-                                                            colorFilter: ColorFilter.mode(
-                                                                Colors.black
-                                                                    .withOpacity(
-                                                                        0.6),
-                                                                BlendMode
-                                                                    .dstATop))),
-                                                    child: SizedBox(
-                                                      width: double.infinity,
-                                                      child: Align(
-                                                          alignment: Alignment
-                                                              .topRight,
-                                                          child: IconButton(
-                                                              onPressed: () {
-                                                                applyController
-                                                                    .images
-                                                                    .remove(
-                                                                        item);
-                                                              },
-                                                              icon: Icon(
-                                                                  Icons.close,
-                                                                  color:
-                                                                      primary))),
-                                                    ),
+                                          .map(
+                                            (item) => Wrap(
+                                              children: [
+                                                Container(
+                                                  width: 100,
+                                                  height: 100,
+                                                  decoration: BoxDecoration(
+                                                      borderRadius: BorderRadius
+                                                          .circular(20),
+                                                      image: DecorationImage(
+                                                          image: FileImage(
+                                                            File(item),
+                                                          ),
+                                                          fit: BoxFit.cover,
+                                                          colorFilter:
+                                                              ColorFilter.mode(
+                                                                  Colors
+                                                                      .black
+                                                                      .withOpacity(
+                                                                          0.6),
+                                                                  BlendMode
+                                                                      .dstATop))),
+                                                  child: SizedBox(
+                                                    width: double.infinity,
+                                                    child: Align(
+                                                        alignment:
+                                                            Alignment.topRight,
+                                                        child: IconButton(
+                                                          onPressed: () {
+                                                            applyController
+                                                                .images
+                                                                .remove(item);
+                                                          },
+                                                          icon: Icon(
+                                                            Icons.close,
+                                                            color: primary,
+                                                          ),
+                                                        )),
                                                   ),
-                                                  SizedBox(width: 20)
-                                                ],
-                                              ))
+                                                ),
+                                                SizedBox(width: 20)
+                                              ],
+                                            ),
+                                          )
                                           .toList(),
                                       IconButton(
                                         onPressed: () {
@@ -547,93 +597,96 @@ class ApplyforrentView extends GetView<ApplyforrentController> {
                                     height: 46,
                                   ),
                                   CustomPrimaryButton(
-                                      textValue: "Submit",
-                                      onTap: () {
-                                        if (formKey.currentState!.validate() ==
-                                            false) {
-                                          return;
-                                        }
-                                        if (applyController
-                                            .dropdownvalue.value.isEmpty) {
-                                          showDialog(
-                                              context: context,
-                                              builder: (context) => AlertDialog(
-                                                    title: Text("Oops"),
-                                                    content: Text(
-                                                        "Please Select Type..."),
-                                                    actions: [
-                                                      TextButton(
-                                                        child: Text("OK"),
-                                                        onPressed: () {
-                                                          Get.back();
-                                                        },
-                                                      ),
-                                                    ],
-                                                  ));
-                                          return;
-                                        }
-                                        if (applyController
-                                            .imagefile.value.isEmpty) {
-                                          showDialog(
-                                              context: context,
-                                              builder: (context) => AlertDialog(
-                                                    title: Text("Oops"),
-                                                    content: Text(
-                                                        "Please Upload Main Photo."),
-                                                    actions: [
-                                                      TextButton(
-                                                        child: Text("OK"),
-                                                        onPressed: () {
-                                                          Get.back();
-                                                        },
-                                                      ),
-                                                    ],
-                                                  ));
-                                          return;
-                                        }
-                                        if (applyController.images.isEmpty) {
-                                          showDialog(
+                                    textValue: "Submit",
+                                    onTap: () {
+                                      if (formKey.currentState!.validate() ==
+                                          false) {
+                                        return;
+                                      }
+                                      if (applyController
+                                          .dropdownvalue.value.isEmpty) {
+                                        showDialog(
                                             context: context,
                                             builder: (context) => AlertDialog(
-                                              title: Text("Oops"),
-                                              content: Text(
-                                                  "Please Upload At least one photo in upload photos section."),
-                                              actions: [
-                                                TextButton(
-                                                  child: Text("OK"),
-                                                  onPressed: () {
-                                                    Get.back();
-                                                  },
-                                                ),
-                                              ],
-                                            ),
-                                          );
-                                          return;
-                                        }
-                                        FocusScope.of(context).unfocus();
-                                        showDialog(
-                                            barrierDismissible: false,
-                                            context: context,
-                                            builder: (context) => Column(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: [
-                                                    SpinKitWave(
-                                                      color: primary,
-                                                      size: 50,
+                                                  title: Text("Oops"),
+                                                  content: Text(
+                                                      "Please Select Type..."),
+                                                  actions: [
+                                                    TextButton(
+                                                      child: Text("OK"),
+                                                      onPressed: () {
+                                                        Get.back();
+                                                      },
                                                     ),
-                                                    SizedBox(height: 23),
-                                                    Text("Uploading Data...",
-                                                        style: regular14pt
-                                                            .copyWith(
-                                                                color: primary,
-                                                                decoration:
-                                                                    TextDecoration
-                                                                        .none))
                                                   ],
                                                 ));
-                                        applyController.submitdata(context);
-                                      }),
+                                        return;
+                                      }
+                                      if (applyController
+                                          .imagefile.value.isEmpty) {
+                                        showDialog(
+                                          context: context,
+                                          builder: (context) => AlertDialog(
+                                            title: Text("Oops"),
+                                            content: Text(
+                                                "Please Upload Main Photo."),
+                                            actions: [
+                                              TextButton(
+                                                child: Text("OK"),
+                                                onPressed: () {
+                                                  Get.back();
+                                                },
+                                              ),
+                                            ],
+                                          ),
+                                        );
+                                        return;
+                                      }
+                                      if (applyController.images.isEmpty) {
+                                        showDialog(
+                                          context: context,
+                                          builder: (context) => AlertDialog(
+                                            title: Text("Oops"),
+                                            content: Text(
+                                                "Please Upload At least one photo in upload photos section."),
+                                            actions: [
+                                              TextButton(
+                                                child: Text("OK"),
+                                                onPressed: () {
+                                                  Get.back();
+                                                },
+                                              ),
+                                            ],
+                                          ),
+                                        );
+                                        return;
+                                      }
+                                      FocusScope.of(context).unfocus();
+                                      showDialog(
+                                        barrierDismissible: false,
+                                        context: context,
+                                        builder: (context) => Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            SpinKitWave(
+                                              color: primary,
+                                              size: 50,
+                                            ),
+                                            SizedBox(height: 23),
+                                            Text(
+                                              "Uploading Data...",
+                                              style: regular14pt.copyWith(
+                                                color: primary,
+                                                decoration: TextDecoration.none,
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      );
+                                      applyController.submitdata(context);
+                                    },
+                                  ),
                                   SizedBox(height: 23),
                                 ],
                               ),
@@ -644,6 +697,111 @@ class ApplyforrentView extends GetView<ApplyforrentController> {
             ),
           );
         }));
+  }
+
+  Future<dynamic> customBottomSheet() {
+    return Get.bottomSheet(
+      BottomSheet(
+        onClosing: () {},
+        enableDrag: false,
+        //backgroundColor: primary,
+        builder: (context) {
+          return Container(
+            padding: const EdgeInsets.only(
+              left: 30.0,
+              right: 30,
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: 20),
+                Text(
+                  "Type a City Name To Search",
+                  style: regular14pt.copyWith(
+                    fontWeight: FontWeight.w500,
+                    color: primary.withOpacity(0.6),
+                  ),
+                ),
+                SizedBox(height: 20),
+                CustomSearchBar(
+                  textValue: "Search An Address",
+                  leftpadding: 23,
+                  toppadding: 17,
+                  bottompadding: 17,
+                  onChanged: (text) {
+                    const duration = Duration(milliseconds: 700);
+                    if (applyController.searchOnStoppedTyping != null) {
+                      applyController.searchOnStoppedTyping!
+                          .cancel(); // clear timer
+                    }
+                    applyController.searchOnStoppedTyping = Timer(
+                      duration,
+                      () {
+                        applyController.check.value = text;
+                        applyController.citySearch(text);
+                      },
+                    );
+                  },
+                ),
+                Obx(
+                  () => applyController.isLoading.value
+                      ? Expanded(
+                          child: Center(
+                            child: CircularProgressIndicator(),
+                          ),
+                        )
+                      : applyController.check.isNotEmpty &&
+                              applyController.searchdata.isEmpty
+                          ? Expanded(
+                              child: Center(
+                                child: Text(
+                                  "No Result Found...",
+                                  style: regular14pt.copyWith(
+                                    color: primary.withOpacity(0.6),
+                                  ),
+                                ),
+                              ),
+                            )
+                          : Expanded(
+                              child: ListView(
+                                children: applyController.searchdata.map(
+                                  (item) {
+                                    return Material(
+                                      color: backgroundcolor,
+                                      child: InkWell(
+                                        borderRadius: BorderRadius.circular(12),
+                                        splashColor: accent.withOpacity(0.6),
+                                        onTap: () {
+                                          applyController.setCity(
+                                            item['properties']['city'],
+                                          );
+                                        },
+                                        child: ListTile(
+                                          iconColor: primary,
+                                          leading: Icon(
+                                            Icons.location_on_outlined,
+                                          ),
+                                          title: Text(
+                                            item['properties']['city'],
+                                            style: regular16pt.copyWith(
+                                              color: primary,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ).toList(),
+                              ),
+                            ),
+                )
+              ],
+            ),
+          );
+        },
+        elevation: 10,
+      ),
+    );
   }
 
   Future<dynamic> Showmodalbottomsheet(BuildContext context, int value) {

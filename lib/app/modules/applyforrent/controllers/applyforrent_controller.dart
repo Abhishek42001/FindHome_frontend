@@ -24,6 +24,10 @@ class ApplyforrentController extends GetxController {
   var imagefile = "".obs;
   String uid = "";
   var dropdownvalue = "".obs;
+  var isLoading = false.obs;
+  final searchdata = [].obs;
+  var check = "".obs;
+  Timer? searchOnStoppedTyping;
 
   var dropdownitems = ['Flat', 'Single', 'Apartment'];
   final getStorage = GetStorage();
@@ -108,12 +112,53 @@ class ApplyforrentController extends GetxController {
 
       Get.offAndToNamed("/home");
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(e.toString()),
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(e.toString()),
       ));
       Get.back();
       print("error");
+      print(e);
+    }
+  }
+
+  void setCity(text) async {
+    try {
+      cityController.text = text;
+      Get.back();
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future<void> citySearch(text) async {
+    if (text.isEmpty) {
+      return;
+    }
+    isLoading.value = true;
+    var di = dio.Dio();
+    try {
+      var url = 'https://api.geoapify.com/v1/geocode/autocomplete?text=' +
+          text +
+          '&apiKey=7ed6bfc42774419c97363d1ca5ccc265';
+      var response = await di.get(url);
+
+      searchdata.value = response.data['features'].where((item) {
+        if (item['properties']['city'] != null) {
+          return true;
+        } else {
+          return false;
+        }
+      }).toList();
+      isLoading.value = false;
+    } catch (e) {
+      isLoading.value = false;
+      // Get.showSnackbar(
+      //   GetSnackBar(
+      //     duration: Duration(seconds: 1),
+      //     message: "Some Error Occured...",
+      //     isDismissible: true,
+      //   ),
+      // );
       print(e);
     }
   }

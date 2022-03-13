@@ -77,7 +77,7 @@ ListView drawer(value) {
               selected: drawerSelection == DrawerSelection.home,
               onTap: () {
                 Get.back();
-                Get.toNamed("/home");
+                Get.offAllNamed("/home");
               },
               leading: Icon(Icons.home),
               iconColor: primary,
