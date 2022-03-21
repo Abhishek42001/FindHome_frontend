@@ -78,28 +78,29 @@ class LoginView extends GetView<LoginController> {
                 height: 23,
               ),
               CustomPrimaryButton(
-                  textValue: "Continue",
-                  onTap: () {
-                    FocusScope.of(context).unfocus();
-                    showDialog(
-                        barrierDismissible: false,
-                        context: context,
-                        builder: (context) => Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                SpinKitWave(
-                                  color: primary,
-                                  size: 50,
-                                ),
-                                SizedBox(height: 23),
-                                Text("Sending OTP...",
-                                    style: regular14pt.copyWith(
-                                        color: primary,
-                                        decoration: TextDecoration.none))
-                              ],
-                            ));
-                    logincontroller.phoneauthentication();
-                  },),
+                textValue: "Continue",
+                onTap: () {
+                  FocusScope.of(context).unfocus();
+                  showDialog(
+                      barrierDismissible: false,
+                      context: context,
+                      builder: (context) => Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SpinKitWave(
+                                color: primary,
+                                size: 50,
+                              ),
+                              SizedBox(height: 23),
+                              Text("Sending OTP...",
+                                  style: regular14pt.copyWith(
+                                      color: primary,
+                                      decoration: TextDecoration.none))
+                            ],
+                          ));
+                  logincontroller.phoneauthentication();
+                },
+              ),
               SizedBox(
                 height: 23,
               ),
@@ -134,12 +135,17 @@ class LoginView extends GetView<LoginController> {
                               Text("Google", style: regular12pt)
                             ],
                           )),
-                      Column(
-                        children: [
-                          SvgPicture.asset("assets/images/facebook.svg"),
-                          SizedBox(height: 10),
-                          Text("facebook", style: regular12pt)
-                        ],
+                      GestureDetector(
+                        onTap: () {
+                          logincontroller.signInWithFacebook();
+                        },
+                        child: Column(
+                          children: [
+                            SvgPicture.asset("assets/images/facebook.svg"),
+                            SizedBox(height: 10),
+                            Text("facebook", style: regular12pt)
+                          ],
+                        ),
                       ),
                       Column(
                         children: [

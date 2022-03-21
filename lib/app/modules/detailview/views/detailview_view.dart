@@ -359,7 +359,9 @@ class DetailviewView extends GetView<DetailviewController> {
                       height: 23,
                     ),
                     CustomPrimaryButton(
-                        textValue: "Ask For Location", onTap: () {}),
+                      textValue: "Share with...",
+                      onTap: () {},
+                    ),
                     SizedBox(height: 23),
                   ],
                 ),

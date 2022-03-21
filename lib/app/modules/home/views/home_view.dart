@@ -19,16 +19,22 @@ class HomeView extends GetView<HomeController> {
       width: 95,
       padding: EdgeInsets.only(left: 7, right: 7, top: 8, bottom: 8),
       decoration: BoxDecoration(
-          gradient: _homeController.type == name
-              ? LinearGradient(colors: [
+        gradient: _homeController.type == name
+            ? LinearGradient(
+                colors: [
                   Color.fromRGBO(160, 218, 251, 1),
                   Color.fromRGBO(10, 142, 217, 1)
-                ], begin: Alignment.topCenter, end: Alignment.bottomCenter)
-              : null,
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(
-              color: primary,
-              width: _homeController.type.value != name ? 1 : 0)),
+                ],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+              )
+            : null,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(
+          color: primary,
+          width: _homeController.type.value != name ? 1 : 0,
+        ),
+      ),
       child: Text(
         name,
         textAlign: TextAlign.center,
@@ -39,8 +45,11 @@ class HomeView extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
-    scrollController!
-        .addListener(() => _homeController.onScroll(scrollController));
+    double height = MediaQuery.of(context).size.height;
+
+    scrollController!.addListener(
+      () => _homeController.onScroll(scrollController),
+    );
 
     return Scaffold(
       drawer: SizedBox(
@@ -134,9 +143,9 @@ class HomeView extends GetView<HomeController> {
                                     ),
                                     _homeController.showHeader.value
                                         ? Icon(
-                                          Icons.arrow_drop_down_outlined,
-                                          color: primary,
-                                        )
+                                            Icons.arrow_drop_down_outlined,
+                                            color: primary,
+                                          )
                                         : SizedBox()
                                   ],
                                 ),

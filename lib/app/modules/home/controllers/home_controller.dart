@@ -32,9 +32,8 @@ class HomeController extends GetxController {
     var di = dio.Dio();
     try {
       isLoading.value = true;
-      dio.FormData formData = dio.FormData.fromMap({"city": city});
-      var url = fetchingUrl + '/getallappliedbycity';
-      var response = await di.post(url, data: formData);
+      var url = fetchingUrl + '/getallappliedbycity?city=' + city!;
+      var response = await di.get(url);
       if (tag == "All") {
         data.value = response.data['data'];
         isLoading.value = false;
@@ -86,9 +85,8 @@ class HomeController extends GetxController {
     isLoading.value = true;
     var di = dio.Dio();
     try {
-      dio.FormData formData = dio.FormData.fromMap({"city": city});
-      var url = fetchingUrl + '/getallappliedbycity';
-      var response = await di.post(url, data: formData);
+      var url = fetchingUrl + '/getallappliedbycity?city=' + city!;
+      var response = await di.get(url);
       data.value = response.data['data'];
       if (filterSet.isNotEmpty) {
         data.value = data.where((element) {

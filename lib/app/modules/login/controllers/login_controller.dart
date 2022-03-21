@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 
 class LoginController extends GetxController {
   final getStorage = GetStorage();
@@ -37,7 +38,7 @@ class LoginController extends GetxController {
           ),
         );
         print(data);
-        //Get.offAllNamed("/chooselocation");
+        Get.offAllNamed("/chooselocation");
       }
     } catch (e) {
       Get.showSnackbar(
@@ -47,6 +48,40 @@ class LoginController extends GetxController {
           isDismissible: true,
         ),
       );
+      print(e);
+    }
+  }
+
+  void signInWithFacebook() async {
+    try {
+      final LoginResult result = await FacebookAuth.instance.login();
+      switch (result.status) {
+        case LoginStatus.success:
+          final AuthCredential facebookCredential =
+              FacebookAuthProvider.credential(result.accessToken!.token);
+          final userCredential = await FirebaseAuth.instance
+              .signInWithCredential(facebookCredential);
+          await getStorage.write('user', userCredential.user!.uid.toString());
+          await getStorage.write(
+              'isnew', userCredential.additionalUserInfo!.isNewUser);
+          Get.showSnackbar(
+            GetSnackBar(
+              duration: Duration(seconds: 2),
+              message: "Verified...",
+              isDismissible: true,
+            ),
+          );
+          Get.offAllNamed("/chooselocation");
+          break;
+        case LoginStatus.cancelled:
+          break;
+        case LoginStatus.failed:
+          print("Error Occured");
+          break;
+        default:
+          return null;
+      }
+    } on FirebaseAuthException catch (e) {
       print(e);
     }
   }

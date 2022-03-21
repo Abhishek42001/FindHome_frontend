@@ -111,7 +111,6 @@ class ChooselocationView extends GetView<ChooselocationController> {
                             ),
                           ),
                         ),
-                        SizedBox(height: 23),
                       ],
                     ),
                   ),
