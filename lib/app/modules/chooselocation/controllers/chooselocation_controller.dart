@@ -16,6 +16,7 @@ class ChooselocationController extends GetxController {
   Timer? searchOnStoppedTyping;
 
   void getLocation() async {
+    var di = dio.Dio();
     try {
       PermissionStatus status = await Permission.location.status;
       if (status.isDenied) {
@@ -26,12 +27,15 @@ class ChooselocationController extends GetxController {
       }
       var position = await Geolocator.getCurrentPosition(
           desiredAccuracy: LocationAccuracy.best);
-      List<Placemark> placemarks = await placemarkFromCoordinates(
-        position.latitude,
-        position.longitude,
-      );
-      await getStorage.write("city", placemarks[0].locality);
-      print(placemarks[0].locality);
+      var url = 'https://api.geoapify.com/v1/geocode/reverse?lat=' +
+          position.latitude.toString() +
+          "&lon=" +
+          position.longitude.toString() +
+          '&apiKey=7ed6bfc42774419c97363d1ca5ccc265';
+      var response = await di.get(url);
+      await getStorage.write(
+          "city", response.data['features'][0]['properties']['city']);
+      print(placemarks);
       Get.back();
       Get.offAllNamed("/home");
     } catch (e) {
@@ -69,6 +73,7 @@ class ChooselocationController extends GetxController {
           return false;
         }
       }).toList();
+      print(searchdata);
       isLoading.value = false;
     } catch (e) {
       isLoading.value = false;

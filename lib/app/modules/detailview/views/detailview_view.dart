@@ -314,7 +314,13 @@ class DetailviewView extends GetView<DetailviewController> {
                                           borderRadius:
                                               BorderRadius.circular(50),
                                           onTap: () {
-                                            Get.toNamed("/chatscreen");
+                                            launch(
+                                              "sms:+91" +
+                                                  _detailViewController
+                                                      .data["phone_number"]
+                                                      .toString(),
+                                            );
+                                            // Get.toNamed("/chatscreen");
                                           },
                                           child: Container(
                                               padding: EdgeInsets.all(7),

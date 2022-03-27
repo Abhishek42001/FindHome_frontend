@@ -6,7 +6,6 @@ import 'package:findhome/app/widgets/custom_searchbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:textfield_search/textfield_search.dart';
 import 'package:get/get.dart';
 
 import '../controllers/chooselocation_controller.dart';
@@ -49,9 +48,7 @@ class ChooselocationView extends GetView<ChooselocationController> {
                         SizedBox(height: 60),
                         Text(
                           "Please Tell Us Your Location",
-                          style: heading2.copyWith(
-                            color: primary,
-                          ),
+                          style: regular18pt,
                         ),
                         SizedBox(height: 87),
                         ShaderMask(

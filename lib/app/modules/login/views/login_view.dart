@@ -92,10 +92,13 @@ class LoginView extends GetView<LoginController> {
                                 size: 50,
                               ),
                               SizedBox(height: 23),
-                              Text("Sending OTP...",
-                                  style: regular14pt.copyWith(
-                                      color: primary,
-                                      decoration: TextDecoration.none))
+                              Text(
+                                "Sending OTP...",
+                                style: regular14pt.copyWith(
+                                  color: primary,
+                                  decoration: TextDecoration.none,
+                                ),
+                              )
                             ],
                           ));
                   logincontroller.phoneauthentication();

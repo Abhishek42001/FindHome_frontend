@@ -56,7 +56,7 @@ Column drawer(value) {
       ),
       SizedBox(height: 35),
       Text(userName!, style: regular16pt),
-      SizedBox(height: 3),
+      SizedBox(height: 5),
       Text(
         email ?? "no email found...",
         style: regular12pt.copyWith(
@@ -78,7 +78,7 @@ Column drawer(value) {
                 },
                 leading: Icon(Icons.home),
                 iconColor: primary,
-                title: Text("Home", style: regular18pt),
+                title: Text("Home", style: regular16pt),
               ),
               ListTile(
                 onTap: () {
@@ -89,7 +89,7 @@ Column drawer(value) {
                 leading: SvgPicture.asset("assets/images/apply.svg",
                     color: primary, fit: BoxFit.scaleDown),
                 iconColor: primary,
-                title: Text("Apply", style: regular18pt),
+                title: Text("Apply", style: regular16pt),
               ),
               ListTile(
                 onTap: () {
@@ -100,7 +100,7 @@ Column drawer(value) {
                 leading: SvgPicture.asset("assets/images/applied.svg",
                     color: primary, fit: BoxFit.scaleDown),
                 iconColor: primary,
-                title: Text("Applied", style: regular18pt),
+                title: Text("Applied", style: regular16pt),
               ),
               ListTile(
                 selected: drawerSelection == DrawerSelection.bookmarks,
@@ -110,7 +110,7 @@ Column drawer(value) {
                 },
                 leading: Icon(Icons.bookmark_border_outlined),
                 iconColor: primary,
-                title: Text("Bookmarks", style: regular18pt),
+                title: Text("Bookmarks", style: regular16pt),
               ),
               ListTile(
                 onTap: () {
@@ -120,7 +120,7 @@ Column drawer(value) {
                 selected: drawerSelection == DrawerSelection.messages,
                 leading: Icon(Icons.star_rate_sharp),
                 iconColor: primary,
-                title: Text("Rate Us", style: regular18pt),
+                title: Text("Rate Us", style: regular16pt),
               ),
               // ListTile(
               //   selected: drawerSelection == DrawerSelection.nearby,
@@ -149,7 +149,7 @@ Column drawer(value) {
                 },
                 leading: Icon(Icons.logout),
                 iconColor: primary,
-                title: Text("Logout", style: regular18pt),
+                title: Text("Logout", style: regular16pt),
               ),
               SizedBox(height: 8)
             ],

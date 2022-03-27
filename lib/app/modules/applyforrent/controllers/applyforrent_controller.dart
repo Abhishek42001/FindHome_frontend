@@ -7,9 +7,11 @@ import 'package:findhome/app/theme/theme.dart';
 import 'package:findhome/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http_parser/http_parser.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class ApplyforrentController extends GetxController {
   var ownerController = TextEditingController();
@@ -36,6 +38,30 @@ class ApplyforrentController extends GetxController {
 
   String imgUrl = "";
   User? user;
+
+  void getLocation() async {
+    var di = dio.Dio();
+    try {
+      PermissionStatus status = await Permission.location.status;
+      if (status.isDenied) {
+        PermissionStatus status = await Permission.location.request();
+        if (status.isDenied) {
+          return;
+        }
+      }
+      var position = await Geolocator.getCurrentPosition(
+          desiredAccuracy: LocationAccuracy.best);
+      var url = 'https://api.geoapify.com/v1/geocode/reverse?lat=' +
+          position.latitude.toString() +
+          "&lon=" +
+          position.longitude.toString() +
+          '&apiKey=7ed6bfc42774419c97363d1ca5ccc265';
+      var response = await di.get(url);
+      cityController.text = response.data['features'][0]['properties']['city'];
+    } catch (e) {
+      print(e);
+    }
+  }
 
   void submitdata(context) async {
     if (imagefile.isEmpty) {

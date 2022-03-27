@@ -32,7 +32,7 @@ TextStyle heading2 = const TextStyle(
 );
 
 TextStyle semibold16 = const TextStyle(
-  fontSize: 16,
+  fontSize: 14,
   fontWeight: FontWeight.w800,
 );
 
