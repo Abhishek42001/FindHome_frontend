@@ -3,6 +3,7 @@ import 'package:findhome/app/theme/theme.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -36,7 +37,7 @@ Column drawer(value) {
   User? user = FirebaseAuth.instance.currentUser;
 
   var imgUrl = "".obs;
-  imgUrl.value = user!.photoURL!;
+  imgUrl.value = user!.photoURL!.replaceAll("s96-c", "s192-c");
   String? userName = user.displayName;
   String? email = user.email;
   return Column(
@@ -46,7 +47,9 @@ Column drawer(value) {
         () => imgUrl.isNotEmpty
             ? ClipOval(
                 child: CachedNetworkImage(
-                  imageUrl: imgUrl.value,
+                  imageUrl: imgUrl.value.contains("https://graph.facebook")
+                      ? imgUrl.value + "?type=large&width=300&height=300"
+                      : imgUrl.value,
                   fit: BoxFit.cover,
                   width: 100,
                   height: 100,
@@ -55,15 +58,50 @@ Column drawer(value) {
             : Icon(Icons.supervised_user_circle, color: primary, size: 50),
       ),
       SizedBox(height: 35),
-      Text(userName!, style: regular16pt),
+      Text(
+        userName!,
+        style: regular16pt,
+        overflow: TextOverflow.ellipsis,
+      ),
       SizedBox(height: 5),
       Text(
-        email ?? "no email found...",
+        email != null
+            ? email.isEmpty
+                ? "no email found..."
+                : email
+            : "no email found...",
         style: regular12pt.copyWith(
           color: primary.withOpacity(0.6),
         ),
+        overflow: TextOverflow.ellipsis,
       ),
-      SizedBox(height: 30),
+      SizedBox(height: 20),
+      Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: () {
+            Get.toNamed(
+              "update-profile",
+              arguments: [userName, email ?? "", imgUrl.value],
+            );
+          },
+          splashColor: Colors.grey.withOpacity(0.6),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                "Edit",
+                style: regular12pt.copyWith(
+                  color: primary.withOpacity(0.8),
+                ),
+              ),
+              SizedBox(width: 10),
+              Icon(Icons.edit, color: primary.withOpacity(0.8), size: 18)
+            ],
+          ),
+        ),
+      ),
+      SizedBox(height: 10),
       Divider(color: primary.withOpacity(1), endIndent: 36),
       Expanded(
         child: Padding(
@@ -135,14 +173,19 @@ Column drawer(value) {
                 onTap: () async {
                   try {
                     await getStorage.write('user', null);
-                    final googleCurrentUser = GoogleSignIn().currentUser;
-                    if (googleCurrentUser != null) {
-                      await GoogleSignIn()
-                          .disconnect()
-                          .catchError((e, stack) {});
-                    }
+                    await GoogleSignIn().disconnect().catchError((e, stack) {});
+
                     await FirebaseAuth.instance.signOut();
                     Get.offAllNamed("/login");
+                    Fluttertoast.showToast(
+                      msg: "Logout Successfully",
+                      toastLength: Toast.LENGTH_SHORT,
+                      gravity: ToastGravity.BOTTOM,
+                      timeInSecForIosWeb: 1,
+                      backgroundColor: Colors.grey.withOpacity(0.6),
+                      textColor: primary,
+                      fontSize: 16.0,
+                    );
                   } catch (e) {
                     print(e);
                   }

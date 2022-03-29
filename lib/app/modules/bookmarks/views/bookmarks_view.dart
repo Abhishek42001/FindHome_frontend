@@ -146,17 +146,19 @@ class BookmarksView extends GetView<BookmarksController> {
                                                   child: DecoratedBox(
                                                     decoration: BoxDecoration(
                                                       border: Border.all(
-                                                          width: 1,
-                                                          color: primary
-                                                              .withOpacity(
-                                                                  0.6)),
+                                                        width: 1,
+                                                        color:
+                                                            primary.withOpacity(
+                                                          0.6,
+                                                        ),
+                                                      ),
                                                       borderRadius:
                                                           BorderRadius.circular(
                                                               12),
                                                       image: DecorationImage(
                                                         image:
                                                             CachedNetworkImageProvider(
-                                                          fetchingUrl +
+                                                          "https://res.cloudinary.com/dmmodq1b9/" +
                                                               _bookmarksController
                                                                           .data[
                                                                       index][

@@ -80,6 +80,9 @@ class LoginView extends GetView<LoginController> {
               CustomPrimaryButton(
                 textValue: "Continue",
                 onTap: () {
+                  if (logincontroller.phoneController.text.isEmpty) {
+                    return;
+                  }
                   FocusScope.of(context).unfocus();
                   showDialog(
                       barrierDismissible: false,
@@ -127,27 +130,35 @@ class LoginView extends GetView<LoginController> {
                 child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      GestureDetector(
+                      Material(
+                        color: Colors.transparent,
+                        child: InkWell(
+                            splashColor: Colors.grey.withOpacity(0.6),
+                            onTap: () {
+                              logincontroller.signInWithGoogle();
+                            },
+                            child: Column(
+                              children: [
+                                SvgPicture.asset("assets/images/google.svg"),
+                                SizedBox(height: 10),
+                                Text("Google", style: regular12pt)
+                              ],
+                            )),
+                      ),
+                      Material(
+                        color: Colors.transparent,
+                        child: InkWell(
+                          splashColor: Colors.grey.withOpacity(0.6),
                           onTap: () {
-                            logincontroller.signInWithGoogle();
+                            logincontroller.signInWithFacebook();
                           },
                           child: Column(
                             children: [
-                              SvgPicture.asset("assets/images/google.svg"),
+                              SvgPicture.asset("assets/images/facebook.svg"),
                               SizedBox(height: 10),
-                              Text("Google", style: regular12pt)
+                              Text("facebook", style: regular12pt)
                             ],
-                          )),
-                      GestureDetector(
-                        onTap: () {
-                          logincontroller.signInWithFacebook();
-                        },
-                        child: Column(
-                          children: [
-                            SvgPicture.asset("assets/images/facebook.svg"),
-                            SizedBox(height: 10),
-                            Text("facebook", style: regular12pt)
-                          ],
+                          ),
                         ),
                       ),
                       Column(

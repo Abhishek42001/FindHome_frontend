@@ -19,17 +19,17 @@ class AppliedController extends GetxController {
 
     try {
       dio.FormData formData = dio.FormData.fromMap({"user_id": userid});
-      var url = fetchingUrl + '/getappliedbyid';
+      var url = fetchingUrl + '/getappliedbyid/';
       var response = await di.post(url, data: formData);
       // print('Response status: ${response.statusCode}');
       // print('Response body: ${response.data}');
       //print(response.data['data']);
       data.value = response.data['data'];
-      final dateTime = DateTime.parse(data[0]['created_date']);
-      final format = DateFormat('dd-MM-yyyy');
-      final clockString = format.format(dateTime);
-      print(clockString);
-      print(format);
+      // final dateTime = DateTime.parse(data[0]['created_date']);
+      // final format = DateFormat('dd-MM-yyyy');
+      // final clockString = format.format(dateTime);
+      // print(clockString);
+      // print(format);
       //print(data);
       isLoading.value = false;
       //print(data);
@@ -59,7 +59,7 @@ class AppliedController extends GetxController {
 
     try {
       dio.FormData formData = dio.FormData.fromMap({"id": id});
-      var url = fetchingUrl + '/deleteappliedbyid';
+      var url = fetchingUrl + '/deleteappliedbyid/';
       var response = await di.post(url, data: formData);
       // print('Response status: ${response.statusCode}');
       // print('Response body: ${response.data}');
@@ -94,7 +94,7 @@ class AppliedController extends GetxController {
     isLoading.value = true;
     try {
       dio.FormData formData = dio.FormData.fromMap({"user_id": userid});
-      var url = fetchingUrl + '/getappliedbyid';
+      var url = fetchingUrl + '/getappliedbyid/';
       var response = await di.post(url, data: formData);
       data.value = response.data['data'];
       {

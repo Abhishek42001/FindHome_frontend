@@ -69,11 +69,15 @@ class ApplyforrentController extends GetxController {
         barrierDismissible: true,
         context: context,
         builder: (context) => Center(
-            child: Container(
-                height: 100,
-                width: 100,
-                decoration: BoxDecoration(color: primary),
-                child: Text("Please Select Image"))),
+          child: Container(
+            height: 100,
+            width: 100,
+            decoration: BoxDecoration(color: primary),
+            child: Text(
+              "Please Select Image",
+            ),
+          ),
+        ),
       );
       return;
     }
@@ -108,7 +112,7 @@ class ApplyforrentController extends GetxController {
         }).toList())
       });
       print(formdata);
-      var url = fetchingUrl + '/apply';
+      var url = fetchingUrl + '/apply/';
       var response = await di.post(
         url,
         data: formdata,

@@ -30,6 +30,8 @@ import '../modules/photogallery/bindings/photogallery_binding.dart';
 import '../modules/photogallery/views/photogallery_view.dart';
 import '../modules/splashscreen/bindings/splashscreen_binding.dart';
 import '../modules/splashscreen/views/splashscreen_view.dart';
+import '../modules/updateProfile/bindings/update_profile_binding.dart';
+import '../modules/updateProfile/views/update_profile_view.dart';
 
 part 'app_routes.dart';
 
@@ -120,6 +122,11 @@ class AppPages {
       name: _Paths.SPLASHSCREEN,
       page: () => SplashscreenView(),
       binding: SplashscreenBinding(),
+    ),
+    GetPage(
+      name: _Paths.UPDATE_PROFILE,
+      page: () => UpdateProfileView(),
+      binding: UpdateProfileBinding(),
     ),
   ];
 }

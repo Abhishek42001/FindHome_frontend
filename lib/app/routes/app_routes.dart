@@ -20,6 +20,7 @@ abstract class Routes {
   static const CHATPROFILE = _Paths.CHATPROFILE;
   static const DRAWER = _Paths.DRAWER;
   static const SPLASHSCREEN = _Paths.SPLASHSCREEN;
+  static const UPDATE_PROFILE = _Paths.UPDATE_PROFILE;
 }
 
 abstract class _Paths {
@@ -41,4 +42,5 @@ abstract class _Paths {
   static const CHATPROFILE = '/chatprofile';
   static const DRAWER = '/drawer';
   static const SPLASHSCREEN = '/splashscreen';
+  static const UPDATE_PROFILE = '/update-profile';
 }

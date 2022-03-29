@@ -19,7 +19,7 @@ class ChatController extends GetxController {
     try {
       print(uid);
       dio.FormData formData = dio.FormData.fromMap({"sender_userid": uid});
-      var url = fetchingUrl+'/getallchatsbyid';
+      var url = fetchingUrl+'/getallchatsbyid/';
       var response = await di.post(url, data: formData);
       // print('Response status: ${response.statusCode}');
       // print('Response body: ${response.data}');

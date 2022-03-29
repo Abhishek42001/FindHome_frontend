@@ -22,6 +22,8 @@ class SplashscreenController extends GetxController {
             Get.offAllNamed("/home");
           });
         }
+      }else if(user!=null&&isNew==true){
+        Get.offAllNamed("/newuserdetail");
       } else {
         await Future.delayed(Duration(seconds: 2), () {
           Get.offAllNamed("/login");

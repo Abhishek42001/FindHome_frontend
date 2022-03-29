@@ -17,7 +17,7 @@ class DetailviewController extends GetxController {
 
       try {
         dio.FormData formData = dio.FormData.fromMap({"user_id": userid,"item_id":data['id']});
-        var url = fetchingUrl+'/checkbookmarkbyid';
+        var url = fetchingUrl+'/checkbookmarkbyid/';
         var response = await di.post(url, data: formData);
         // print('Response status: ${response.statusCode}');
         print('Response body: ${response.data}');
@@ -41,7 +41,7 @@ class DetailviewController extends GetxController {
 
       try {
         dio.FormData formData = dio.FormData.fromMap({"user_id": userid,"item_id":id});
-        var url = fetchingUrl+'/applybookmark';
+        var url = fetchingUrl+'/applybookmark/';
         var response = await di.post(url, data: formData);
         // print('Response status: ${response.statusCode}');
         print('Response body: ${response.data}');
@@ -74,7 +74,7 @@ class DetailviewController extends GetxController {
 
       try {
         dio.FormData formData = dio.FormData.fromMap({"user_id": userid,"item_id":id});
-        var url = fetchingUrl+'/deletebookmarkbyid';
+        var url = fetchingUrl+'/deletebookmarkbyid/';
         var response = await di.post(url, data: formData);
         // print('Response status: ${response.statusCode}');
         print('Response body: ${response.data}');

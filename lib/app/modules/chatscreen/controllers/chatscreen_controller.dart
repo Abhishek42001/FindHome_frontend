@@ -32,7 +32,7 @@ class ChatscreenController extends GetxController {
             ? data['receiver']['receiver_userid']
             : data['sender']['sender_userid']
       });
-      var url = fetchingUrl + '/getallchatsbetweentwoid';
+      var url = fetchingUrl + '/getallchatsbetweentwoid/';
       var response = await di.post(url, data: formData);
       // print('Response status: ${response.statusCode}');
       //print('Response body: ${response.data}');
@@ -75,7 +75,7 @@ class ChatscreenController extends GetxController {
         "receiver_city": data['receiver']['receiver_city'],
         'message': messageController.text
       });
-      var url = fetchingUrl + '/sendmessage';
+      var url = fetchingUrl + '/sendmessage/';
       var response = await di.post(url, data: formData);
       messageController.clear();
       // print('Response status: ${response.statusCode}');

@@ -1,7 +1,6 @@
 import 'dart:io';
 
-import 'package:findhome/app/theme/theme.dart';
-import 'package:findhome/app/widgets/custom_primary_button.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:findhome/app/widgets/custom_textinput.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -9,9 +8,11 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../controllers/newuserdetail_controller.dart';
+import '../../../theme/theme.dart';
+import '../../../widgets/custom_primary_button.dart';
+import '../controllers/update_profile_controller.dart';
 
-class NewuserdetailView extends GetView<NewuserdetailController> {
+class UpdateProfileView extends GetView<UpdateProfileController> {
   final ImagePicker _picker = ImagePicker();
 
   void handleImagePicker(option) async {
@@ -20,19 +21,19 @@ class NewuserdetailView extends GetView<NewuserdetailController> {
       if (option == "Gallery") {
         image = await _picker.pickImage(
             source: ImageSource.gallery, imageQuality: 40);
-        newUserController.imagePath.value = image!.path;
+        updateProfileController.imagePath.value = image!.path;
       } else {
         image = await _picker.pickImage(
             source: ImageSource.camera, imageQuality: 40);
-        newUserController.imagePath.value = image!.path;
+        updateProfileController.imagePath.value = image!.path;
       }
     } catch (e) {
       print(e);
     }
   }
 
-  NewuserdetailController newUserController =
-      Get.put(NewuserdetailController());
+  UpdateProfileController updateProfileController =
+      Get.put(UpdateProfileController());
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -57,7 +58,7 @@ class NewuserdetailView extends GetView<NewuserdetailController> {
                     margin: EdgeInsets.only(top: 24),
                     width: double.infinity,
                     child: Text(
-                      "New User Details",
+                      "Update Profile",
                       style: regular18pt.copyWith(color: primary),
                       textAlign: TextAlign.center,
                     ),
@@ -76,17 +77,43 @@ class NewuserdetailView extends GetView<NewuserdetailController> {
                           ),
                           SizedBox(height: 30),
                           Obx(
-                            () => newUserController.imagePath.isEmpty
+                            () => updateProfileController.imagePath.isEmpty
                                 ? GestureDetector(
                                     onTap: () {
                                       showmodalbottomsheet(context);
                                     },
-                                    child: SizedBox(
-                                      height: 70,
-                                      width: 70,
-                                      child: Image.asset(
-                                        "assets/images/upload_photo.png",
-                                        color: primary,
+                                    child: Container(
+                                      width: 80,
+                                      height: 80,
+                                      decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(100),
+                                        image: DecorationImage(
+                                          image: CachedNetworkImageProvider(
+                                            updateProfileController
+                                                    .imageUrl.value
+                                                    .contains(
+                                                        "https://graph.facebook")
+                                                ? updateProfileController
+                                                        .imageUrl.value +
+                                                    "?type=large&width=300&height=300"
+                                                : updateProfileController
+                                                    .imageUrl.value,
+                                          ),
+                                          fit: BoxFit.cover,
+                                          colorFilter: ColorFilter.mode(
+                                            Colors.black.withOpacity(0.8),
+                                            BlendMode.dstATop,
+                                          ),
+                                        ),
+                                      ),
+                                      child: Align(
+                                        alignment: Alignment.center,
+                                        child: Icon(
+                                          Icons.mode_edit_rounded,
+                                          color: primary,
+                                          size: 30,
+                                        ),
                                       ),
                                     ),
                                   )
@@ -101,13 +128,15 @@ class NewuserdetailView extends GetView<NewuserdetailController> {
                                         image: DecorationImage(
                                           image: FileImage(
                                             File(
-                                              newUserController.imagePath.value,
+                                              updateProfileController
+                                                  .imagePath.value,
                                             ),
                                           ),
                                           fit: BoxFit.cover,
                                           colorFilter: ColorFilter.mode(
-                                              Colors.black.withOpacity(0.8),
-                                              BlendMode.dstATop),
+                                            Colors.black.withOpacity(0.8),
+                                            BlendMode.dstATop,
+                                          ),
                                         ),
                                       ),
                                       child: Align(
@@ -130,7 +159,8 @@ class NewuserdetailView extends GetView<NewuserdetailController> {
                           ),
                           SizedBox(height: 23),
                           CustomFormField(
-                              controller: newUserController.nameController,
+                              controller:
+                                  updateProfileController.nameController,
                               textValue: "Your Name",
                               leftpadding: 23,
                               rightpadding: 23,
@@ -138,7 +168,8 @@ class NewuserdetailView extends GetView<NewuserdetailController> {
                               bottompadding: 17),
                           SizedBox(height: 23),
                           CustomFormField(
-                              controller: newUserController.emailController,
+                              controller:
+                                  updateProfileController.emailController,
                               textValue: "Your Email",
                               leftpadding: 23,
                               rightpadding: 23,
@@ -150,25 +181,27 @@ class NewuserdetailView extends GetView<NewuserdetailController> {
                               onTap: () {
                                 FocusScope.of(context).unfocus();
                                 showDialog(
-                                    barrierDismissible: false,
-                                    context: context,
-                                    builder: (context) => Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            SpinKitWave(
-                                              color: primary,
-                                              size: 50,
-                                            ),
-                                            SizedBox(height: 23),
-                                            Text("Updating Data...",
-                                                style: regular14pt.copyWith(
-                                                    color: primary,
-                                                    decoration:
-                                                        TextDecoration.none))
-                                          ],
-                                        ));
-                                newUserController.updateUserInfo();
+                                  barrierDismissible: false,
+                                  context: context,
+                                  builder: (context) => Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      SpinKitWave(
+                                        color: primary,
+                                        size: 50,
+                                      ),
+                                      SizedBox(height: 23),
+                                      Text(
+                                        "Updating Data...",
+                                        style: regular14pt.copyWith(
+                                          color: primary,
+                                          decoration: TextDecoration.none,
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                );
+                                updateProfileController.updateUserInfo();
                               }),
                           SizedBox(height: 23)
                         ],

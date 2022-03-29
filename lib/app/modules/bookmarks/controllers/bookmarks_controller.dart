@@ -16,7 +16,7 @@ class BookmarksController extends GetxController {
     try {
       dio.FormData formData =
           dio.FormData.fromMap({"user_id": userid, "item_id": id});
-      var url = fetchingUrl + '/deletebookmarkbyid';
+      var url = fetchingUrl + '/deletebookmarkbyid/';
       var response = await di.post(url, data: formData);
       // print('Response status: ${response.statusCode}');
       print('Response body: ${response.data}');
@@ -41,12 +41,12 @@ class BookmarksController extends GetxController {
 
   Future<void> getBookmarks() async {
     var di = dio.Dio();
-    
+
     isLoading.value = true;
 
     try {
       dio.FormData formData = dio.FormData.fromMap({"user_id": userid});
-      var url = fetchingUrl + '/getbookmarksbyid';
+      var url = fetchingUrl + '/getbookmarksbyid/';
       var response = await di.post(url, data: formData);
       // print('Response status: ${response.statusCode}');
       // print('Response body: ${response.data}');
@@ -73,26 +73,24 @@ class BookmarksController extends GetxController {
     isLoading.value = true;
     try {
       dio.FormData formData = dio.FormData.fromMap({"user_id": userid});
-      var url = fetchingUrl + '/getbookmarksbyid';
+      var url = fetchingUrl + '/getbookmarksbyid/';
       var response = await di.post(url, data: formData);
-      data.value = response.data['data'];{
+      data.value = response.data['data'];
+      {
         data.value = data.where((element) {
-          if (
-            (element["owner_name"]
-                      .toLowerCase()
-                      .contains(query.toLowerCase())) ||
+          if ((element["owner_name"]
+                  .toLowerCase()
+                  .contains(query.toLowerCase())) ||
               (element["title"].toLowerCase().contains(query.toLowerCase())) ||
               (element["address"].toLowerCase().contains(
-                        query.toLowerCase(),
-                      )) ||
+                    query.toLowerCase(),
+                  )) ||
               (element['description']
-                      .toLowerCase()
-                      .contains(query.toLowerCase())) ||
+                  .toLowerCase()
+                  .contains(query.toLowerCase())) ||
               (element['city'].toLowerCase().contains(
-                        query.toLowerCase(),
-                      )
-              )
-          ) {
+                    query.toLowerCase(),
+                  ))) {
             return true;
           }
           return false;

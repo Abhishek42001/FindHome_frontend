@@ -28,6 +28,7 @@ class LoginController extends GetxController {
         // Once signed in, return the UserCredential
         UserCredential data =
             await FirebaseAuth.instance.signInWithCredential(credential);
+
         await getStorage.write('user', data.user!.uid.toString());
         await getStorage.write('isnew', data.additionalUserInfo!.isNewUser);
         Get.showSnackbar(
@@ -71,6 +72,7 @@ class LoginController extends GetxController {
               isDismissible: true,
             ),
           );
+          print(userCredential);
           Get.offAllNamed("/chooselocation");
           break;
         case LoginStatus.cancelled:
@@ -87,6 +89,7 @@ class LoginController extends GetxController {
   }
 
   void phoneauthentication() async {
+    
     try {
       await FirebaseAuth.instance.verifyPhoneNumber(
           phoneNumber: "+91" + phoneController.text,
