@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:findhome/app/widgets/custom_textinput.dart';
+import 'package:sms_autofill/sms_autofill.dart';
 import '../controllers/login_controller.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
@@ -85,25 +86,26 @@ class LoginView extends GetView<LoginController> {
                   }
                   FocusScope.of(context).unfocus();
                   showDialog(
-                      barrierDismissible: false,
-                      context: context,
-                      builder: (context) => Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              SpinKitWave(
-                                color: primary,
-                                size: 50,
-                              ),
-                              SizedBox(height: 23),
-                              Text(
-                                "Sending OTP...",
-                                style: regular14pt.copyWith(
-                                  color: primary,
-                                  decoration: TextDecoration.none,
-                                ),
-                              )
-                            ],
-                          ));
+                    barrierDismissible: false,
+                    context: context,
+                    builder: (context) => Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SpinKitWave(
+                          color: primary,
+                          size: 50,
+                        ),
+                        SizedBox(height: 23),
+                        Text(
+                          "Sending OTP...",
+                          style: regular14pt.copyWith(
+                            color: primary,
+                            decoration: TextDecoration.none,
+                          ),
+                        )
+                      ],
+                    ),
+                  );
                   logincontroller.phoneauthentication();
                 },
               ),

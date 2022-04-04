@@ -89,7 +89,6 @@ class LoginController extends GetxController {
   }
 
   void phoneauthentication() async {
-    
     try {
       await FirebaseAuth.instance.verifyPhoneNumber(
           phoneNumber: "+91" + phoneController.text,
@@ -97,6 +96,7 @@ class LoginController extends GetxController {
             print(credential.token);
           },
           verificationFailed: (e) {
+            Get.back();
             Get.showSnackbar(
               GetSnackBar(
                 duration: Duration(seconds: 2),

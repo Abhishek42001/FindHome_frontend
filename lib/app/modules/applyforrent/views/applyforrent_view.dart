@@ -43,11 +43,14 @@ class ApplyforrentView extends GetView<ApplyforrentController> {
         applyController.imagefile.value = image!.path;
       } else {
         image = await _picker.pickImage(
-            source: ImageSource.camera, imageQuality: 40);
+          source: ImageSource.camera,
+          imageQuality: 40,
+          preferredCameraDevice: CameraDevice.rear,
+        );
         applyController.imagefile.value = image!.path;
       }
     } catch (e) {}
-    ;
+    
   }
 
   void HandleImagePicker2(option) async {
@@ -59,7 +62,10 @@ class ApplyforrentView extends GetView<ApplyforrentController> {
         applyController.images.add(image!.path);
       } else {
         image = await _picker.pickImage(
-            source: ImageSource.camera, imageQuality: 40);
+          source: ImageSource.camera,
+          imageQuality: 40,
+          preferredCameraDevice: CameraDevice.rear,
+        );
         applyController.images.add(image!.path);
       }
     } catch (e) {}

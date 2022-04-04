@@ -2,10 +2,8 @@ import 'package:findhome/app/theme/theme.dart';
 import 'package:findhome/app/widgets/custom_primary_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-
 import 'package:get/get.dart';
 import 'package:pinput/pin_put/pin_put.dart';
-
 import '../controllers/otp_controller.dart';
 
 class OtpView extends GetView<OtpController> {
@@ -104,16 +102,85 @@ class OtpView extends GetView<OtpController> {
                         SizedBox(
                           height: 23,
                         ),
-                        Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text("Resend in ",
-                                  style: regular16pt.copyWith(color: primary)),
-                              Text("5s",
-                                  style: regular16pt.copyWith(
-                                      color: primary,
-                                      fontWeight: FontWeight.w800))
-                            ]),
+                        Obx(
+                          () => Material(
+                            color: Colors.transparent,
+                            child: InkWell(
+                              borderRadius: BorderRadius.circular(10),
+                              splashColor: Colors.white.withOpacity(0.3),
+                              onTap: () {
+                                if (otpController.tick.value == 60) {
+                                  otpController.resendOtp();
+                                }
+                              },
+                              child: Container(
+                                padding: EdgeInsets.only(left: 6, right: 6),
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: primary.withOpacity(
+                                      otpController.tick.value == 60 ? 1 : 0.7,
+                                    ),
+                                  ),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: Text(
+                                  "Resend SMS",
+                                  style: regular14pt.copyWith(
+                                    color: primary.withOpacity(
+                                      otpController.tick.value == 60 ? 1 : 0.7,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 10),
+                        Obx(
+                          () => otpController.tick.value != 60
+                              ? Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      "Resend in ",
+                                      style: regular12pt.copyWith(
+                                        color: primary.withOpacity(0.9),
+                                      ),
+                                    ),
+                                    Text(
+                                      otpController.tick.value.toString(),
+                                      style: regular14pt.copyWith(
+                                        color: primary.withOpacity(0.9),
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                    Text(
+                                      " seconds",
+                                      style: regular12pt.copyWith(
+                                        color: primary.withOpacity(0.9),
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              : Container(),
+                        ),
+                        Obx(
+                          () => otpController.otpCode.value.isEmpty
+                              ? Column(
+                                  children: [
+                                    SizedBox(height: 20),
+                                    Text(
+                                      "Trying To Automatically Fetch OTP...",
+                                      style: regular12pt.copyWith(
+                                        color: primary.withOpacity(0.7),
+                                      ),
+                                    ),
+                                    SizedBox(height: 15),
+                                    CircularProgressIndicator(),
+                                  ],
+                                )
+                              : Container(),
+                        ),
                         SizedBox(
                           height: 36,
                         ),
@@ -135,12 +202,14 @@ class OtpView extends GetView<OtpController> {
                                                   size: 50,
                                                 ),
                                                 SizedBox(height: 23),
-                                                Text("Verifing...",
-                                                    style: regular14pt.copyWith(
-                                                        color: primary,
-                                                        decoration:
-                                                            TextDecoration
-                                                                .none))
+                                                Text(
+                                                  "Verifing...",
+                                                  style: regular14pt.copyWith(
+                                                    color: primary,
+                                                    decoration:
+                                                        TextDecoration.none,
+                                                  ),
+                                                )
                                               ],
                                             ));
                                     otpController.verifyOtp();
