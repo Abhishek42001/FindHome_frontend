@@ -69,6 +69,7 @@ class OtpController extends GetxController with CodeAutoFill {
   }
 
   void resendOtp() async {
+    listenOtp();
     tick.value = 0;
     otpCode.value = "";
     startTimeout();
@@ -107,11 +108,16 @@ class OtpController extends GetxController with CodeAutoFill {
     }
   }
 
+  void listenOtp() async {
+    SmsAutoFill().unregisterListener();
+    listenForCode();
+  }
+
   @override
   void onInit() {
     super.onInit();
     startTimeout();
-    listenForCode();
+    listenOtp();
     SmsAutoFill().getAppSignature.then((signature) {
       print(signature);
     });

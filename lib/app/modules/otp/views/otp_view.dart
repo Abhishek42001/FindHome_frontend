@@ -148,7 +148,8 @@ class OtpView extends GetView<OtpController> {
                                       ),
                                     ),
                                     Text(
-                                      otpController.tick.value.toString(),
+                                      (60 - otpController.tick.value)
+                                          .toString(),
                                       style: regular14pt.copyWith(
                                         color: primary.withOpacity(0.9),
                                         fontWeight: FontWeight.w500,
