@@ -21,6 +21,10 @@ abstract class Routes {
   static const DRAWER = _Paths.DRAWER;
   static const SPLASHSCREEN = _Paths.SPLASHSCREEN;
   static const UPDATE_PROFILE = _Paths.UPDATE_PROFILE;
+  static const EDIT = _Paths.EDIT;
+  static const UPDATE_COVER_PHOTO = _Paths.UPDATE_COVER_PHOTO;
+  static const UPDATE_OTHER_INFOS = _Paths.UPDATE_OTHER_INFOS;
+  static const UPDATE_ADDITIONAL_PHOTOS = _Paths.UPDATE_ADDITIONAL_PHOTOS;
 }
 
 abstract class _Paths {
@@ -43,4 +47,8 @@ abstract class _Paths {
   static const DRAWER = '/drawer';
   static const SPLASHSCREEN = '/splashscreen';
   static const UPDATE_PROFILE = '/update-profile';
+  static const EDIT = '/edit';
+  static const UPDATE_COVER_PHOTO = '/update-cover-photo';
+  static const UPDATE_OTHER_INFOS = '/update-other-infos';
+  static const UPDATE_ADDITIONAL_PHOTOS = '/update-additional-photos';
 }

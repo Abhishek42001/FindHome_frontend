@@ -16,6 +16,8 @@ import '../modules/chooselocation/bindings/chooselocation_binding.dart';
 import '../modules/chooselocation/views/chooselocation_view.dart';
 import '../modules/detailview/bindings/detailview_binding.dart';
 import '../modules/detailview/views/detailview_view.dart';
+import '../modules/edit/bindings/edit_binding.dart';
+import '../modules/edit/views/edit_view.dart';
 import '../modules/galleryview/bindings/galleryview_binding.dart';
 import '../modules/galleryview/views/galleryview_view.dart';
 import '../modules/home/bindings/home_binding.dart';
@@ -30,6 +32,12 @@ import '../modules/photogallery/bindings/photogallery_binding.dart';
 import '../modules/photogallery/views/photogallery_view.dart';
 import '../modules/splashscreen/bindings/splashscreen_binding.dart';
 import '../modules/splashscreen/views/splashscreen_view.dart';
+import '../modules/updateAdditionalPhotos/bindings/update_additional_photos_binding.dart';
+import '../modules/updateAdditionalPhotos/views/update_additional_photos_view.dart';
+import '../modules/updateCoverPhoto/bindings/update_cover_photo_binding.dart';
+import '../modules/updateCoverPhoto/views/update_cover_photo_view.dart';
+import '../modules/updateOtherInfos/bindings/update_other_infos_binding.dart';
+import '../modules/updateOtherInfos/views/update_other_infos_view.dart';
 import '../modules/updateProfile/bindings/update_profile_binding.dart';
 import '../modules/updateProfile/views/update_profile_view.dart';
 
@@ -127,6 +135,26 @@ class AppPages {
       name: _Paths.UPDATE_PROFILE,
       page: () => UpdateProfileView(),
       binding: UpdateProfileBinding(),
+    ),
+    GetPage(
+      name: _Paths.EDIT,
+      page: () => EditView(),
+      binding: EditBinding(),
+    ),
+    GetPage(
+      name: _Paths.UPDATE_COVER_PHOTO,
+      page: () => UpdateCoverPhotoView(),
+      binding: UpdateCoverPhotoBinding(),
+    ),
+    GetPage(
+      name: _Paths.UPDATE_OTHER_INFOS,
+      page: () => UpdateOtherInfosView(),
+      binding: UpdateOtherInfosBinding(),
+    ),
+    GetPage(
+      name: _Paths.UPDATE_ADDITIONAL_PHOTOS,
+      page: () => UpdateAdditionalPhotosView(),
+      binding: UpdateAdditionalPhotosBinding(),
     ),
   ];
 }

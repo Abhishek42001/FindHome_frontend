@@ -394,8 +394,9 @@ class DetailviewView extends GetView<DetailviewController> {
                 borderRadius: BorderRadius.circular(12),
                 image: DecorationImage(
                   image: CachedNetworkImageProvider(
-                      "https://res.cloudinary.com/dmmodq1b9/" +
-                          _detailViewController.data['images'][0]['images']),
+                    "https://res.cloudinary.com/dmmodq1b9/" +
+                        _detailViewController.data['images'][0]['images'],
+                  ),
                   fit: BoxFit.cover,
                 )),
           ),

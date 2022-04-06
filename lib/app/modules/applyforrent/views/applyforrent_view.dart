@@ -50,7 +50,6 @@ class ApplyforrentView extends GetView<ApplyforrentController> {
         applyController.imagefile.value = image!.path;
       }
     } catch (e) {}
-    
   }
 
   void HandleImagePicker2(option) async {
@@ -87,49 +86,63 @@ class ApplyforrentView extends GetView<ApplyforrentController> {
           return SafeArea(
             child: Container(
               decoration: BoxDecoration(color: backgroundcolor),
-              child: Padding(
-                padding: const EdgeInsets.only(left: 30.0, right: 30),
-                child: Form(
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  key: formKey,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        height: 23,
-                      ),
-                      Row(
-                        children: [
-                          GestureDetector(
-                            onTap: () {
-                              Scaffold.of(context).openDrawer();
-                            },
-                            child: SvgPicture.asset(
-                              "assets/images/menu-bar.svg",
-                              color: primary,
-                              fit: BoxFit.scaleDown,
-                              width: 30,
-                              height: 30,
+              child: Form(
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                key: formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      height: 23,
+                    ),
+                    Material(
+                      elevation: 3,
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 30.0, right: 30),
+                        child: Column(
+                          children: [
+                            Row(
+                              children: [
+                                GestureDetector(
+                                  onTap: () {
+                                    Scaffold.of(context).openDrawer();
+                                  },
+                                  child: SvgPicture.asset(
+                                    "assets/images/menu-bar.svg",
+                                    color: primary,
+                                    fit: BoxFit.scaleDown,
+                                    width: 30,
+                                    height: 30,
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Align(
+                                    child: Text("Apply For Rent",
+                                        style: regular18pt),
+                                    alignment: Alignment.center,
+                                  ),
+                                )
+                              ],
                             ),
-                          ),
-                          Expanded(
-                              child: Align(
-                                  child: Text("Apply For Rent",
-                                      style: regular18pt),
-                                  alignment: Alignment.center))
-                        ],
+                            SizedBox(height: 15)
+                          ],
+                        ),
                       ),
-                      SizedBox(height: 27),
-                      // Padding(
-                      //   padding: const EdgeInsets.only(left:11.0),
-                      //   child: Text("Please Fill These Details To Apply",
-                      //       style: regular16pt),
-                      // ),
-                      Expanded(
+                    ),
+
+                    // Padding(
+                    //   padding: const EdgeInsets.only(left:11.0),
+                    //   child: Text("Please Fill These Details To Apply",
+                    //       style: regular16pt),
+                    // ),
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 30.0, right: 30),
                         child: SingleChildScrollView(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
+                              SizedBox(height: 27),
                               Padding(
                                 padding: const EdgeInsets.only(left: 11.0),
                                 child: Text("Owner Name*"),
@@ -673,9 +686,9 @@ class ApplyforrentView extends GetView<ApplyforrentController> {
                             ],
                           ),
                         ),
-                      )
-                    ],
-                  ),
+                      ),
+                    )
+                  ],
                 ),
               ),
             ),

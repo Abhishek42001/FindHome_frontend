@@ -508,7 +508,9 @@ class HomeView extends GetView<HomeController> {
             ),
             fit: BoxFit.cover,
             colorFilter: ColorFilter.mode(
-                Colors.black.withOpacity(0.4), BlendMode.dstATop),
+              Colors.black.withOpacity(0.4),
+              BlendMode.dstATop,
+            ),
           ),
         ),
         child: Column(

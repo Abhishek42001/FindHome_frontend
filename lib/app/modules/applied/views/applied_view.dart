@@ -87,10 +87,11 @@ class AppliedView extends GetView<AppliedController> {
                               ),
                             ),
                             Expanded(
-                                child: Align(
-                                    child:
-                                        Text("All Applied", style: regular18pt),
-                                    alignment: Alignment.center))
+                              child: Align(
+                                child: Text("All Applied", style: regular18pt),
+                                alignment: Alignment.center,
+                              ),
+                            )
                           ],
                         ),
                         SizedBox(height: 27),
@@ -144,40 +145,40 @@ class AppliedView extends GetView<AppliedController> {
                                             child: Row(
                                               children: [
                                                 ConstrainedBox(
-                                                    constraints: BoxConstraints(
-                                                      minHeight: 120,
-                                                      minWidth: 114,
-                                                    ),
-                                                    child: DecoratedBox(
-                                                      decoration: BoxDecoration(
-                                                        border: Border.all(
-                                                            width: 1,
-                                                            color: primary
-                                                                .withOpacity(
-                                                                    0.6)),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(12),
-                                                        image: DecorationImage(
-                                                          image:
-                                                              CachedNetworkImageProvider(
-                                                            "https://res.cloudinary.com/dmmodq1b9/" +
-                                                                appliedController
-                                                                            .data[
-                                                                        index][
-                                                                    'main_image'],
-                                                          ),
-                                                          fit: BoxFit.cover,
-                                                          colorFilter:
-                                                              ColorFilter.mode(
-                                                            Colors.black
-                                                                .withOpacity(
-                                                                    0.7),
-                                                            BlendMode.dstATop,
-                                                          ),
+                                                  constraints: BoxConstraints(
+                                                    minHeight: 120,
+                                                    minWidth: 114,
+                                                  ),
+                                                  child: DecoratedBox(
+                                                    decoration: BoxDecoration(
+                                                      border: Border.all(
+                                                          width: 1,
+                                                          color: primary
+                                                              .withOpacity(
+                                                                  0.6)),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              12),
+                                                      image: DecorationImage(
+                                                        image:
+                                                            CachedNetworkImageProvider(
+                                                          "https://res.cloudinary.com/dmmodq1b9/" +
+                                                              appliedController
+                                                                          .data[
+                                                                      index][
+                                                                  'main_image'],
+                                                        ),
+                                                        fit: BoxFit.cover,
+                                                        colorFilter:
+                                                            ColorFilter.mode(
+                                                          Colors.black
+                                                              .withOpacity(0.7),
+                                                          BlendMode.dstATop,
                                                         ),
                                                       ),
-                                                    )),
+                                                    ),
+                                                  ),
+                                                ),
                                                 SizedBox(width: 22),
                                                 Container(
                                                   width: MediaQuery.of(context)
@@ -272,50 +273,75 @@ class AppliedView extends GetView<AppliedController> {
                                                         children: [
                                                           Row(
                                                             children: [
-                                                              Text(
-                                                                "Edit",
-                                                                style: regular14pt
-                                                                    .copyWith(
-                                                                  color: accent,
+                                                              Material(
+                                                                color: Colors
+                                                                    .transparent,
+                                                                child: InkWell(
+                                                                  onTap: () {
+                                                                    Get.toNamed(
+                                                                        "edit",
+                                                                        arguments:
+                                                                            appliedController.data[index]);
+                                                                  },
+                                                                  splashColor:
+                                                                      Colors
+                                                                          .grey
+                                                                          .withOpacity(
+                                                                    0.6,
+                                                                  ),
+                                                                  child: Text(
+                                                                    "Edit",
+                                                                    style: regular14pt
+                                                                        .copyWith(
+                                                                      color:
+                                                                          accent,
+                                                                    ),
+                                                                  ),
                                                                 ),
                                                               ),
                                                               SizedBox(
                                                                   width: 37),
-                                                              GestureDetector(
-                                                                onTap: () {
-                                                                  showDialog(
-                                                                    context:
-                                                                        context,
-                                                                    builder:
-                                                                        (BuildContext
-                                                                            context) {
-                                                                      return AlertDialog(
-                                                                        backgroundColor:
-                                                                            primary,
-                                                                        title: Text(
-                                                                            "Confirmation",
-                                                                            style:
-                                                                                regular16pt),
-                                                                        content: Text(
-                                                                            "Are You Sure?",
-                                                                            style:
-                                                                                regular14pt),
-                                                                        actions: [
-                                                                          cancelButton,
-                                                                          deleteButton(
-                                                                            appliedController.data[index]['id'],
-                                                                          ),
-                                                                        ],
-                                                                      );
-                                                                    },
-                                                                  );
-                                                                },
-                                                                child: Text(
-                                                                  "Delete",
-                                                                  style: regular14pt
-                                                                      .copyWith(
-                                                                    color:
-                                                                        accent,
+                                                              Material(
+                                                                color: Colors
+                                                                    .transparent,
+                                                                child: InkWell(
+                                                                  splashColor: Colors
+                                                                      .grey
+                                                                      .withOpacity(
+                                                                          0.6),
+                                                                  onTap: () {
+                                                                    showDialog(
+                                                                      context:
+                                                                          context,
+                                                                      builder:
+                                                                          (BuildContext
+                                                                              context) {
+                                                                        return AlertDialog(
+                                                                          backgroundColor:
+                                                                              primary,
+                                                                          title: Text(
+                                                                              "Confirmation",
+                                                                              style: regular16pt),
+                                                                          content: Text(
+                                                                              "Are You Sure?",
+                                                                              style: regular14pt),
+                                                                          actions: [
+                                                                            cancelButton,
+                                                                            deleteButton(
+                                                                              appliedController.data[index]['id'],
+                                                                            ),
+                                                                          ],
+                                                                        );
+                                                                      },
+                                                                    );
+                                                                  },
+                                                                  child: Text(
+                                                                    "Delete",
+                                                                    style: regular14pt
+                                                                        .copyWith(
+                                                                      color:
+                                                                          accent,
+                                                                    ),
                                                                   ),
                                                                 ),
                                                               )

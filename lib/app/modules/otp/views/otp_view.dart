@@ -26,9 +26,11 @@ class OtpView extends GetView<OtpController> {
         child: Container(
           width: double.infinity,
           decoration: BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage("assets/images/Loginbackground.png"),
-                  fit: BoxFit.cover)),
+            image: DecorationImage(
+              image: AssetImage("assets/images/Loginbackground.png"),
+              fit: BoxFit.cover,
+            ),
+          ),
           child: Container(
             decoration: BoxDecoration(color: Colors.black.withOpacity(0.4)),
             child: Padding(
