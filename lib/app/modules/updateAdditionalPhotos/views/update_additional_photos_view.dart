@@ -281,6 +281,17 @@ class UpdateAdditionalPhotosView
                   confirmTextColor: primary,
                   cancelTextColor: Colors.black,
                   onConfirm: () {
+                    if (_updateController.images.length == 1) {
+                      Get.defaultDialog(
+                        title: "Oops",
+                        middleText:
+                            "You can't delete all images, at least one image must be there.",
+                        backgroundColor: primary,
+                        textCancel: "Okay",
+                        cancelTextColor: Colors.black,
+                      );
+                      return;
+                    }
                     Get.back();
                     showDialog(
                       barrierDismissible: false,

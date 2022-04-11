@@ -74,7 +74,7 @@ class UpdateAdditionalPhotosController extends GetxController {
         fontSize: 16.0,
       );
       Get.back();
-      Get.offAndToNamed("/applied");
+      Get.offAllNamed("/applied");
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(e.toString()),
@@ -121,7 +121,7 @@ class UpdateAdditionalPhotosController extends GetxController {
         fontSize: 16.0,
       );
       Get.back();
-      Get.offAndToNamed("/applied");
+      Get.offAllNamed("/applied");
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(e.toString()),

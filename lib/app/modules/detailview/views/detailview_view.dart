@@ -441,16 +441,19 @@ class DetailviewView extends GetView<DetailviewController> {
               width: 75,
               height: 75,
               decoration: BoxDecoration(
-                  border: Border.all(width: 1, color: primary.withOpacity(0.6)),
-                  borderRadius: BorderRadius.circular(12),
-                  image: DecorationImage(
-                      image: CachedNetworkImageProvider(
-                          "https://res.cloudinary.com/dmmodq1b9/" +
-                              _detailViewController.data['images'][1]
-                                  ['images']),
-                      fit: BoxFit.cover,
-                      colorFilter: ColorFilter.mode(
-                          Colors.black.withOpacity(0.8), BlendMode.dstATop))),
+                border: Border.all(width: 1, color: primary.withOpacity(0.6)),
+                borderRadius: BorderRadius.circular(12),
+                image: DecorationImage(
+                  image: CachedNetworkImageProvider(
+                      "https://res.cloudinary.com/dmmodq1b9/" +
+                          _detailViewController.data['images'][1]['images']),
+                  fit: BoxFit.cover,
+                  colorFilter: ColorFilter.mode(
+                    Colors.black.withOpacity(0.8),
+                    BlendMode.dstATop,
+                  ),
+                ),
+              ),
               child: Align(
                   alignment: Alignment.center,
                   child: Text(

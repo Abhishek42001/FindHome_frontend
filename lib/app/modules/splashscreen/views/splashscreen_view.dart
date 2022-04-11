@@ -6,8 +6,8 @@ import 'package:get/get.dart';
 import '../controllers/splashscreen_controller.dart';
 
 class SplashscreenView extends GetView<SplashscreenController> {
-
-  final SplashscreenController _splashscreenController=Get.put(SplashscreenController());
+  final SplashscreenController _splashscreenController =
+      Get.put(SplashscreenController());
 
   @override
   Widget build(BuildContext context) {
@@ -15,6 +15,18 @@ class SplashscreenView extends GetView<SplashscreenController> {
       body: Stack(
         alignment: Alignment.center,
         children: [
+          Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                colorFilter: ColorFilter.mode(
+                  Colors.black.withOpacity(0.4),
+                  BlendMode.dstATop,
+                ),
+                image: AssetImage("assets/images/Loginbackground.png"),
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
           Align(
             alignment: Alignment.center,
             child: Image.asset(
