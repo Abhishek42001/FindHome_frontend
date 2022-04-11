@@ -128,172 +128,179 @@ class BookmarksView extends GetView<BookmarksController> {
                                           60,
                                       constraints:
                                           BoxConstraints(minHeight: 120),
-                                      child: Row(
-                                        children: [
-                                          InkWell(
-                                            onTap: () {
-                                              Get.toNamed("/detailview",
-                                                  arguments:
-                                                      _bookmarksController
-                                                          .data[index]);
-                                            },
-                                            child: Row(
-                                              children: [
-                                                ConstrainedBox(
-                                                  constraints: BoxConstraints(
-                                                      minHeight: 100,
-                                                      minWidth: 100),
-                                                  child: DecoratedBox(
-                                                    decoration: BoxDecoration(
-                                                      border: Border.all(
-                                                        width: 1,
-                                                        color:
-                                                            primary.withOpacity(
-                                                          0.6,
+                                      child: Material(
+                                        child: InkWell(
+                                          splashColor:
+                                              Colors.white.withOpacity(0.4),
+                                          borderRadius:
+                                              BorderRadius.circular(12),
+                                          onTap: () {
+                                            Get.toNamed(
+                                              "/detailview",
+                                              arguments: _bookmarksController
+                                                  .data[index],
+                                            );
+                                          },
+                                          child: Row(
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  ConstrainedBox(
+                                                    constraints: BoxConstraints(
+                                                        minHeight: 100,
+                                                        minWidth: 100),
+                                                    child: DecoratedBox(
+                                                      decoration: BoxDecoration(
+                                                        border: Border.all(
+                                                          width: 1,
+                                                          color: primary
+                                                              .withOpacity(
+                                                            0.6,
+                                                          ),
                                                         ),
-                                                      ),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              12),
-                                                      image: DecorationImage(
-                                                        image:
-                                                            CachedNetworkImageProvider(
-                                                          "https://res.cloudinary.com/dmmodq1b9/" +
-                                                              _bookmarksController
-                                                                          .data[
-                                                                      index][
-                                                                  'main_image'],
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(12),
+                                                        image: DecorationImage(
+                                                          image:
+                                                              CachedNetworkImageProvider(
+                                                            "https://res.cloudinary.com/dmmodq1b9/" +
+                                                                _bookmarksController
+                                                                            .data[
+                                                                        index][
+                                                                    'main_image'],
+                                                          ),
+                                                          fit: BoxFit.cover,
+                                                          colorFilter:
+                                                              ColorFilter.mode(
+                                                                  Colors
+                                                                      .black
+                                                                      .withOpacity(
+                                                                          0.7),
+                                                                  BlendMode
+                                                                      .dstATop),
                                                         ),
-                                                        fit: BoxFit.cover,
-                                                        colorFilter:
-                                                            ColorFilter.mode(
-                                                                Colors.black
-                                                                    .withOpacity(
-                                                                        0.7),
-                                                                BlendMode
-                                                                    .dstATop),
                                                       ),
                                                     ),
                                                   ),
-                                                ),
-                                                SizedBox(width: 22),
-                                                Container(
-                                                  width: MediaQuery.of(context)
-                                                          .size
-                                                          .width -
-                                                      235,
-                                                  child: Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      Text(
-                                                        _bookmarksController
-                                                                .data[index]
-                                                            ['title'],
-                                                        style: regular16pt
-                                                            .copyWith(
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w800),
-                                                      ),
-                                                      SizedBox(height: 8),
-                                                      Text(
-                                                          "Owner-" +
-                                                              _bookmarksController
-                                                                          .data[
-                                                                      index][
-                                                                  'owner_name'],
-                                                          style: regular12pt
+                                                  SizedBox(width: 22),
+                                                  Container(
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .width -
+                                                            235,
+                                                    child: Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        Text(
+                                                          _bookmarksController
+                                                                  .data[index]
+                                                              ['title'],
+                                                          style: regular16pt
                                                               .copyWith(
-                                                                  color: primary
-                                                                      .withOpacity(
-                                                                          0.6))),
-                                                      SizedBox(height: 10),
-                                                      Obx(
-                                                        () => dropdownvalue
-                                                                    .value ==
-                                                                "Show By Address"
-                                                            ? Row(children: [
-                                                                Icon(
-                                                                    Icons
-                                                                        .location_on_outlined,
-                                                                    size: 14,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w800),
+                                                        ),
+                                                        SizedBox(height: 8),
+                                                        Text(
+                                                            "Owner-" +
+                                                                _bookmarksController
+                                                                            .data[
+                                                                        index][
+                                                                    'owner_name'],
+                                                            style: regular12pt
+                                                                .copyWith(
                                                                     color: primary
                                                                         .withOpacity(
-                                                                            0.6)),
-                                                                SizedBox(
-                                                                    width: 8),
-                                                                Expanded(
-                                                                  child: Text(
-                                                                    _bookmarksController
-                                                                            .data[index]
-                                                                        [
-                                                                        "address"],
-                                                                    style: TextStyle(
-                                                                        fontSize:
-                                                                            12,
-                                                                        color: primary
-                                                                            .withOpacity(0.6)),
-                                                                  ),
-                                                                )
-                                                              ])
-                                                            : Container(
-                                                                padding: EdgeInsets
-                                                                    .only(
-                                                                        left:
-                                                                            14,
-                                                                        right:
-                                                                            14,
-                                                                        top: 10,
-                                                                        bottom:
-                                                                            10),
-                                                                decoration: BoxDecoration(
-                                                                    borderRadius:
-                                                                        BorderRadius.circular(
-                                                                            20),
-                                                                    color: Color(
-                                                                        0xFF2D6DF6)),
-                                                                child: Text("Rs " +
-                                                                    _bookmarksController
-                                                                        .data[
-                                                                            index]
-                                                                            [
-                                                                            "price"]
-                                                                        .toString() +
-                                                                    "/M"),
-                                                              ),
-                                                      ),
-                                                    ],
+                                                                            0.6))),
+                                                        SizedBox(height: 10),
+                                                        Obx(
+                                                          () => dropdownvalue
+                                                                      .value ==
+                                                                  "Show By Address"
+                                                              ? Row(children: [
+                                                                  Icon(
+                                                                      Icons
+                                                                          .location_on_outlined,
+                                                                      size: 14,
+                                                                      color: primary
+                                                                          .withOpacity(
+                                                                              0.6)),
+                                                                  SizedBox(
+                                                                      width: 8),
+                                                                  Expanded(
+                                                                    child: Text(
+                                                                      _bookmarksController
+                                                                              .data[index]
+                                                                          [
+                                                                          "address"],
+                                                                      style: TextStyle(
+                                                                          fontSize:
+                                                                              12,
+                                                                          color:
+                                                                              primary.withOpacity(0.6)),
+                                                                    ),
+                                                                  )
+                                                                ])
+                                                              : Container(
+                                                                  padding: EdgeInsets.only(
+                                                                      left: 14,
+                                                                      right: 14,
+                                                                      top: 10,
+                                                                      bottom:
+                                                                          10),
+                                                                  decoration: BoxDecoration(
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(
+                                                                              20),
+                                                                      color: Color(
+                                                                          0xFF2D6DF6)),
+                                                                  child: Text("Rs " +
+                                                                      _bookmarksController
+                                                                          .data[
+                                                                              index]
+                                                                              [
+                                                                              "price"]
+                                                                          .toString() +
+                                                                      "/M"),
+                                                                ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  SizedBox(width: 3),
+                                                ],
+                                              ),
+                                              Expanded(
+                                                child: Align(
+                                                  alignment:
+                                                      Alignment.centerRight,
+                                                  child: IconButton(
+                                                    onPressed: () {
+                                                      _bookmarksController
+                                                          .deleteBookmark(
+                                                        _bookmarksController
+                                                            .data[index]["id"],
+                                                      );
+                                                    },
+                                                    icon: Icon(
+                                                      Icons.bookmark_outlined,
+                                                      color: primary,
+                                                      size: 25,
+                                                    ),
                                                   ),
                                                 ),
-                                                SizedBox(width: 3),
-                                              ],
-                                            ),
+                                              )
+                                            ],
                                           ),
-                                          Expanded(
-                                            child: Align(
-                                              alignment: Alignment.centerRight,
-                                              child: IconButton(
-                                                onPressed: () {
-                                                  _bookmarksController
-                                                      .deleteBookmark(
-                                                    _bookmarksController
-                                                        .data[index]["id"],
-                                                  );
-                                                },
-                                                icon: Icon(
-                                                  Icons.bookmark_outlined,
-                                                  color: primary,
-                                                  size: 25,
-                                                ),
-                                              ),
-                                            ),
-                                          )
-                                        ],
+                                        ),
                                       ),
                                     ),
                                   ),

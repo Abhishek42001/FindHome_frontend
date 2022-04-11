@@ -1,10 +1,17 @@
 import 'dart:async';
 
+import 'package:findhome/app/theme/theme.dart';
+import 'package:findhome/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:dio/dio.dart' as dio;
 import 'package:permission_handler/permission_handler.dart';
+import 'package:get_storage/get_storage.dart';
+
+import '../../applied/controllers/applied_controller.dart';
+import '../../home/controllers/home_controller.dart';
 
 class UpdateOtherInfosController extends GetxController {
   var noOfBedrooms = 1.obs;
@@ -24,23 +31,86 @@ class UpdateOtherInfosController extends GetxController {
   final searchdata = [].obs;
   var isLoading = false.obs;
   Timer? searchOnStoppedTyping;
-  var formData = {}.obs;
+  var formDataArgs = {}.obs;
+  String uid = "";
+  final getStorage = GetStorage();
 
   @override
-  void onInit() {
+  void onInit() async {
     super.onInit();
-    formData.value = Get.arguments;
-    print(formData);
-    ownerController.text = formData['owner_name'];
-    titleController.text = formData['title'];
-    phoneNumberController.text = formData['phone_number'];
-    addressController.text = formData['address'];
-    descriptionController.text = formData['description'];
-    priceController.text = formData['price'].toString();
-    dropdownvalue.value = formData['type'];
-    cityController.text = formData['city'];
-    noOfBathrooms.value = formData['number_of_bathrooms'];
-    noOfBedrooms.value = formData['number_of_bathrooms'];
+    formDataArgs.value = Get.arguments;
+    print(formDataArgs);
+    uid = await getStorage.read('user');
+    ownerController.text = formDataArgs['owner_name'];
+    titleController.text = formDataArgs['title'];
+    phoneNumberController.text = formDataArgs['phone_number'];
+    addressController.text = formDataArgs['address'];
+    descriptionController.text = formDataArgs['description'];
+    priceController.text = formDataArgs['price'].toString();
+    dropdownvalue.value = formDataArgs['type'];
+    cityController.text = formDataArgs['city'];
+    noOfBathrooms.value = formDataArgs['number_of_bathrooms'];
+    noOfBedrooms.value = formDataArgs['number_of_bathrooms'];
+  }
+
+  void updateData(context) async {
+    var di = dio.Dio();
+    try {
+      dio.FormData formData = dio.FormData.fromMap({
+        "user_id": uid,
+        "id": formDataArgs['id'],
+        "owner_name": ownerController.text,
+        "title": titleController.text,
+        "phone_number": phoneNumberController.text,
+        "address": addressController.text,
+        "description": descriptionController.text,
+        'price': priceController.text,
+        "number_of_bathrooms": noOfBathrooms.value,
+        "number_of_bedrooms": noOfBedrooms.value,
+        "city": cityController.text,
+        'type': dropdownvalue.value,
+      });
+      print(cityController.text);
+      var url = fetchingUrl + '/updateapplied/updateOtherInfos/';
+      var response = await di.post(
+        url,
+        data: formData,
+        options: dio.Options(
+          headers: {"Content-Type": "multipart/form-data"},
+        ),
+      );
+      print('Response status: ${response.statusCode}');
+      print('Response body: ${response.data}');
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text("Updated Successfully"),
+      ));
+      if (Get.isRegistered<HomeController>()) {
+        final indexCtrl = Get.find<HomeController>();
+        indexCtrl.getAllApplied();
+      }
+      if (Get.isRegistered<AppliedController>()) {
+        final indexCtrl = Get.find<AppliedController>();
+        indexCtrl.getApplied();
+      }
+      Get.back();
+      Fluttertoast.showToast(
+        msg: "Data Updated",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.grey.withOpacity(0.6),
+        textColor: primary,
+        fontSize: 16.0,
+      );
+      Get.offAndToNamed("/home");
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(e.toString()),
+      ));
+      Get.back();
+      print("error");
+      print(e);
+    }
   }
 
   void getLocation() async {

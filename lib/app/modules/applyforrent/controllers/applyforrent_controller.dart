@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:io';
-
 import 'package:dio/dio.dart' as dio;
 import 'package:findhome/app/modules/home/controllers/home_controller.dart';
 import 'package:findhome/app/theme/theme.dart';

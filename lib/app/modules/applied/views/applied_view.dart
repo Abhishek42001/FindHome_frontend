@@ -142,217 +142,245 @@ class AppliedView extends GetView<AppliedController> {
                                           child: Container(
                                             constraints:
                                                 BoxConstraints(minHeight: 120),
-                                            child: Row(
-                                              children: [
-                                                ConstrainedBox(
-                                                  constraints: BoxConstraints(
-                                                    minHeight: 120,
-                                                    minWidth: 114,
-                                                  ),
-                                                  child: DecoratedBox(
-                                                    decoration: BoxDecoration(
-                                                      border: Border.all(
-                                                          width: 1,
-                                                          color: primary
-                                                              .withOpacity(
-                                                                  0.6)),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              12),
-                                                      image: DecorationImage(
-                                                        image:
-                                                            CachedNetworkImageProvider(
-                                                          "https://res.cloudinary.com/dmmodq1b9/" +
-                                                              appliedController
-                                                                          .data[
-                                                                      index][
-                                                                  'main_image'],
-                                                        ),
-                                                        fit: BoxFit.cover,
-                                                        colorFilter:
-                                                            ColorFilter.mode(
-                                                          Colors.black
-                                                              .withOpacity(0.7),
-                                                          BlendMode.dstATop,
-                                                        ),
+                                            child: Material(
+                                              child: InkWell(
+                                                onTap: () {
+                                                  Get.toNamed(
+                                                    "detailview",
+                                                    arguments: appliedController
+                                                        .data[index],
+                                                  );
+                                                },
+                                                borderRadius:
+                                                    BorderRadius.circular(12),
+                                                splashColor: Colors.white
+                                                    .withOpacity(0.4),
+                                                child: Row(
+                                                  children: [
+                                                    ConstrainedBox(
+                                                      constraints:
+                                                          BoxConstraints(
+                                                        minHeight: 120,
+                                                        minWidth: 114,
                                                       ),
-                                                    ),
-                                                  ),
-                                                ),
-                                                SizedBox(width: 22),
-                                                Container(
-                                                  width: MediaQuery.of(context)
-                                                          .size
-                                                          .width -
-                                                      196,
-                                                  child: Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Text(
-                                                          appliedController
-                                                                  .data[index]
-                                                              ['title'],
-                                                          style: regular16pt
-                                                              .copyWith(
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w800)),
-                                                      SizedBox(height: 8),
-                                                      Text(
-                                                        "Owner-" +
-                                                            appliedController
-                                                                    .data[index]
-                                                                ['owner_name'],
-                                                        style: regular12pt
-                                                            .copyWith(
-                                                          color: primary
-                                                              .withOpacity(0.6),
-                                                        ),
-                                                      ),
-                                                      SizedBox(height: 5),
-                                                      Row(
-                                                        children: [
-                                                          Icon(
-                                                              Icons.access_time,
-                                                              size: 14,
+                                                      child: DecoratedBox(
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          border: Border.all(
+                                                              width: 1,
                                                               color: primary
                                                                   .withOpacity(
                                                                       0.6)),
-                                                          SizedBox(width: 8),
-                                                          Expanded(
-                                                            child: Text(
-                                                              "Last updated on " +
-                                                                  DateFormat(
-                                                                    'dd-MM-yyyy',
-                                                                  ).format(
-                                                                    DateTime
-                                                                        .parse(
-                                                                      appliedController
-                                                                              .data[index]
-                                                                          [
-                                                                          'created_date'],
-                                                                    ),
-                                                                  ) +
-                                                                  " At " +
-                                                                  DateFormat(
-                                                                    'HH:mm a',
-                                                                  ).format(
-                                                                    DateTime
-                                                                        .parse(
-                                                                      appliedController
-                                                                              .data[index]
-                                                                          [
-                                                                          'created_date'],
-                                                                    ),
-                                                                  ),
-                                                              // appliedController
-                                                              //         .data[index]
-                                                              //     [
-                                                              //     "created_date"],
-                                                              style: TextStyle(
-                                                                fontSize: 10,
-                                                                color: primary
-                                                                    .withOpacity(
-                                                                  0.6,
-                                                                ),
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w800,
-                                                              ),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(12),
+                                                          image:
+                                                              DecorationImage(
+                                                            image:
+                                                                CachedNetworkImageProvider(
+                                                              "https://res.cloudinary.com/dmmodq1b9/" +
+                                                                  appliedController
+                                                                              .data[
+                                                                          index]
+                                                                      [
+                                                                      'main_image'],
                                                             ),
-                                                          )
-                                                        ],
+                                                            fit: BoxFit.cover,
+                                                            colorFilter:
+                                                                ColorFilter
+                                                                    .mode(
+                                                              Colors.black
+                                                                  .withOpacity(
+                                                                      0.7),
+                                                              BlendMode.dstATop,
+                                                            ),
+                                                          ),
+                                                        ),
                                                       ),
-                                                      SizedBox(height: 12),
-                                                      Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
+                                                    ),
+                                                    SizedBox(width: 22),
+                                                    Container(
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width -
+                                                              196,
+                                                      child: Column(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
                                                                 .start,
                                                         children: [
+                                                          Text(
+                                                            appliedController
+                                                                    .data[index]
+                                                                ['title'],
+                                                            style: regular16pt
+                                                                .copyWith(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w800,
+                                                            ),
+                                                          ),
+                                                          SizedBox(height: 8),
+                                                          Text(
+                                                            "Owner-" +
+                                                                appliedController
+                                                                            .data[
+                                                                        index][
+                                                                    'owner_name'],
+                                                            style: regular12pt
+                                                                .copyWith(
+                                                              color: primary
+                                                                  .withOpacity(
+                                                                      0.6),
+                                                            ),
+                                                          ),
+                                                          SizedBox(height: 5),
                                                           Row(
                                                             children: [
-                                                              Material(
-                                                                color: Colors
-                                                                    .transparent,
-                                                                child: InkWell(
-                                                                  onTap: () {
-                                                                    Get.toNamed(
-                                                                        "edit",
-                                                                        arguments:
-                                                                            appliedController.data[index]);
-                                                                  },
-                                                                  splashColor:
-                                                                      Colors
-                                                                          .grey
-                                                                          .withOpacity(
-                                                                    0.6,
-                                                                  ),
-                                                                  child: Text(
-                                                                    "Edit",
-                                                                    style: regular14pt
-                                                                        .copyWith(
-                                                                      color:
-                                                                          accent,
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                              SizedBox(
-                                                                  width: 37),
-                                                              Material(
-                                                                color: Colors
-                                                                    .transparent,
-                                                                child: InkWell(
-                                                                  splashColor: Colors
-                                                                      .grey
+                                                              Icon(
+                                                                  Icons
+                                                                      .access_time,
+                                                                  size: 14,
+                                                                  color: primary
                                                                       .withOpacity(
-                                                                          0.6),
-                                                                  onTap: () {
-                                                                    showDialog(
-                                                                      context:
-                                                                          context,
-                                                                      builder:
-                                                                          (BuildContext
-                                                                              context) {
-                                                                        return AlertDialog(
-                                                                          backgroundColor:
-                                                                              primary,
-                                                                          title: Text(
-                                                                              "Confirmation",
-                                                                              style: regular16pt),
-                                                                          content: Text(
-                                                                              "Are You Sure?",
-                                                                              style: regular14pt),
-                                                                          actions: [
-                                                                            cancelButton,
-                                                                            deleteButton(
-                                                                              appliedController.data[index]['id'],
-                                                                            ),
-                                                                          ],
-                                                                        );
-                                                                      },
-                                                                    );
-                                                                  },
-                                                                  child: Text(
-                                                                    "Delete",
-                                                                    style: regular14pt
-                                                                        .copyWith(
-                                                                      color:
-                                                                          accent,
+                                                                          0.6)),
+                                                              SizedBox(
+                                                                  width: 8),
+                                                              Expanded(
+                                                                child: Text(
+                                                                  "Last updated on " +
+                                                                      DateFormat(
+                                                                        'dd-MM-yyyy',
+                                                                      ).format(
+                                                                        DateTime
+                                                                            .parse(
+                                                                          appliedController.data[index]
+                                                                              [
+                                                                              'created_date'],
+                                                                        ),
+                                                                      ) +
+                                                                      " At " +
+                                                                      DateFormat(
+                                                                        'HH:mm a',
+                                                                      ).format(
+                                                                        DateTime
+                                                                            .parse(
+                                                                          appliedController.data[index]
+                                                                              [
+                                                                              'created_date'],
+                                                                        ),
+                                                                      ),
+                                                                  // appliedController
+                                                                  //         .data[index]
+                                                                  //     [
+                                                                  //     "created_date"],
+                                                                  style:
+                                                                      TextStyle(
+                                                                    fontSize:
+                                                                        10,
+                                                                    color: primary
+                                                                        .withOpacity(
+                                                                      0.6,
                                                                     ),
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w800,
                                                                   ),
                                                                 ),
                                                               )
                                                             ],
+                                                          ),
+                                                          SizedBox(height: 12),
+                                                          Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .start,
+                                                            children: [
+                                                              Row(
+                                                                children: [
+                                                                  Material(
+                                                                    color: Colors
+                                                                        .transparent,
+                                                                    child:
+                                                                        InkWell(
+                                                                      onTap:
+                                                                          () {
+                                                                        Get.toNamed(
+                                                                            "edit",
+                                                                            arguments:
+                                                                                appliedController.data[index]);
+                                                                      },
+                                                                      splashColor: Colors
+                                                                          .grey
+                                                                          .withOpacity(
+                                                                        0.6,
+                                                                      ),
+                                                                      child:
+                                                                          Text(
+                                                                        "Edit",
+                                                                        style: regular14pt
+                                                                            .copyWith(
+                                                                          color:
+                                                                              accent,
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                  SizedBox(
+                                                                      width:
+                                                                          37),
+                                                                  Material(
+                                                                    color: Colors
+                                                                        .transparent,
+                                                                    child:
+                                                                        InkWell(
+                                                                      splashColor: Colors
+                                                                          .grey
+                                                                          .withOpacity(
+                                                                              0.6),
+                                                                      onTap:
+                                                                          () {
+                                                                        showDialog(
+                                                                          context:
+                                                                              context,
+                                                                          builder:
+                                                                              (BuildContext context) {
+                                                                            return AlertDialog(
+                                                                              backgroundColor: primary,
+                                                                              title: Text("Confirmation", style: regular16pt),
+                                                                              content: Text("Are You Sure?", style: regular14pt),
+                                                                              actions: [
+                                                                                cancelButton,
+                                                                                deleteButton(
+                                                                                  appliedController.data[index]['id'],
+                                                                                ),
+                                                                              ],
+                                                                            );
+                                                                          },
+                                                                        );
+                                                                      },
+                                                                      child:
+                                                                          Text(
+                                                                        "Delete",
+                                                                        style: regular14pt
+                                                                            .copyWith(
+                                                                          color:
+                                                                              accent,
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  )
+                                                                ],
+                                                              )
+                                                            ],
                                                           )
                                                         ],
-                                                      )
-                                                    ],
-                                                  ),
-                                                )
-                                              ],
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
                                             ),
                                           ),
                                         ),

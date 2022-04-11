@@ -484,47 +484,51 @@ class ApplyforrentView extends GetView<ApplyforrentController> {
                               SizedBox(height: 13),
                               Obx(
                                 () => Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: applyController
-                                            .imagefile.value.isEmpty
-                                        ? IconButton(
-                                            onPressed: () {
-                                              Showmodalbottomsheet(context, 1);
-                                            },
-                                            icon: Icon(
-                                              Icons.add_photo_alternate,
-                                              color: primary,
-                                              size: 50,
-                                            ),
-                                          )
-                                        : GestureDetector(
-                                            onTap: () => Showmodalbottomsheet(
-                                                context, 1),
-                                            child: Container(
-                                              width: 100,
-                                              height: 100,
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(20),
-                                                image: DecorationImage(
-                                                  image: FileImage(
-                                                    File(applyController
-                                                        .imagefile.value),
-                                                  ),
-                                                  fit: BoxFit.cover,
-                                                  colorFilter: ColorFilter.mode(
-                                                    Colors.black
-                                                        .withOpacity(0.6),
-                                                    BlendMode.dstATop,
+                                  alignment: Alignment.centerLeft,
+                                  child: applyController.imagefile.value.isEmpty
+                                      ? IconButton(
+                                          onPressed: () {
+                                            Showmodalbottomsheet(context, 1);
+                                          },
+                                          icon: Icon(
+                                            Icons.add_photo_alternate,
+                                            color: primary,
+                                            size: 50,
+                                          ),
+                                        )
+                                      : GestureDetector(
+                                          onTap: () =>
+                                              Showmodalbottomsheet(context, 1),
+                                          child: Container(
+                                            width: 100,
+                                            height: 100,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(20),
+                                              image: DecorationImage(
+                                                image: FileImage(
+                                                  File(
+                                                    applyController
+                                                        .imagefile.value,
                                                   ),
                                                 ),
+                                                fit: BoxFit.cover,
+                                                colorFilter: ColorFilter.mode(
+                                                  Colors.black.withOpacity(0.6),
+                                                  BlendMode.dstATop,
+                                                ),
                                               ),
-                                              child: Align(
-                                                  alignment: Alignment.center,
-                                                  child: Text("Tap to Change",
-                                                      style: regular12pt)),
                                             ),
-                                          )),
+                                            child: Align(
+                                              alignment: Alignment.center,
+                                              child: Text(
+                                                "Tap to Change",
+                                                style: regular12pt,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                ),
                               ),
                               SizedBox(
                                 height: 23,
@@ -541,35 +545,35 @@ class ApplyforrentView extends GetView<ApplyforrentController> {
                                               width: 100,
                                               height: 100,
                                               decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(20),
-                                                  image: DecorationImage(
-                                                      image: FileImage(
-                                                        File(item),
-                                                      ),
-                                                      fit: BoxFit.cover,
-                                                      colorFilter:
-                                                          ColorFilter.mode(
-                                                              Colors.black
-                                                                  .withOpacity(
-                                                                      0.6),
-                                                              BlendMode
-                                                                  .dstATop))),
+                                                borderRadius:
+                                                    BorderRadius.circular(20),
+                                                image: DecorationImage(
+                                                  image: FileImage(
+                                                    File(item),
+                                                  ),
+                                                  fit: BoxFit.cover,
+                                                  colorFilter: ColorFilter.mode(
+                                                    Colors.black
+                                                        .withOpacity(0.6),
+                                                    BlendMode.dstATop,
+                                                  ),
+                                                ),
+                                              ),
                                               child: SizedBox(
                                                 width: double.infinity,
                                                 child: Align(
-                                                    alignment:
-                                                        Alignment.topRight,
-                                                    child: IconButton(
-                                                      onPressed: () {
-                                                        applyController.images
-                                                            .remove(item);
-                                                      },
-                                                      icon: Icon(
-                                                        Icons.close,
-                                                        color: primary,
-                                                      ),
-                                                    )),
+                                                  alignment: Alignment.topRight,
+                                                  child: IconButton(
+                                                    onPressed: () {
+                                                      applyController.images
+                                                          .remove(item);
+                                                    },
+                                                    icon: Icon(
+                                                      Icons.close,
+                                                      color: primary,
+                                                    ),
+                                                  ),
+                                                ),
                                               ),
                                             ),
                                             SizedBox(width: 20)

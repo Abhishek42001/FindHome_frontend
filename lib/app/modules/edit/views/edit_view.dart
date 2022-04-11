@@ -30,14 +30,17 @@ class EditView extends GetView<EditController> {
                     customButton("Update Cover Photo", () {
                       Get.toNamed(
                         "update-cover-photo",
-                        arguments: Get.arguments['main_image'],
+                        arguments: [
+                          Get.arguments['main_image'],
+                          Get.arguments['id']
+                        ],
                       );
                     }),
                     SizedBox(height: 13),
                     customButton("Update Additional Photos", () {
                       Get.toNamed(
                         "update-additional-photos",
-                        arguments: Get.arguments['images'],
+                        arguments: [Get.arguments['images'],Get.arguments['id']],
                       );
                     }),
                     SizedBox(height: 13),
