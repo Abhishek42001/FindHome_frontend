@@ -20,7 +20,6 @@ class OtpController extends GetxController with CodeAutoFill {
   }
 
   void verifyOtp() async {
-    print(args);
     var credentials = PhoneAuthProvider.credential(
         verificationId: args[1], smsCode: pinPutController.text);
     try {
