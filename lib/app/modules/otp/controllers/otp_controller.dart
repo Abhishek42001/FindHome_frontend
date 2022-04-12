@@ -30,6 +30,7 @@ class OtpController extends GetxController with CodeAutoFill {
           authCredential.user!.uid.toString());
       await getStorage.write(
           'isnew', authCredential.additionalUserInfo!.isNewUser);
+
       pinPutController.clear();
       Get.showSnackbar(
         GetSnackBar(
@@ -38,7 +39,7 @@ class OtpController extends GetxController with CodeAutoFill {
           isDismissible: true,
         ),
       );
-      if (authCredential.additionalUserInfo!.isNewUser) {
+      if (authCredential.user!.displayName == null) {
         Get.offAllNamed("/newuserdetail");
       } else {
         Get.offAllNamed("/chooselocation");

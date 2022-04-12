@@ -17,20 +17,22 @@ class CustomPrimaryButton extends StatelessWidget {
       borderRadius: BorderRadius.circular(12.0),
       elevation: 0,
       child: Container(
-        height: 44,
+        height: 48,
         decoration: BoxDecoration(
-            boxShadow: [
-              BoxShadow(
-                color: primary.withOpacity(0.2),
-                blurRadius: 10,
-                offset: const Offset(0, 5),
-              ),
-            ],
-            borderRadius: BorderRadius.circular(12.0),
-            gradient: LinearGradient(colors: [
-              Color.fromRGBO(160, 218, 251, 1),
-              Color.fromRGBO(10, 142, 217, 1)
-            ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
+          boxShadow: [
+            BoxShadow(
+              color: primary.withOpacity(0.2),
+              blurRadius: 10,
+              offset: const Offset(0, 5),
+            ),
+          ],
+          borderRadius: BorderRadius.circular(12.0),
+          gradient: LinearGradient(
+            colors: [Color(0xFFA0DAFB), Color(0xFF0A8ED9)],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+        ),
         child: Material(
           color: Colors.transparent,
           child: InkWell(

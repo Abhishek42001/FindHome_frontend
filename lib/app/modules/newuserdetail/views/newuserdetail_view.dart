@@ -64,118 +64,132 @@ class NewuserdetailView extends GetView<NewuserdetailController> {
                   ),
                   Center(
                     child: SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          SizedBox(height: 60),
-                          //Image.asset("assets/images/logo.png"),
-                          Text(
-                            "Personal Info",
-                            style: regular18pt.copyWith(
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          SizedBox(height: 30),
-                          Obx(
-                            () => newUserController.imagePath.isEmpty
-                                ? GestureDetector(
-                                    onTap: () {
-                                      showmodalbottomsheet(context);
-                                    },
-                                    child: SizedBox(
-                                      height: 70,
-                                      width: 70,
-                                      child: Image.asset(
-                                        "assets/images/upload_photo.png",
-                                        color: primary,
-                                      ),
-                                    ),
-                                  )
-                                : GestureDetector(
-                                    onTap: () => showmodalbottomsheet(context),
-                                    child: Container(
-                                      width: 100,
-                                      height: 100,
-                                      decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(100),
-                                        image: DecorationImage(
-                                          image: FileImage(
-                                            File(
-                                              newUserController.imagePath.value,
-                                            ),
-                                          ),
-                                          fit: BoxFit.cover,
-                                          colorFilter: ColorFilter.mode(
-                                              Colors.black.withOpacity(0.8),
-                                              BlendMode.dstATop),
-                                        ),
-                                      ),
-                                      child: Align(
-                                        alignment: Alignment.center,
-                                        child: Icon(
-                                          Icons.mode_edit_rounded,
-                                          color: primary,
-                                          size: 30,
-                                        ),
-                                      ),
+                      child: SizedBox(
+                        width: double.infinity,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(height: 60),
+                            //Image.asset("assets/images/logo.png"),
+                            Align(
+                              alignment: Alignment.center,
+                              child: Column(
+                                children: [
+                                  Text(
+                                    "Personal Info",
+                                    style: regular18pt.copyWith(
+                                      fontWeight: FontWeight.w500,
                                     ),
                                   ),
-                          ),
-                          SizedBox(height: 10),
-                          Text(
-                            "Upload Photo",
-                            style: regular14pt.copyWith(
-                              color: primary.withOpacity(0.6),
-                            ),
-                          ),
-                          SizedBox(height: 23),
-                          Text("Name"),
-                          SizedBox(height: 5),
-                          CustomFormField(
-                              controller: newUserController.nameController,
-                              textValue: "Enter Your Name",
-                              leftpadding: 23,
-                              rightpadding: 23,
-                              toppadding: 17,
-                              bottompadding: 17),
-                          SizedBox(height: 23),
-                          Text("Email"),
-                          SizedBox(height: 5),
-                          CustomFormField(
-                              controller: newUserController.emailController,
-                              textValue: "Enter Your Email",
-                              leftpadding: 23,
-                              rightpadding: 23,
-                              toppadding: 17,
-                              bottompadding: 17),
-                          SizedBox(height: 23),
-                          CustomPrimaryButton(
-                              textValue: "Continue",
-                              onTap: () {
-                                FocusScope.of(context).unfocus();
-                                showDialog(
-                                    barrierDismissible: false,
-                                    context: context,
-                                    builder: (context) => Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            SpinKitWave(
-                                              color: primary,
-                                              size: 50,
+                                  SizedBox(height: 30),
+                                  Obx(
+                                    () => newUserController.imagePath.isEmpty
+                                        ? GestureDetector(
+                                            onTap: () {
+                                              showmodalbottomsheet(context);
+                                            },
+                                            child: SizedBox(
+                                              height: 70,
+                                              width: 70,
+                                              child: Image.asset(
+                                                "assets/images/upload_photo.png",
+                                                color: primary,
+                                              ),
                                             ),
-                                            SizedBox(height: 23),
-                                            Text("Updating Data...",
-                                                style: regular14pt.copyWith(
-                                                    color: primary,
-                                                    decoration:
-                                                        TextDecoration.none))
-                                          ],
-                                        ));
-                                newUserController.updateUserInfo();
-                              }),
-                          SizedBox(height: 23)
-                        ],
+                                          )
+                                        : GestureDetector(
+                                            onTap: () =>
+                                                showmodalbottomsheet(context),
+                                            child: Container(
+                                              width: 100,
+                                              height: 100,
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(100),
+                                                image: DecorationImage(
+                                                  image: FileImage(
+                                                    File(
+                                                      newUserController
+                                                          .imagePath.value,
+                                                    ),
+                                                  ),
+                                                  fit: BoxFit.cover,
+                                                  colorFilter: ColorFilter.mode(
+                                                      Colors.black
+                                                          .withOpacity(0.8),
+                                                      BlendMode.dstATop),
+                                                ),
+                                              ),
+                                              child: Align(
+                                                alignment: Alignment.center,
+                                                child: Icon(
+                                                  Icons.mode_edit_rounded,
+                                                  color: primary,
+                                                  size: 30,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                  ),
+                                  SizedBox(height: 10),
+                                  Text(
+                                    "Upload Photo",
+                                    style: regular14pt.copyWith(
+                                      color: primary.withOpacity(0.6),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            SizedBox(height: 23),
+                            Text("Name"),
+                            SizedBox(height: 5),
+                            CustomFormField(
+                                controller: newUserController.nameController,
+                                textValue: "Enter Your Name",
+                                leftpadding: 23,
+                                rightpadding: 23,
+                                toppadding: 17,
+                                bottompadding: 17),
+                            SizedBox(height: 23),
+                            Text("Email"),
+                            SizedBox(height: 5),
+                            CustomFormField(
+                                controller: newUserController.emailController,
+                                textValue: "Enter Your Email",
+                                leftpadding: 23,
+                                rightpadding: 23,
+                                toppadding: 17,
+                                bottompadding: 17),
+                            SizedBox(height: 23),
+                            CustomPrimaryButton(
+                                textValue: "Continue",
+                                onTap: () {
+                                  FocusScope.of(context).unfocus();
+                                  showDialog(
+                                      barrierDismissible: false,
+                                      context: context,
+                                      builder: (context) => Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              SpinKitWave(
+                                                color: primary,
+                                                size: 50,
+                                              ),
+                                              SizedBox(height: 23),
+                                              Text("Updating Data...",
+                                                  style: regular14pt.copyWith(
+                                                      color: primary,
+                                                      decoration:
+                                                          TextDecoration.none))
+                                            ],
+                                          ));
+                                  newUserController.updateUserInfo();
+                                }),
+                            SizedBox(height: 23)
+                          ],
+                        ),
                       ),
                     ),
                   ),
