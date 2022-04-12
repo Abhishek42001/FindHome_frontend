@@ -173,7 +173,7 @@ class OtpView extends GetView<OtpController> {
                                   children: [
                                     SizedBox(height: 20),
                                     Text(
-                                      "Trying To Automatically Fetch OTP...",
+                                      "Trying To Fetch OTP Automatically...",
                                       style: regular12pt.copyWith(
                                         color: primary.withOpacity(0.7),
                                       ),

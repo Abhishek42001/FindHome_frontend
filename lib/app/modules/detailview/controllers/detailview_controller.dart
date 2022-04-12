@@ -6,24 +6,25 @@ import 'package:get_storage/get_storage.dart';
 import '../../bookmarks/controllers/bookmarks_controller.dart';
 
 class DetailviewController extends GetxController {
-    Map data = {}.obs;
-      String? userid;
+  Map data = {}.obs;
+  String? userid;
 
-    final getStorage = GetStorage();
-    var isBookmarked=false.obs;
+  final getStorage = GetStorage();
+  var isBookmarked = false.obs;
 
-    Future<void> checkBookmark() async {
-      var di = dio.Dio();
+  Future<void> checkBookmark() async {
+    var di = dio.Dio();
 
-      try {
-        dio.FormData formData = dio.FormData.fromMap({"user_id": userid,"item_id":data['id']});
-        var url = fetchingUrl+'/checkbookmarkbyid/';
-        var response = await di.post(url, data: formData);
-        // print('Response status: ${response.statusCode}');
-        print('Response body: ${response.data}');
-        isBookmarked.value=response.data['value'];
-        //print(response.data['data']);
-      } catch (e) {
+    try {
+      dio.FormData formData =
+          dio.FormData.fromMap({"user_id": userid, "item_id": data['id']});
+      var url = fetchingUrl + '/checkbookmarkbyid/';
+      var response = await di.post(url, data: formData);
+      // print('Response status: ${response.statusCode}');
+      print('Response body: ${response.data}');
+      isBookmarked.value = response.data['value'];
+      //print(response.data['data']);
+    } catch (e) {
       Get.showSnackbar(
         GetSnackBar(
           duration: Duration(seconds: 2),
@@ -35,29 +36,28 @@ class DetailviewController extends GetxController {
     }
   }
 
+  Future<void> applyBookmark(id) async {
+    var di = dio.Dio();
 
-    Future<void> applyBookmark(id) async {
-      var di = dio.Dio();
-
-      try {
-        dio.FormData formData = dio.FormData.fromMap({"user_id": userid,"item_id":id});
-        var url = fetchingUrl+'/applybookmark/';
-        var response = await di.post(url, data: formData);
-        // print('Response status: ${response.statusCode}');
-        print('Response body: ${response.data}');
-        Get.showSnackbar(
-         GetSnackBar(
-          duration: Duration(seconds: 1),
-          message:"Bookmarked Successfully",
-          isDismissible: true,
-        ));
-        checkBookmark();
-        if(Get.isRegistered<BookmarksController>()){
-          final indexCtrl= Get.find<BookmarksController>();
-          indexCtrl.getBookmarks();
-        }
-        //print(response.data['data']);
-      } catch (e) {
+    try {
+      dio.FormData formData =
+          dio.FormData.fromMap({"user_id": userid, "item_id": id});
+      var url = fetchingUrl + '/applybookmark/';
+      var response = await di.post(url, data: formData);
+      // print('Response status: ${response.statusCode}');
+      print('Response body: ${response.data}');
+      Get.showSnackbar(GetSnackBar(
+        duration: Duration(seconds: 1),
+        message: "Bookmarked Successfully",
+        isDismissible: true,
+      ));
+      checkBookmark();
+      if (Get.isRegistered<BookmarksController>()) {
+        final indexCtrl = Get.find<BookmarksController>();
+        indexCtrl.getBookmarks();
+      }
+      //print(response.data['data']);
+    } catch (e) {
       Get.showSnackbar(
         GetSnackBar(
           duration: Duration(seconds: 2),
@@ -70,27 +70,27 @@ class DetailviewController extends GetxController {
   }
 
   Future<void> deleteBookmark(id) async {
-      var di = dio.Dio();
+    var di = dio.Dio();
 
-      try {
-        dio.FormData formData = dio.FormData.fromMap({"user_id": userid,"item_id":id});
-        var url = fetchingUrl+'/deletebookmarkbyid/';
-        var response = await di.post(url, data: formData);
-        // print('Response status: ${response.statusCode}');
-        print('Response body: ${response.data}');
-        Get.showSnackbar(
-         GetSnackBar(
-          duration: Duration(seconds: 1),
-          message:"Bookmarked Removed",
-          isDismissible: true,
-        ));
-        checkBookmark();
-        if(Get.isRegistered<BookmarksController>()){
-          final indexCtrl= Get.find<BookmarksController>();
-          indexCtrl.getBookmarks();
-        }
-        //print(response.data['data']);
-      } catch (e) {
+    try {
+      dio.FormData formData =
+          dio.FormData.fromMap({"user_id": userid, "item_id": id});
+      var url = fetchingUrl + '/deletebookmarkbyid/';
+      var response = await di.post(url, data: formData);
+      // print('Response status: ${response.statusCode}');
+      print('Response body: ${response.data}');
+      Get.showSnackbar(GetSnackBar(
+        duration: Duration(seconds: 1),
+        message: "Bookmarked Removed",
+        isDismissible: true,
+      ));
+      checkBookmark();
+      if (Get.isRegistered<BookmarksController>()) {
+        final indexCtrl = Get.find<BookmarksController>();
+        indexCtrl.getBookmarks();
+      }
+      //print(response.data['data']);
+    } catch (e) {
       Get.showSnackbar(
         GetSnackBar(
           duration: Duration(seconds: 2),

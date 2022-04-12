@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:findhome/app/theme/theme.dart';
 import 'package:findhome/app/widgets/custom_primary_button.dart';
-import 'package:findhome/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -52,20 +51,32 @@ class DetailviewView extends GetView<DetailviewController> {
                       width: MediaQuery.of(context).size.width - 102,
                       child: Row(
                         children: [
-                          GestureDetector(
-                            onTap: () => Get.back(),
-                            child: Container(
+                          Material(
+                            color: Colors.transparent,
+                            child: InkWell(
+                              borderRadius: BorderRadius.circular(25),
+                              splashColor: Colors.white.withOpacity(0.3),
+                              onTap: () => Get.back(),
+                              child: Container(
                                 padding: EdgeInsets.all(7),
                                 decoration: BoxDecoration(
                                     color: Colors.white.withOpacity(0.2),
                                     borderRadius: BorderRadius.circular(25)),
-                                child: Icon(Icons.arrow_back_ios_new_outlined,
-                                    color: primary)),
+                                child: Icon(
+                                  Icons.arrow_back_ios_new_outlined,
+                                  color: primary,
+                                ),
+                              ),
+                            ),
                           ),
                           Expanded(
                             child: Align(
                               alignment: Alignment.centerRight,
-                              child: GestureDetector(
+                              child: Material(
+                                color: Colors.transparent,
+                                child: InkWell(
+                                  borderRadius: BorderRadius.circular(25),
+                                  splashColor: Colors.white.withOpacity(0.3),
                                   onTap: () {
                                     if (_detailViewController
                                             .isBookmarked.value ==
@@ -81,9 +92,9 @@ class DetailviewView extends GetView<DetailviewController> {
                                     () => Container(
                                       padding: EdgeInsets.all(7),
                                       decoration: BoxDecoration(
-                                          color: Colors.white.withOpacity(0.2),
-                                          borderRadius:
-                                              BorderRadius.circular(25)),
+                                        color: Colors.white.withOpacity(0.2),
+                                        borderRadius: BorderRadius.circular(25),
+                                      ),
                                       child: !(_detailViewController
                                               .isBookmarked.value)
                                           ? Icon(Icons.bookmark_border,
@@ -91,7 +102,9 @@ class DetailviewView extends GetView<DetailviewController> {
                                           : Icon(Icons.bookmark,
                                               color: primary),
                                     ),
-                                  )),
+                                  ),
+                                ),
+                              ),
                             ),
                           )
                         ],

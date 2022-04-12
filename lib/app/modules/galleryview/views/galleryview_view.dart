@@ -38,9 +38,12 @@ class GalleryviewView extends GetView<GalleryviewController> {
                       ],
                     ),
                     SizedBox(height: 27),
-                    Text("Main Image",
-                        style:
-                            regular14pt.copyWith(fontWeight: FontWeight.w800)),
+                    Text(
+                      "Cover Image",
+                      style: regular14pt.copyWith(
+                        fontWeight: FontWeight.w800,
+                      ),
+                    ),
                     SizedBox(height: 23),
                     GestureDetector(
                       onTap: () {

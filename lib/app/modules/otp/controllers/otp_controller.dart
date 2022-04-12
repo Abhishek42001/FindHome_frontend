@@ -26,8 +26,7 @@ class OtpController extends GetxController with CodeAutoFill {
     try {
       final authCredential =
           await FirebaseAuth.instance.signInWithCredential(credentials);
-      await getStorage.write('await SmsAutoFill().listenForCode;user',
-          authCredential.user!.uid.toString());
+      await getStorage.write('user', authCredential.user!.uid.toString());
       await getStorage.write(
           'isnew', authCredential.additionalUserInfo!.isNewUser);
 
@@ -39,7 +38,7 @@ class OtpController extends GetxController with CodeAutoFill {
           isDismissible: true,
         ),
       );
-      if (authCredential.user!.displayName == null) {
+      if (authCredential.user!.photoURL == null) {
         Get.offAllNamed("/newuserdetail");
       } else {
         Get.offAllNamed("/chooselocation");
