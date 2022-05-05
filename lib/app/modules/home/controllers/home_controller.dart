@@ -69,14 +69,14 @@ class HomeController extends GetxController {
       isLoading.value = false;
       print(data);
     } catch (e) {
-      Get.showSnackbar(
-        GetSnackBar(
-          duration: Duration(seconds: 2),
-          message: "Some Error Occured...",
-          isDismissible: true,
-        ),
-      );
       print(e);
+      // Get.showSnackbar(
+      //   GetSnackBar(
+      //     duration: Duration(seconds: 2),
+      //     message: "Some Error Occured...",
+      //     isDismissible: true,
+      //   ),
+      // );
       isLoading.value = false;
     }
   }
@@ -176,6 +176,7 @@ class HomeController extends GetxController {
     super.onInit();
     uid = getStorage.read('user');
     city = getStorage.read('city');
+    print(city);
     getAllApplied();
     //findDatawithTag("Single");
   }

@@ -66,98 +66,111 @@ class UpdateProfileView extends GetView<UpdateProfileController> {
                   Center(
                     child: SingleChildScrollView(
                       child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           SizedBox(height: 60),
                           //Image.asset("assets/images/logo.png"),
-                          Text(
-                            "Personal Info",
-                            style: regular18pt.copyWith(
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          SizedBox(height: 30),
-                          Obx(
-                            () => updateProfileController.imagePath.isEmpty
-                                ? GestureDetector(
-                                    onTap: () {
-                                      showmodalbottomsheet(context);
-                                    },
-                                    child: Container(
-                                      width: 80,
-                                      height: 80,
-                                      decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(100),
-                                        image: DecorationImage(
-                                          image: CachedNetworkImageProvider(
-                                            updateProfileController
-                                                    .imageUrl.value
-                                                    .contains(
-                                                        "https://graph.facebook")
-                                                ? updateProfileController
-                                                        .imageUrl.value +
-                                                    "?type=large&width=300&height=300"
-                                                : updateProfileController
-                                                    .imageUrl.value,
-                                          ),
-                                          fit: BoxFit.cover,
-                                          colorFilter: ColorFilter.mode(
-                                            Colors.black.withOpacity(0.8),
-                                            BlendMode.dstATop,
-                                          ),
-                                        ),
-                                      ),
-                                      child: Align(
-                                        alignment: Alignment.center,
-                                        child: Icon(
-                                          Icons.mode_edit_rounded,
-                                          color: primary,
-                                          size: 30,
-                                        ),
-                                      ),
-                                    ),
-                                  )
-                                : GestureDetector(
-                                    onTap: () => showmodalbottomsheet(context),
-                                    child: Container(
-                                      width: 100,
-                                      height: 100,
-                                      decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(100),
-                                        image: DecorationImage(
-                                          image: FileImage(
-                                            File(
-                                              updateProfileController
-                                                  .imagePath.value,
+                          Align(
+                            alignment: Alignment.center,
+                            child: Column(
+                              children: [
+                                Text(
+                                  "Personal Info",
+                                  style: regular18pt.copyWith(
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                                SizedBox(height: 30),
+                                Obx(
+                                  () => updateProfileController
+                                          .imagePath.isEmpty
+                                      ? GestureDetector(
+                                          onTap: () {
+                                            showmodalbottomsheet(context);
+                                          },
+                                          child: Container(
+                                            width: 80,
+                                            height: 80,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(100),
+                                              image: DecorationImage(
+                                                image:
+                                                    CachedNetworkImageProvider(
+                                                  updateProfileController
+                                                          .imageUrl.value
+                                                          .contains(
+                                                              "https://graph.facebook")
+                                                      ? updateProfileController
+                                                              .imageUrl.value +
+                                                          "?type=large&width=300&height=300"
+                                                      : updateProfileController
+                                                          .imageUrl.value,
+                                                ),
+                                                fit: BoxFit.cover,
+                                                colorFilter: ColorFilter.mode(
+                                                  Colors.black.withOpacity(0.8),
+                                                  BlendMode.dstATop,
+                                                ),
+                                              ),
+                                            ),
+                                            child: Align(
+                                              alignment: Alignment.center,
+                                              child: Icon(
+                                                Icons.mode_edit_rounded,
+                                                color: primary,
+                                                size: 30,
+                                              ),
                                             ),
                                           ),
-                                          fit: BoxFit.cover,
-                                          colorFilter: ColorFilter.mode(
-                                            Colors.black.withOpacity(0.8),
-                                            BlendMode.dstATop,
+                                        )
+                                      : GestureDetector(
+                                          onTap: () =>
+                                              showmodalbottomsheet(context),
+                                          child: Container(
+                                            width: 100,
+                                            height: 100,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(100),
+                                              image: DecorationImage(
+                                                image: FileImage(
+                                                  File(
+                                                    updateProfileController
+                                                        .imagePath.value,
+                                                  ),
+                                                ),
+                                                fit: BoxFit.cover,
+                                                colorFilter: ColorFilter.mode(
+                                                  Colors.black.withOpacity(0.8),
+                                                  BlendMode.dstATop,
+                                                ),
+                                              ),
+                                            ),
+                                            child: Align(
+                                              alignment: Alignment.center,
+                                              child: Icon(
+                                                Icons.mode_edit_rounded,
+                                                color: primary,
+                                                size: 30,
+                                              ),
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                      child: Align(
-                                        alignment: Alignment.center,
-                                        child: Icon(
-                                          Icons.mode_edit_rounded,
-                                          color: primary,
-                                          size: 30,
-                                        ),
-                                      ),
-                                    ),
+                                ),
+                                SizedBox(height: 10),
+                                Text(
+                                  "Upload Photo",
+                                  style: regular14pt.copyWith(
+                                    color: primary.withOpacity(0.6),
                                   ),
-                          ),
-                          SizedBox(height: 10),
-                          Text(
-                            "Upload Photo",
-                            style: regular14pt.copyWith(
-                              color: primary.withOpacity(0.6),
+                                ),
+                              ],
                             ),
                           ),
                           SizedBox(height: 23),
+                          Text("Name"),
+                          SizedBox(height: 5),
                           CustomFormField(
                               controller:
                                   updateProfileController.nameController,
@@ -167,6 +180,8 @@ class UpdateProfileView extends GetView<UpdateProfileController> {
                               toppadding: 17,
                               bottompadding: 17),
                           SizedBox(height: 23),
+                          Text("Email"),
+                            SizedBox(height: 5),
                           CustomFormField(
                               controller:
                                   updateProfileController.emailController,

@@ -33,6 +33,7 @@ class ChooselocationController extends GetxController {
           position.longitude.toString() +
           '&apiKey=7ed6bfc42774419c97363d1ca5ccc265';
       var response = await di.get(url);
+      print(response.data);
       await getStorage.write(
           "city", response.data['features'][0]['properties']['city']);
       print(placemarks);
